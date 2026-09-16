@@ -13,10 +13,13 @@ export function Partners() {
     <section>
       <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
         <p className="eyebrow text-center">Our partners</p>
-        <div className="marquee mt-10">
-          <div className="marquee-track">
+        <div className="mt-10 overflow-hidden">
+          <div className="flex w-max gap-3 animate-[marquee_38s_linear_infinite]">
             {[...partners, ...partners].map((p, i) => (
-              <div className="partner-pill" key={`${p}-${i}`}>
+              <div
+  className="flex items-center gap-2.5 whitespace-nowrap rounded-full border border-[var(--border)] bg-[var(--background)] px-[18px] py-[13px] text-sm font-bold transition-all hover:-translate-y-0.5 hover:bg-[#d9efb7]"
+  key={`${p}-${i}`}
+>
                 <GraduationCap size={18} />
                 {p}
               </div>

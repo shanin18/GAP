@@ -23,15 +23,17 @@ export function HowGapWorks() {
           title="One step at a time, all the way to the globe."
           text="A simple journey with clear hand-offs between every stage."
         />
-        <div className="process-track mt-14">
+        <div className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
           {process.map((x, i) => {
             const I = x.icon;
             return (
-              <div key={x.title} className="process-node">
-                <div className="process-icon">
+              <div key={x.title} className="group text-center">
+                <div className="mx-auto grid size-[6.5rem] place-items-center rounded-full border border-[var(--border)] bg-[var(--background)] text-[var(--primary)] transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-[#d9efb7]">
                   <I size={22} />
                 </div>
-                <span>{x.title}</span>
+                <span className="mt-3 block text-sm font-extrabold">
+  {x.title}
+</span>
               </div>
             );
           })}

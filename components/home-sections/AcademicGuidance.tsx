@@ -33,7 +33,7 @@ export function AcademicGuidance() {
             const I = x.icon;
             return (
               <article
-                className="guidance-card card-lift rounded-[1.75rem] border border-[var(--border)] p-7 sm:p-8"
+                className="rounded-[1.75rem] border border-[var(--border)] bg-white/40 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#b9c8bd] hover:bg-white/80 sm:p-8"
                 key={x.title}
               >
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-[var(--surface)] text-[var(--primary)]">

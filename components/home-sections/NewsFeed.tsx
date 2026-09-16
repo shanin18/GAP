@@ -37,7 +37,7 @@ export function NewsFeed({
           {news.map((n, i) => (
             <article
               key={n}
-              className="card-lift rounded-[1.5rem] border border-[var(--border)] bg-[var(--background)] p-6"
+              className="rounded-[1.5rem] border border-[var(--border)] bg-[var(--background)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#b9c8bd]"
             >
               <div className="aspect-[16/9] rounded-2xl bg-[#dfe8df] p-5">
                 <span className="text-sm font-semibold">0{i + 1}</span>

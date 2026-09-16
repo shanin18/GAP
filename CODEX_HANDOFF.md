@@ -54,7 +54,6 @@ The current project uses:
 -   `@payloadcms/richtext-lexical`
 -   Radix UI for interactive primitives
 -   shadcn-style reusable UI components
--   Framer Motion
 -   Lucide React
 -   Zod
 -   React Hook Form
@@ -137,7 +136,6 @@ The homepage includes:
 -   Final CTA
 -   Apply Now entry points
 -   Responsive navigation/footer/mobile navigation
--   Framer Motion enhancements
 
 Homepage CMS integration was added for news and testimonials, with
 fallback behavior where appropriate.
