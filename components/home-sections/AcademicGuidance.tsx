@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { SectionHeading } from "../section-heading";
 import { FileCheck2, MessageCircle, Search } from "lucide-react";
 

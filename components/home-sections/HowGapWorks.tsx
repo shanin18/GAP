@@ -6,7 +6,6 @@ import {
   Send,
 } from "lucide-react";
 import { SectionHeading } from "../section-heading";
-import { motion } from "framer-motion";
 const process = [
   { icon: MessageCircle, title: "Consultation" },
   { icon: Send, title: "Apply" },

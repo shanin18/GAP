@@ -17,9 +17,9 @@
     "@payloadcms/db-postgres": "latest",
     "@payloadcms/next": "latest",
     "@payloadcms/richtext-lexical": "latest",
+    "@radix-ui/react-dialog": "latest",
     "class-variance-authority": "latest",
     "clsx": "latest",
-    "framer-motion": "latest",
     "lucide-react": "latest",
     "next": "latest",
     "payload": "latest",
@@ -27,17 +27,16 @@
     "react-dom": "latest",
     "react-hook-form": "latest",
     "tailwind-merge": "latest",
-    "zod": "latest",
-    "@radix-ui/react-dialog": "latest"
+    "zod": "latest"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "latest",
     "postcss": "latest",
     "tailwindcss": "latest",
-    "typescript": "latest",
-    "@tailwindcss/postcss": "latest"
+    "typescript": "latest"
   }
 }
