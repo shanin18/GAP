@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function NotFound(){return <main className="grid min-h-[70vh] place-items-center px-5 text-center"><div><p className="eyebrow">404</p><h1 className="mt-4 font-display text-5xl">This page has moved beyond the map.</h1><p className="mx-auto mt-4 max-w-lg text-[var(--muted)]">Return home or explore universities and study destinations.</p><Link href="/" className="mt-8 inline-flex rounded-full bg-[var(--primary)] px-6 py-3 font-semibold text-white">Back to GAP</Link></div></main>}

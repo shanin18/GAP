@@ -1,0 +1,4 @@
+'use client';
+import Link from 'next/link';
+import { ApplyNowDialog } from './ui/apply-now-dialog';
+export function SiteHeader(){return <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--background)]/90 backdrop-blur"><div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:px-8"><Link href="/" className="font-display text-2xl font-semibold tracking-tight">GAP<span className="text-[var(--primary)]">.</span></Link><nav className="hidden items-center gap-8 text-sm font-semibold md:flex"><Link href="/">Home</Link><Link href="/country/australia">Countries</Link><Link href="/universities">Universities</Link><Link href="/services">Services</Link><Link href="/apply">Apply</Link></nav><ApplyNowDialog triggerClass="touch-target rounded-full bg-[var(--primary)] px-5 py-2 text-sm font-semibold text-white"/></div></header>}

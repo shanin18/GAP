@@ -1,0 +1,27 @@
+import { buildConfig } from 'payload';
+import { postgresAdapter } from '@payloadcms/db-postgres';
+import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import { Users } from './collections/Users';
+import { Countries } from './collections/Countries';
+import { Universities } from './collections/Universities';
+import { Services } from './collections/Services';
+import { Testimonials } from './collections/Testimonials';
+import { News } from './collections/News';
+import { Leads } from './collections/Leads';
+import { SiteSettings } from './collections/SiteSettings';
+import { Applications } from './collections/Applications';
+import { Documents } from './collections/Documents';
+import { env } from '../lib/env';
+
+export default buildConfig({
+  admin: { user: Users.slug, importMap: { importMapFile: 'app/(payload)/admin/importMap.ts' } },
+  collections: [Users, Countries, Universities, Services, Testimonials, News, Leads, Applications, Documents, SiteSettings],
+  editor: lexicalEditor(),
+  db: postgresAdapter({
+    schemaName: env.databaseSchema,
+    pool: { connectionString: env.databaseUrl, connectionTimeoutMillis: 10000 },
+  }),
+  secret: env.payloadSecret,
+  graphQL: { disable: true },
+  typescript: { outputFile: 'payload-types.ts' },
+});

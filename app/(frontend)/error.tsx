@@ -1,0 +1,2 @@
+'use client';
+export default function ErrorPage({reset}:{reset:()=>void}){return <main className="grid min-h-[70vh] place-items-center px-5 text-center"><div><p className="eyebrow">Something went wrong</p><h1 className="mt-4 font-display text-4xl">We couldn't load this page.</h1><p className="mt-4 text-[var(--muted)]">Please try again. If the problem continues, contact the GAP team.</p><button onClick={reset} className="mt-8 rounded-full bg-[var(--primary)] px-6 py-3 font-semibold text-white">Try again</button></div></main>}
