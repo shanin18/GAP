@@ -33,13 +33,9 @@ export function AcademicGuidance() {
           {guidance.map((x, i) => {
             const I = x.icon;
             return (
-              <motion.article
-                whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: i * 0.06 }}
+              <article
+                className="guidance-card card-lift rounded-[1.75rem] border border-[var(--border)] p-7 sm:p-8"
                 key={x.title}
-                className="card-lift rounded-[1.75rem] border border-[var(--border)] p-7 sm:p-8"
               >
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-[var(--surface)] text-[var(--primary)]">
                   <I size={23} />
@@ -51,7 +47,7 @@ export function AcademicGuidance() {
                   {x.title}
                 </h3>
                 <p className="mt-4 leading-7 text-[var(--muted)]">{x.text}</p>
-              </motion.article>
+              </article>
             );
           })}
         </div>

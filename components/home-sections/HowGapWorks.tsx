@@ -1,4 +1,10 @@
-import { Globe2, GraduationCap, MessageCircle, Plane, Send } from "lucide-react";
+import {
+  Globe2,
+  GraduationCap,
+  MessageCircle,
+  Plane,
+  Send,
+} from "lucide-react";
 import { SectionHeading } from "../section-heading";
 import { motion } from "framer-motion";
 const process = [
@@ -22,18 +28,12 @@ export function HowGapWorks() {
           {process.map((x, i) => {
             const I = x.icon;
             return (
-              <motion.div
-                key={x.title}
-                whileInView={{ opacity: 1, scale: 1 }}
-                initial={{ opacity: 0, scale: 0.92 }}
-                viewport={{ once: true }}
-                className={`process-node ${i === 2 ? "process-center" : ""}`}
-              >
+              <div key={x.title} className="process-node">
                 <div className="process-icon">
                   <I size={22} />
                 </div>
                 <span>{x.title}</span>
-              </motion.div>
+              </div>
             );
           })}
         </div>
