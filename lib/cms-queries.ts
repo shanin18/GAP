@@ -7,7 +7,7 @@ export type CmsService = Service;
 export type CmsCountry = Country;
 export type CmsNews = News;
 export type CmsUniversity = University;
-export type CmsTestimonial = { id: string; studentName: string; universityName?: string; quote: string; rating?: number | null; sortOrder?: number | null };
+export type CmsTestimonial = { id: string; studentName: string; universityName?: string; quote: string; photoUrl?: string | null; rating?: number | null; sortOrder?: number | null };
 
 export async function getTestimonials(limit = 6): Promise<CmsTestimonial[]> {
   try {
@@ -15,7 +15,7 @@ export async function getTestimonials(limit = 6): Promise<CmsTestimonial[]> {
     const result = await payload.find({ overrideAccess: false, collection: 'testimonials', sort: 'sortOrder', limit, depth: 1 });
     return result.docs.map((doc) => ({
       id: String(doc.id), studentName: doc.studentName, quote: doc.quote,
-      rating: doc.rating, sortOrder: doc.sortOrder,
+      photoUrl: doc.photoUrl, rating: doc.rating, sortOrder: doc.sortOrder,
       universityName: typeof doc.university === 'object' && doc.university ? doc.university.name : undefined,
     }));
   } catch { return []; }
@@ -130,6 +130,16 @@ export async function getUniversityBySlug(slug: string): Promise<CmsUniversity |
       depth: 1,
     });
     return (result.docs[0] as CmsUniversity | undefined) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export async function getSiteSettings() {
+  try {
+    const payload = await getCms();
+    const result = await payload.find({ collection: 'site-settings', overrideAccess: false, limit: 1, sort: 'createdAt', depth: 0 });
+    return result.docs[0] ?? null;
   } catch {
     return null;
   }

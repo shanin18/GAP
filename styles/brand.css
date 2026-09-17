@@ -1,0 +1,51 @@
+:root {
+  --gap-background: #ffffff;
+  --gap-foreground: #18211d;
+  --gap-card: #ffffff;
+  --gap-card-foreground: #18211d;
+  --gap-popover: #ffffff;
+  --gap-popover-foreground: #18211d;
+  --gap-primary: #174b3a;
+  --gap-primary-foreground: #ffffff;
+  --gap-secondary: #e8eee7;
+  --gap-secondary-foreground: #174b3a;
+  --gap-surface: #ffffff;
+  --gap-muted: #e8eee7;
+  --gap-muted-foreground: #68736d;
+  --gap-border: #dce4dd;
+  --gap-input: #b9c8bd;
+  --gap-ring: #174b3a;
+  --gap-accent: #d7a64a;
+  --gap-accent-foreground: #18211d;
+  --gap-destructive: #b42318;
+  --gap-destructive-foreground: #ffffff;
+  --gap-brand-soft: #d9efb7;
+  --gap-hero-start: #ffffff;
+  --gap-hero-end: #ffffff;
+  --gap-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --gap-background: #111a16;
+  --gap-foreground: #edf3ef;
+  --gap-card: #19261f;
+  --gap-card-foreground: #edf3ef;
+  --gap-popover: #19261f;
+  --gap-popover-foreground: #edf3ef;
+  --gap-primary: #aad7be;
+  --gap-primary-foreground: #10251b;
+  --gap-secondary: #24382c;
+  --gap-secondary-foreground: #d9efe1;
+  --gap-surface: #111a16;
+  --gap-muted: #213128;
+  --gap-muted-foreground: #a9b9af;
+  --gap-border: #354a3e;
+  --gap-input: #536b5c;
+  --gap-ring: #aad7be;
+  --gap-brand-soft: #2b4232;
+  --gap-hero-start: #111a16;
+  --gap-hero-end: #111a16;
+  --gap-destructive: #ffb4ab;
+  --gap-destructive-foreground: #510b05;
+}

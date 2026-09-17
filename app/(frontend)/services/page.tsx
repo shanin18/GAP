@@ -21,19 +21,19 @@ export default async function ServicesPage() {
     : fallbackServices;
 
   return <><SiteHeader/><main>
-    <section className="services-hero"><div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
-      <p className="eyebrow">Services</p><h1 className="display-xl mt-4">Guidance that turns <em>plans</em> into progress.</h1>
-      <p className="mt-6 max-w-2xl text-lg leading-8 text-[var(--muted)]">A repeatable, human-led support system for students preparing to study abroad.</p>
+    <section className="border-b border-border bg-surface/40"><div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+      <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">Services</p><h1 className="max-w-4xl font-display text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-tight mt-4">Guidance that turns <em>plans</em> into progress.</h1>
+      <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">A repeatable, human-led support system for students preparing to study abroad.</p>
     </div></section>
     <section><div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
       <div className="grid gap-4 md:grid-cols-2">{services.map(([title, text, Icon], i) =>
-        <article className="card-lift rounded-[1.75rem] border border-[var(--border)] p-8" key={title}>
+        <article className="transition-transform duration-200 motion-safe:hover:-translate-y-1 rounded-[1.75rem] border border-[var(--border)] p-8" key={title}>
           <div className="flex size-12 items-center justify-center rounded-2xl bg-[var(--surface)] text-[var(--primary)]"><Icon size={23}/></div>
-          <span className="mt-10 block text-sm text-[var(--muted)]">0{i+1}</span><h2 className="mt-2 font-display text-3xl">{title}</h2>
-          <p className="mt-4 max-w-xl leading-7 text-[var(--muted)]">{text}</p>
+          <span className="mt-10 block text-sm text-muted-foreground">0{i+1}</span><h2 className="mt-2 font-display text-3xl">{title}</h2>
+          <p className="mt-4 max-w-xl leading-7 text-muted-foreground">{text}</p>
         </article>)}</div>
-      <div className="mt-16 rounded-[2rem] bg-[var(--primary)] p-8 text-white sm:p-12"><h2 className="font-display text-4xl">Not sure where to begin?</h2>
-        <p className="mt-3 max-w-xl leading-7 text-white/70">Start with a conversation and we'll help you understand your next step.</p>
+      <div className="mt-16 rounded-[2rem] bg-[var(--primary)] p-8 text-primary-foreground sm:p-12"><h2 className="font-display text-4xl">Not sure where to begin?</h2>
+        <p className="mt-3 max-w-xl leading-7 text-primary-foreground/70">Start with a conversation and we'll help you understand your next step.</p>
         <ApplyNowDialog triggerClass="mt-7 rounded-full bg-white px-6 py-3 font-semibold text-[var(--primary)]"/>
       </div>
     </div></section>

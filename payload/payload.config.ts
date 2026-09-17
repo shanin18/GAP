@@ -14,7 +14,17 @@ import { Documents } from './collections/Documents';
 import { env } from '../lib/env';
 
 export default buildConfig({
-  admin: { user: Users.slug, importMap: { importMapFile: 'app/(payload)/admin/importMap.ts' } },
+  admin: {
+    user: Users.slug,
+    importMap: { importMapFile: 'app/(payload)/admin/importMap.ts' },
+    meta: { titleSuffix: ' | GAP Workspace' },
+    components: {
+      graphics: { Logo: '/components/admin/Brand#Logo', Icon: '/components/admin/Brand#Icon' },
+      beforeLogin: ['/components/admin/Brand#LoginIntro'],
+      beforeDashboard: ['/components/admin/Brand#DashboardIntro'],
+      actions: ['/components/admin/Brand#WebsiteLink'],
+    },
+  },
   collections: [Users, Countries, Universities, Services, Testimonials, News, Leads, Applications, Documents, SiteSettings],
   editor: lexicalEditor(),
   db: postgresAdapter({

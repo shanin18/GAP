@@ -1,4 +1,20 @@
-'use client';
 import Link from 'next/link';
 import { ApplyNowDialog } from './ui/apply-now-dialog';
-export function SiteHeader(){return <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--background)]/90 backdrop-blur"><div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:px-8"><Link href="/" className="font-display text-2xl font-semibold tracking-tight">GAP<span className="text-[var(--primary)]">.</span></Link><nav className="hidden items-center gap-8 text-sm font-semibold md:flex"><Link href="/">Home</Link><Link href="/country/australia">Countries</Link><Link href="/universities">Universities</Link><Link href="/services">Services</Link><Link href="/apply">Apply</Link></nav><ApplyNowDialog triggerClass="touch-target rounded-full bg-[var(--primary)] px-5 py-2 text-sm font-semibold text-white"/></div></header>}
+import { CountryMenu } from './country-menu';
+import { ThemeToggle } from './theme-provider';
+
+export function SiteHeader() {
+  return (
+    <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
+      <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:px-8">
+        <Link href="/" aria-label="GAP home" className="inline-flex min-h-11 items-center font-display text-2xl font-semibold tracking-tight">GAP<span className="text-primary">.</span></Link>
+        <nav aria-label="Main navigation" className="hidden items-center gap-5 text-sm font-semibold md:flex">
+          <Link href="/" className="inline-flex min-h-11 items-center rounded-xl px-3 hover:bg-secondary">Home</Link>
+          <CountryMenu />
+          <Link href="/services" className="inline-flex min-h-11 items-center rounded-xl px-3 hover:bg-secondary">Services</Link>
+        </nav>
+        <div className="flex shrink-0 items-center gap-1 sm:gap-2"><ThemeToggle /><ApplyNowDialog /></div>
+      </div>
+    </header>
+  );
+}

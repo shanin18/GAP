@@ -33,19 +33,19 @@ export function AcademicGuidance() {
             const I = x.icon;
             return (
               <article
-                className="rounded-[1.75rem] border border-[var(--border)] bg-white/40 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#b9c8bd] hover:bg-white/80 sm:p-8"
+                className="rounded-[1.75rem] border border-[var(--border)] bg-card p-7 transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-input hover:bg-secondary sm:p-8"
                 key={x.title}
               >
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-[var(--surface)] text-[var(--primary)]">
                   <I size={23} />
                 </div>
-                <p className="mt-10 text-sm font-semibold text-[var(--muted)]">
+                <p className="mt-10 text-sm font-semibold text-muted-foreground">
                   0{i + 1}
                 </p>
                 <h3 className="mt-2 font-display text-2xl leading-tight">
                   {x.title}
                 </h3>
-                <p className="mt-4 leading-7 text-[var(--muted)]">{x.text}</p>
+                <p className="mt-4 leading-7 text-muted-foreground">{x.text}</p>
               </article>
             );
           })}

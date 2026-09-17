@@ -1,13 +1,16 @@
 'use client';
 
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, type ReactNode, useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { CheckCircle2, Loader2, Send } from 'lucide-react';
 import { Button } from './button';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from './dialog';
 
 const initialForm = { name: '', email: '', phone: '', interestedCountry: '', message: '' };
 
-export function ApplyNowDialog({ triggerClass = '' }: { triggerClass?: string }) {
+export function ApplyNowDialog({ triggerClass = '', triggerContent = 'Apply Now' }: { triggerClass?: string; triggerContent?: ReactNode }) {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [error, setError] = useState('');
@@ -41,27 +44,25 @@ export function ApplyNowDialog({ triggerClass = '' }: { triggerClass?: string })
 
   return (
     <Dialog>
-      <DialogTrigger asChild><Button className={triggerClass}>Apply Now</Button></DialogTrigger>
+      <DialogTrigger asChild><Button className={triggerClass}>{triggerContent}</Button></DialogTrigger>
       <DialogContent>
         {status === 'success' ? (
           <div className="grid gap-4 py-8 text-center">
             <CheckCircle2 className="mx-auto text-emerald-600" size={48} />
             <DialogTitle className="font-display text-4xl tracking-tight">You’re on your way.</DialogTitle>
-            <DialogDescription className="text-[var(--muted)]">Thanks for reaching out. Our team will contact you shortly.</DialogDescription>
+            <DialogDescription className="text-muted-foreground">Thanks for reaching out. Our team will contact you shortly.</DialogDescription>
           </div>
         ) : (
           <>
-            <p className="eyebrow">Apply now</p>
+            <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">Apply now</p>
             <DialogTitle className="font-display text-4xl tracking-tight">Start your journey.</DialogTitle>
-            <DialogDescription className="mt-3 text-[var(--muted)]">Tell us a little about your study-abroad plans.</DialogDescription>
+            <DialogDescription className="mt-3 text-muted-foreground">Tell us a little about your study-abroad plans.</DialogDescription>
             <form onSubmit={submitLead} className="mt-7 grid gap-4">
-              <input required value={form.name} onChange={(e) => updateField('name', e.target.value)} className="field" aria-label="Full name" placeholder="Full name" />
-              <input required type="email" value={form.email} onChange={(e) => updateField('email', e.target.value)} className="field" aria-label="Email address" placeholder="Email address" />
-              <input value={form.phone} onChange={(e) => updateField('phone', e.target.value)} className="field" aria-label="Phone number" placeholder="Phone number" />
-              <select aria-label="Interested country" required value={form.interestedCountry} onChange={(e) => updateField('interestedCountry', e.target.value)} className="field">
-                <option value="" disabled>Interested country</option><option>Australia</option><option>Canada</option><option>New Zealand</option>
-              </select>
-              <textarea value={form.message} onChange={(e) => updateField('message', e.target.value)} className="field min-h-28" aria-label="Tell us about your goals" placeholder="Tell us about your goals" />
+              <Input required value={form.name} onChange={(e) => updateField('name', e.target.value)}  aria-label="Full name" placeholder="Full name" />
+              <Input required type="email" value={form.email} onChange={(e) => updateField('email', e.target.value)}  aria-label="Email address" placeholder="Email address" />
+              <Input value={form.phone} onChange={(e) => updateField('phone', e.target.value)}  aria-label="Phone number" placeholder="Phone number" />
+              <Select name="interestedCountry" required value={form.interestedCountry} onValueChange={(value) => updateField('interestedCountry', value)}><SelectTrigger aria-label="Interested country"><SelectValue placeholder="Interested country" /></SelectTrigger><SelectContent>{['Australia', 'Canada', 'New Zealand'].map(country => <SelectItem key={country} value={country}>{country}</SelectItem>)}</SelectContent></Select>
+              <Textarea value={form.message} onChange={(e) => updateField('message', e.target.value)} className="min-h-28" aria-label="Tell us about your goals" placeholder="Tell us about your goals" />
               {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
               <Button type="submit" disabled={status === 'loading'}>{status === 'loading' ? <Loader2 className="animate-spin" size={17} /> : <Send size={17} />} {status === 'loading' ? 'Submitting…' : 'Submit interest'}</Button>
             </form>

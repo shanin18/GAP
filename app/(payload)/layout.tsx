@@ -1,5 +1,7 @@
 import config from "@payload-config";
 import "@payloadcms/next/css";
+import "./admin-theme.css";
+import { fraunces, manrope } from "@/lib/fonts";
 import { RootLayout, handleServerFunctions } from "@payloadcms/next/layouts";
 import type { ServerFunctionClient } from "payload";
 import { importMap } from "./admin/importMap";
@@ -17,6 +19,7 @@ export default function PayloadLayout({
   return (
     <RootLayout
       config={config}
+      htmlProps={{ className: `gap-admin ${fraunces.variable} ${manrope.variable}` }}
       importMap={importMap}
       serverFunction={serverFunction}
     >

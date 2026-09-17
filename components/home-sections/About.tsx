@@ -12,7 +12,7 @@ export function About() {
           <p className="font-display text-3xl leading-tight sm:text-4xl">
             Study abroad should feel exciting — not overwhelming.
           </p>
-          <p className="mt-6 max-w-2xl leading-8 text-[var(--muted)]">
+          <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
             GAP brings together counselling, university and program selection,
             and admission support into one guided journey. The goal is simple:
             help students make informed choices and move forward with

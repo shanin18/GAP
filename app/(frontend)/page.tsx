@@ -9,12 +9,13 @@ import { Testimonials } from "@/components/home-sections/Testimonials";
 import { NewsFeed } from "@/components/home-sections/NewsFeed";
 import { Partners } from "@/components/home-sections/Partners";
 import { FinalCta } from "@/components/home-sections/FinalCta";
-import { getPublishedNews, getTestimonials } from "@/lib/cms-queries";
+import { getPublishedNews, getTestimonials, getUniversities } from "@/lib/cms-queries";
 
 export default async function HomePage() {
-  const [news, testimonials] = await Promise.all([
+  const [news, testimonials, partners] = await Promise.all([
     getPublishedNews(6),
     getTestimonials(6),
+    getUniversities({ featured: true }),
   ]);
   return (
     <>
@@ -26,7 +27,7 @@ export default async function HomePage() {
         <HowGapWorks />
         <Testimonials items={testimonials} />
         <NewsFeed items={news} />
-        <Partners />
+        <Partners items={partners.map(({ id, name, logoUrl }) => ({ id, name, logoUrl }))} />
         <FinalCta />
       </main>
       <SiteFooter />

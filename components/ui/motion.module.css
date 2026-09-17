@@ -1,0 +1,11 @@
+.overlay[data-state="open"] { animation: fade-in 180ms var(--gap-ease, ease-out) both; }
+.overlay[data-state="closed"] { animation: fade-out 120ms ease-in both; }
+.surface[data-state="open"] { animation: surface-in 200ms var(--gap-ease, ease-out) both; }
+.surface[data-state="closed"] { animation: surface-out 120ms ease-in both; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes surface-in { from { opacity: 0; scale: .96; } to { opacity: 1; scale: 1; } }
+@keyframes surface-out { from { opacity: 1; scale: 1; } to { opacity: 0; scale: .98; } }
+@media (prefers-reduced-motion: reduce) {
+  .overlay, .surface { animation: none !important; }
+}

@@ -12,7 +12,7 @@ export function Badge({
         'inline-flex items-center rounded-full px-3 py-1 text-xs font-bold tracking-wide',
         variant === 'default'
           ? 'bg-[var(--surface)] text-[var(--primary)]'
-          : 'border border-[var(--border)] text-[var(--muted)]',
+          : 'border border-[var(--border)] text-muted-foreground',
         className,
       )}
     >
