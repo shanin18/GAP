@@ -1,1 +1,2 @@
-export default function NewsLoading(){return <main className="mx-auto max-w-7xl px-5 py-24 lg:px-8"><div className="h-6 w-28 animate-pulse rounded bg-[var(--surface)]"/><div className="mt-6 h-16 max-w-3xl animate-pulse rounded bg-[var(--surface)]"/><div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{[1,2,3,4,5,6].map(x=><div key={x} className="h-96 animate-pulse rounded-[1.75rem] bg-[var(--surface)]"/>)}</div></main>}
+import { PageSkeleton } from '@/components/page-skeleton';
+export default function Loading() { return <PageSkeleton />; }

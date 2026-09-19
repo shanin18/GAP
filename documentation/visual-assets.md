@@ -1,5 +1,22 @@
 # GAP visual assets
 
+## Content and image replacement checklist
+
+- The generated study-abroad illustration is a **placeholder illustration** on country pages without a CMS hero image. It does not depict a real university or a particular destination. The Home hero now uses an interactive COBE globe; set each country's `heroImageUrl` in the CMS for destination photography.
+- Article icons are decorative fallback illustrations when `coverImageUrl` is missing. Add editorial images to the news records to replace them.
+- Missing student photos use initials, never invented portraits. Add `photoUrl` to approved testimonials.
+- Missing university logos use initials. Add the institution's approved `logoUrl`.
+- Sample testimonials and sample news titles no longer masquerade as published content. Empty states appear until approved records exist.
+- No stock photos of students or campuses were added, and no unverified partner identities were created.
+
+## Client logo
+
+- Source: `GLOBAL ADMISSION PLATFORM DESIGN.ai`, supplied by the client.
+- Selected artboard 3, which includes the complete name inside the ribbon.
+- Export: `public/images/gap-logo.webp`, 640 × 453, approximately 24 KB.
+- Preserves the client's green/cream colors and artwork; used in the public header/footer and Admin login/breadcrumb.
+- Exported locally from the PDF-compatible Illustrator artboard. The original file is unchanged.
+
 ## Study-abroad hero
 
 - Asset: public/images/study-abroad-hero.webp (1536 x 1024, approximately 175 KB).

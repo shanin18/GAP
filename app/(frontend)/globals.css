@@ -26,6 +26,7 @@
   --hero-start: var(--gap-hero-start);
   --hero-end: var(--gap-hero-end);
   --radius: 0.75rem;
+  --gap-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {

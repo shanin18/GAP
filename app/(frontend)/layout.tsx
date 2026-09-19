@@ -1,10 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { cookies } from 'next/headers';
-import { ThemeProvider } from '@/components/theme-provider';
-import { SectionReveals } from '@/components/section-reveals';
+import { SectionReveals } from "@/components/section-reveals";
+import { DestinationsProvider } from "@/components/destinations-provider";
+import { getGlobeDestinations } from "@/lib/globe-destinations";
 import { fraunces, manrope } from "@/lib/fonts";
 import "./globals.css";
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, viewportFit: 'cover' };
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 export const dynamic = "force-dynamic";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 export const metadata: Metadata = {
@@ -15,6 +19,9 @@ export const metadata: Metadata = {
   },
   description:
     "Human-led study abroad counselling, university selection and admission support.",
+  icons: {
+    icon: [{ url: "/images/_gap-logo.webp", type: "image/webp" }],
+  },
   openGraph: {
     type: "website",
     siteName: "Global Admission Platform",
@@ -29,11 +36,16 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const theme = (await cookies()).get('gap-theme')?.value === 'dark' ? 'dark' : 'light';
+  const destinations = await getGlobeDestinations();
   return (
-    <html lang="en" data-scroll-behavior="smooth" data-theme={theme}>
-      <body className={`${fraunces.variable} ${manrope.variable} pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0`}>
-        <ThemeProvider initialTheme={theme}>{children}<SectionReveals /></ThemeProvider>
+    <html lang="en" data-scroll-behavior="smooth" data-theme="dark">
+      <body
+        className={`${fraunces.variable} ${manrope.variable} pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0`}
+      >
+        <DestinationsProvider destinations={destinations}>
+          {children}
+          <SectionReveals />
+        </DestinationsProvider>
       </body>
     </html>
   );

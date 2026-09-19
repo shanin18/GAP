@@ -1,0 +1,25 @@
+.carousel {
+  min-width: 0;
+  width: 100%;
+  overflow: clip;
+  contain: inline-size layout paint;
+}
+
+.track {
+  position: relative;
+  touch-action: pan-x pan-y pinch-zoom;
+  display: flex;
+  gap: 1.5rem;
+  min-width: 0;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding: 0.75rem 0.25rem;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}

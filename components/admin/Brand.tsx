@@ -1,11 +1,12 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowUpRight, Globe2, ClipboardList } from 'lucide-react';
 
 export function Logo() {
-  return <div className="gap-admin-brand"><span className="gap-admin-wordmark">GAP<span>.</span></span><span className="gap-admin-brand-caption">Global Admission Platform</span></div>;
+  return <div className="gap-admin-brand"><Image src="/images/gap-logo.webp" alt="Global Admission Platform" width={240} height={170} priority /></div>;
 }
-export function Icon() { return <span className="gap-admin-icon" aria-label="GAP">GAP<span>.</span></span>; }
-export function WebsiteLink() { return <Link className="gap-admin-link" href="/">View website <ArrowUpRight size={16} aria-hidden="true" /></Link>; }
+export function Icon() { return <Image className="gap-admin-icon" src="/images/gap-logo.webp" alt="GAP dashboard" width={44} height={32} />; }
+export function WebsiteLink() { return <Link className="gap-admin-link" href="/" aria-label="View website"><span>View website</span><ArrowUpRight size={16} aria-hidden="true" /></Link>; }
 export function LoginIntro() {
   return <div className="gap-admin-login-intro"><span className="gap-admin-eyebrow">Team workspace</span><p>Welcome back. Help someone take their next step.</p></div>;
 }

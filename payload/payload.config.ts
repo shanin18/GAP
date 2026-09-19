@@ -15,6 +15,7 @@ import { env } from '../lib/env';
 
 export default buildConfig({
   admin: {
+    theme: 'dark',
     user: Users.slug,
     importMap: { importMapFile: 'app/(payload)/admin/importMap.ts' },
     meta: { titleSuffix: ' | GAP Workspace' },
@@ -22,6 +23,7 @@ export default buildConfig({
       graphics: { Logo: '/components/admin/Brand#Logo', Icon: '/components/admin/Brand#Icon' },
       beforeLogin: ['/components/admin/Brand#LoginIntro'],
       beforeDashboard: ['/components/admin/Brand#DashboardIntro'],
+      Nav: '/components/admin/CollectionLinks#CollectionLinks',
       actions: ['/components/admin/Brand#WebsiteLink'],
     },
   },

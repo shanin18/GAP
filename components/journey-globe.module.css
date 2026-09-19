@@ -1,0 +1,33 @@
+.label {
+  position: absolute;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 6px;
+  max-width: 140px;
+  text-align: center;
+  color: var(--foreground);
+  font-size: clamp(10px, 1.1vw, 13px);
+  font-weight: 600;
+  line-height: 1.2;
+  text-shadow: 0 1px 5px var(--background), 0 0 8px var(--background);
+  transform: translate(-50%, calc(-100% + var(--label-shift, 0px)));
+}
+.label::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  height: max(0px, calc(var(--label-shift, 0px) - 44px));
+  border-left: 1px solid var(--accent);
+  pointer-events: none;
+}
+.label:hover { color: var(--primary); }
+@supports (position-anchor: --cobe-gap-0) {
+  .label {
+    left: anchor(center) !important;
+    top: anchor(top) !important;
+  }
+}

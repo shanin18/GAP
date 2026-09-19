@@ -1,15 +1,22 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowUpRight, MapPin } from 'lucide-react';
+import { JourneyGlobe } from "../journey-globe";
+import { getGlobeDestinations } from "@/lib/globe-destinations";
+
 import { TrustStrip } from "../trust-strip";
 import { ApplyNowDialog } from "../ui/apply-now-dialog";
 
-export function Hero() {
+export async function Hero() {
+  const destinations = await getGlobeDestinations();
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-hero-start to-hero-end">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:py-24 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:px-8 lg:py-28">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-24 -top-24 size-[36rem] rounded-full bg-[color-mix(in_oklch,var(--primary)_16%,transparent)] blur-3xl"
+      />
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:py-24 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:px-8 lg:py-24">
         <div>
-          <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[var(--primary)]">Global education, human guidance</p>
+          <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[var(--primary)]">
+            Global education, human guidance
+          </p>
           <h1 className="mt-5 max-w-[12ch] font-display text-[clamp(2.5rem,4.5vw,4.25rem)] leading-[0.98] tracking-[-0.055em]">
             Your next chapter, <em>without borders.</em>
           </h1>
@@ -31,7 +38,9 @@ export function Hero() {
           </div>
           <div className="mt-10 flex gap-8 text-sm">
             <div>
-              <strong className="font-display text-2xl">3</strong>
+              <strong className="font-display text-2xl">
+                {destinations.length}
+              </strong>
               <span className="ml-2 text-muted-foreground">
                 launch destinations
               </span>
@@ -42,14 +51,8 @@ export function Hero() {
             </div>
           </div>
         </div>
-<div className="min-w-0">
-          <div className="overflow-hidden rounded-[2rem] border border-primary/10 bg-background shadow-xl shadow-primary/5">
-            <Image src="/images/study-abroad-hero.webp" alt="Illustration of a globe, a university, study notes and an airplane" width={1536} height={1024} sizes="(max-width: 1023px) 100vw, 50vw" preload className="aspect-[3/2] w-full object-cover" />
-            <div className="flex items-center justify-between gap-3 border-t border-border px-5 py-4"><p className="font-display text-xl sm:text-2xl">From ambition to admission.</p><ArrowUpRight aria-hidden="true" className="shrink-0 text-primary" /></div>
-          </div>
-          <div className="mt-5 flex flex-wrap gap-2" aria-label="Explore study destinations">
-            {[['australia', 'Australia'], ['canada', 'Canada'], ['new-zealand', 'New Zealand']].map(([slug, name]) => <Link key={slug} href={'/country/' + slug} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-primary/15 bg-background/80 px-4 text-sm font-semibold text-primary transition-colors duration-200 hover:bg-brand-soft"><MapPin size={15} aria-hidden="true" />{name}<ArrowUpRight size={14} aria-hidden="true" /></Link>)}
-          </div>
+        <div className="min-w-0">
+          <JourneyGlobe />
         </div>
       </div>
     </section>

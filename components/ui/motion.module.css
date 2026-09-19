@@ -1,11 +1,15 @@
-.overlay[data-state="open"] { animation: fade-in 180ms var(--gap-ease, ease-out) both; }
-.overlay[data-state="closed"] { animation: fade-out 120ms ease-in both; }
-.surface[data-state="open"] { animation: surface-in 200ms var(--gap-ease, ease-out) both; }
-.surface[data-state="closed"] { animation: surface-out 120ms ease-in both; }
+.overlay { will-change: opacity; }
+.surface { will-change: transform, opacity; }
+.dialog { --surface-enter: 180ms; --surface-exit: 140ms; }
+.overlay[data-state="open"] { animation: fade-in 180ms cubic-bezier(.2,.7,.2,1) both; }
+.overlay[data-state="closed"] { animation: fade-out 140ms ease-out both; }
+.surface[data-state="open"] { animation: surface-in var(--surface-enter, 140ms) cubic-bezier(.2,.7,.2,1) both; }
+.surface[data-state="closed"] { animation: surface-out var(--surface-exit, 100ms) ease-out both; }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
-@keyframes surface-in { from { opacity: 0; scale: .96; } to { opacity: 1; scale: 1; } }
-@keyframes surface-out { from { opacity: 1; scale: 1; } to { opacity: 0; scale: .98; } }
+/* Tailwind's individual translate property still handles dialog centering. */
+@keyframes surface-in { from { opacity: 0; transform: scale(.985); } to { opacity: 1; transform: scale(1); } }
+@keyframes surface-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(.99); } }
 @media (prefers-reduced-motion: reduce) {
-  .overlay, .surface { animation: none !important; }
+  .overlay, .surface { animation: none !important; will-change: auto; }
 }

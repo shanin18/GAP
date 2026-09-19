@@ -1,0 +1,13 @@
+import { DestinationsProvider } from '@/components/destinations-provider';
+import { JourneyGlobe } from '@/components/journey-globe';
+export default function Fixture() {
+  return <main className="mx-auto max-w-lg p-5"><DestinationsProvider destinations={[
+    {name:'Australia',slug:'australia',location:[-25.27,133.78]},
+    {name:'Canada',slug:'canada',location:[56.13,-106.35]},
+    {name:'New Zealand',slug:'new-zealand',location:[-40.9,174.89]},
+    {name:'Germany',slug:'germany',location:[51.16,10.45]},
+    {name:'France',slug:'france',location:[46.22,2.21]},
+    {name:'United Kingdom',slug:'united-kingdom',location:[55.37,-3.43]},
+    {name:'Japan',slug:'japan',location:[36.2,138.25]},
+  ]}><JourneyGlobe /></DestinationsProvider></main>;
+}

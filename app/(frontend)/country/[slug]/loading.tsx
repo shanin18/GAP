@@ -1,1 +1,2 @@
-export default function CountryLoading(){return <main className="mx-auto max-w-7xl px-5 py-24 lg:px-8"><div className="h-16 max-w-2xl animate-pulse rounded-3xl bg-[var(--surface)]"/><div className="mt-12 grid gap-5 md:grid-cols-3">{[1,2,3].map(x=><div key={x} className="h-44 animate-pulse rounded-[1.5rem] bg-[var(--surface)]"/>)}</div></main>}
+import { PageSkeleton } from '@/components/page-skeleton';
+export default function Loading() { return <PageSkeleton detail />; }

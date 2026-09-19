@@ -1,1 +1,2 @@
-export default function Loading(){return <main className="mx-auto max-w-7xl px-5 py-24 lg:px-8"><div className="size-20 animate-pulse rounded-3xl bg-[var(--surface)]"/><div className="mt-8 h-16 max-w-3xl animate-pulse rounded bg-[var(--surface)]"/><div className="mt-16 grid gap-8 lg:grid-cols-2"><div className="h-72 animate-pulse rounded-[2rem] bg-[var(--surface)]"/><div className="h-72 animate-pulse rounded-[2rem] bg-[var(--surface)]"/></div></main>}
+import { PageSkeleton } from '@/components/page-skeleton';
+export default function Loading() { return <PageSkeleton detail />; }

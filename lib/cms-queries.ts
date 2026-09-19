@@ -69,7 +69,8 @@ export async function getCountries(): Promise<CmsCountry[]> {
     const payload = await getCms();
     const result = await payload.find({ overrideAccess: false,
       collection: 'countries',
-      limit: 100,
+      pagination: false,
+      depth: 0,
     });
     return result.docs as CmsCountry[];
   } catch {
