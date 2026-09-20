@@ -1,8 +1,9 @@
-import type { Access, CollectionConfig, Where } from 'payload';
-import { isAdmin, isLoggedIn } from '../access';
-import { revalidateAfterChange, revalidateAfterDelete } from '../hooks/revalidate';
-import { slugFrom } from '../hooks/slug';
-import { urlOrPath } from '../hooks/validators';
+import { Access, CollectionConfig, Where } from "payload";
+import { isAdmin, isLoggedIn } from "../access";
+import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
+import { slugFrom } from "../hooks/slug";
+import { urlOrPath } from "../hooks/validators";
+
 
 // Visitors only see published posts whose date has arrived (so posts can be scheduled)
 const readNews: Access = ({ req }) => {

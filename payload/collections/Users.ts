@@ -1,5 +1,4 @@
-import { APIError } from 'payload';
-import type { CollectionConfig } from 'payload';
+import { APIError, CollectionConfig } from "payload";
 
 export const Users: CollectionConfig = {
   slug: 'users',

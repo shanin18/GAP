@@ -1,5 +1,6 @@
-import type { CollectionConfig } from 'payload';
-import { isAdmin, isLoggedIn } from '../access';
+import { CollectionConfig } from "payload";
+import { isAdmin, isLoggedIn } from "../access";
+
 
 export const Leads: CollectionConfig = {
   slug: 'leads',

@@ -1,8 +1,9 @@
-import type { CollectionConfig } from 'payload';
-import { isAdmin, isLoggedIn, publishedOrStaff } from '../access';
-import { revalidateAfterChange, revalidateAfterDelete } from '../hooks/revalidate';
-import { slugFrom } from '../hooks/slug';
-import { optionalUrl, urlOrPath } from '../hooks/validators';
+import { CollectionConfig } from "payload";
+import { isAdmin, isLoggedIn, publishedOrStaff } from "../access";
+import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
+import { slugFrom } from "../hooks/slug";
+import { optionalUrl, urlOrPath } from "../hooks/validators";
+
 
 export const Universities: CollectionConfig = {
   slug: 'universities',
