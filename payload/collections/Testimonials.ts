@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload';
-import { isAdmin, isLoggedIn, publishedFlagOrStaff } from '../access';
-import { revalidateAfterChange, revalidateAfterDelete } from '../hooks/revalidate';
 import { urlOrPath } from '../hooks/validators';
+import { revalidateAfterChange, revalidateAfterDelete } from '../hooks/revalidate';
+import { isAdmin, isLoggedIn, publishedFlagOrStaff } from '../access';
 
 export const Testimonials: CollectionConfig = {
   slug: 'testimonials',

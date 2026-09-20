@@ -1,7 +1,8 @@
+
 import type { CollectionConfig } from 'payload';
-import { isAdminField, isLoggedIn, publicRead } from '../access';
-import { revalidateAfterChange } from '../hooks/revalidate';
 import { optionalUrl } from '../hooks/validators';
+import { revalidateAfterChange, revalidateAfterDelete } from '../hooks/revalidate';
+import { isAdminField, isLoggedIn, publicRead } from '../access';
 
 export const SiteSettings: CollectionConfig = {
   slug: 'site-settings',
@@ -17,7 +18,7 @@ export const SiteSettings: CollectionConfig = {
     delete: () => false,
   },
   admin: { useAsTitle: 'siteName' },
-  hooks: { afterChange: [revalidateAfterChange] },
+  hooks: { afterChange: [revalidateAfterChange], afterDelete: [revalidateAfterDelete] },
   fields: [
     { name: 'siteName', type: 'text', required: true, defaultValue: 'Global Admission Platform' },
     { name: 'address', type: 'textarea' },
