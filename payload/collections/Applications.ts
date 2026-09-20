@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { randomBytes } from 'node:crypto';
-import { isAdmin, isLoggedIn } from './Access';
+import { isAdmin, isLoggedIn } from '../access';
 
 // Same format as the public form: GAP-YYYYMMDD-XXXXXXXX
 const makeReference = () =>

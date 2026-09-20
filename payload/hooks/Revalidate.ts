@@ -1,8 +1,5 @@
-import { revalidatePath } from "next/cache";
-import type {
-  CollectionAfterChangeHook,
-  CollectionAfterDeleteHook,
-} from "payload";
+import { revalidatePath } from 'next/cache';
+import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload';
 
 /**
  * Rebuild the public pages right after an editor saves, so changes show up
@@ -11,24 +8,18 @@ import type {
  */
 function refreshSite() {
   try {
-    revalidatePath("/", "layout");
+    revalidatePath('/', 'layout');
   } catch {
     /* not running inside Next.js */
   }
 }
 
-export const revalidateAfterChange: CollectionAfterChangeHook = ({
-  doc,
-  req,
-}) => {
+export const revalidateAfterChange: CollectionAfterChangeHook = ({ doc, req }) => {
   if (!req.context?.disableRevalidate) refreshSite();
   return doc;
 };
 
-export const revalidateAfterDelete: CollectionAfterDeleteHook = ({
-  doc,
-  req,
-}) => {
+export const revalidateAfterDelete: CollectionAfterDeleteHook = ({ doc, req }) => {
   if (!req.context?.disableRevalidate) refreshSite();
   return doc;
 };

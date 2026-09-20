@@ -18,7 +18,6 @@ export function rateLimit(key: string, limit: number, windowMs: number) {
     return { ok: true, retryAfter: 0 };
   }
   hit.count += 1;
-  if (hit.count > limit)
-    return { ok: false, retryAfter: Math.ceil((hit.resetAt - now) / 1000) };
+  if (hit.count > limit) return { ok: false, retryAfter: Math.ceil((hit.resetAt - now) / 1000) };
   return { ok: true, retryAfter: 0 };
 }
