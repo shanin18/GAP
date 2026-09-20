@@ -1,8 +1,8 @@
 
 import type { CollectionConfig } from 'payload';
-import { optionalUrl } from '../hooks/validators';
-import { revalidateAfterChange, revalidateAfterDelete } from '../hooks/revalidate';
 import { isAdminField, isLoggedIn, publicRead } from '../access';
+import { revalidateAfterChange, revalidateAfterDelete } from '../hooks/revalidate';
+import { optionalUrl } from '../hooks/validators';
 
 export const SiteSettings: CollectionConfig = {
   slug: 'site-settings',
