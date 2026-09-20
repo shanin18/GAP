@@ -1,8 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, after } from 'next/server';
 import { getCms } from '@/lib/payload';
 import { leadSchema } from '@/lib/validations/lead';
 import { payloadCollectionRoutes } from '@/lib/payload-collection-routes';
 import { guardPublicPost, isHoneypotFilled } from '@/lib/public-form-guard';
+import { notifyNewLead } from '@/lib/notify';
 
 const routes = payloadCollectionRoutes('leads');
 export const { GET, PATCH, DELETE, PUT, OPTIONS } = routes;
@@ -49,6 +50,19 @@ export async function POST(request: Request) {
         status: 'new',
       },
     });
+
+    // Tell the team after the response is sent, so the visitor never waits for the email
+    after(() =>
+      notifyNewLead({
+        id: lead.id,
+        name: d.name,
+        email,
+        phone: d.phone,
+        interestedCountry: d.interestedCountry,
+        message: d.message,
+        sourcePage: d.sourcePage,
+      }),
+    );
 
     return NextResponse.json({ ok: true, id: lead.id }, { status: 201 });
   } catch (error) {

@@ -19,6 +19,20 @@ const handlers = {
   post: REST_POST(config),
 };
 
+/** True when the request comes from the Payload admin panel (not from a public website form). */
+function isAdminPanelRequest(request: Request) {
+  // The admin panel sends multipart form data...
+  if ((request.headers.get('content-type') ?? '').includes('multipart/form-data')) return true;
+  // ...from a page under /admin
+  const referer = request.headers.get('referer');
+  if (!referer) return false;
+  try {
+    return new URL(referer).pathname.startsWith('/admin');
+  } catch {
+    return false;
+  }
+}
+
 // Explicit public POST routes otherwise shadow Payload's collection endpoints.
 // Delegate other methods to Payload so authentication, access and query parsing stay intact.
 export function payloadCollectionRoutes(collection: 'leads' | 'applications') {
@@ -31,11 +45,12 @@ export function payloadCollectionRoutes(collection: 'leads' | 'applications') {
     OPTIONS: (request: Request) => handlers.options(request, context),
 
     /**
-     * The admin panel creates records with POST /api/<collection>, which the public form
-     * route shadows. When a logged-in staff member is posting, hand the request to Payload
-     * untouched. Returns null for visitors, so the caller runs the public form logic.
+     * Staff creating a record from the admin panel: hand the request to Payload untouched.
+     * Returns null for everything else, including a logged-in staff member who is testing the
+     * public form in the same browser, so the public form logic (and its emails) still runs.
      */
     staffPost: async (request: Request) => {
+      if (!isAdminPanelRequest(request)) return null;
       const payload = await getCms();
       const { user } = await payload.auth({ headers: request.headers });
       return user ? handlers.post(request, context) : null;

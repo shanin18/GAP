@@ -1,8 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, after } from 'next/server';
 import { getCms } from '@/lib/payload';
 import { applicationSchema } from '@/lib/validations/application';
 import { payloadCollectionRoutes } from '@/lib/payload-collection-routes';
 import { guardPublicPost, isHoneypotFilled } from '@/lib/public-form-guard';
+import { notifyNewApplication } from '@/lib/notify';
 
 const routes = payloadCollectionRoutes('applications');
 export const { GET, PATCH, DELETE, PUT, OPTIONS } = routes;
@@ -40,6 +41,7 @@ export async function POST(request: Request) {
       .catch(() => null);
     if (!country) return NextResponse.json({ error: 'Please select a valid destination.' }, { status: 400 });
 
+    let universityName: string | undefined;
     if (data.universityId) {
       const universities = await payload.find({
         collection: 'universities',
@@ -57,6 +59,7 @@ export async function POST(request: Request) {
       if (!universities.docs.length) {
         return NextResponse.json({ error: 'Please select a published university in your chosen destination.' }, { status: 400 });
       }
+      universityName = universities.docs[0].name;
     }
 
     // Avoid double submissions (double click, refresh)
@@ -98,6 +101,22 @@ export async function POST(request: Request) {
         ],
       },
     });
+    // Email the team and confirm to the student after the response is sent
+    after(() =>
+      notifyNewApplication({
+        id: application.id,
+        reference: application.reference,
+        studentName: data.studentName,
+        email,
+        phone: data.phone,
+        countryName: country.name,
+        universityName,
+        studyLevel: data.studyLevel,
+        intake: data.intake,
+        message: data.message,
+      }),
+    );
+
     return NextResponse.json({ ok: true, reference: application.reference }, { status: 201 });
   } catch (error) {
     console.error('Application submission failed:', error);

@@ -1,4 +1,5 @@
 import { buildConfig } from "payload";
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Users } from "./collections/Users";
@@ -48,6 +49,19 @@ export default buildConfig({
     pool: { connectionString: env.databaseUrl, connectionTimeoutMillis: 10000 },
   }),
   secret: env.payloadSecret,
+  email: process.env.SMTP_HOST
+    ? nodemailerAdapter({
+        defaultFromAddress:
+          process.env.EMAIL_FROM_ADDRESS ?? process.env.SMTP_USER ?? "",
+        defaultFromName: "Global Admission Platform",
+        transportOptions: {
+          host: process.env.SMTP_HOST,
+          port: Number(process.env.SMTP_PORT ?? 465),
+          secure: Number(process.env.SMTP_PORT ?? 465) === 465,
+          auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+        } as any,
+      })
+    : undefined,
   graphQL: { disable: true },
   upload: { limits: { fileSize: 10_000_000 } },
   typescript: { outputFile: "payload-types.ts" },
