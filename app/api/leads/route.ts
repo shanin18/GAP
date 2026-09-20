@@ -4,10 +4,15 @@ import { leadSchema } from '@/lib/validations/lead';
 import { payloadCollectionRoutes } from '@/lib/payload-collection-routes';
 import { guardPublicPost, isHoneypotFilled } from '@/lib/public-form-guard';
 
-export const { GET, PATCH, DELETE, PUT, OPTIONS } = payloadCollectionRoutes('leads');
+const routes = payloadCollectionRoutes('leads');
+export const { GET, PATCH, DELETE, PUT, OPTIONS } = routes;
 
 export async function POST(request: Request) {
   try {
+    // Staff creating a record from the admin panel: hand the request to Payload untouched
+    const staff = await routes.staffPost(request);
+    if (staff) return staff;
+
     const guard = await guardPublicPost(request, { key: 'lead', limit: 5, windowMs: 10 * 60_000 });
     if ('response' in guard) return guard.response;
 
