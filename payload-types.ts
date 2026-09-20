@@ -82,7 +82,11 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    countries: {
+      universityList: 'universities';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     countries: CountriesSelect<false> | CountriesSelect<true>;
@@ -166,6 +170,9 @@ export interface User {
 export interface Country {
   id: number;
   name: string;
+  /**
+   * Filled in from the name. It becomes the page address.
+   */
   slug: string;
   heroImageUrl?: string | null;
   body?: {
@@ -184,6 +191,14 @@ export interface Country {
     [k: string]: unknown;
   } | null;
   relatedUniversities?: (number | University)[] | null;
+  /**
+   * Every university that lists this country. Updates automatically.
+   */
+  universityList?: {
+    docs?: (number | University)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -194,6 +209,9 @@ export interface Country {
 export interface University {
   id: number;
   name: string;
+  /**
+   * Filled in from the name. It becomes the page address.
+   */
   slug: string;
   country: number | Country;
   city?: string | null;
@@ -220,8 +238,11 @@ export interface University {
 export interface Service {
   id: number;
   title: string;
-  icon?: string | null;
+  icon?: ('MessageCircle' | 'Search' | 'FileCheck2' | 'Plane') | null;
   shortDescription: string;
+  /**
+   * Lower numbers appear first.
+   */
   sortOrder?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -234,10 +255,18 @@ export interface Testimonial {
   id: number;
   studentName: string;
   university?: (number | null) | University;
+  /**
+   * Optional. Show this review on that country page.
+   */
+  country?: (number | null) | Country;
   quote: string;
   rating?: number | null;
   photoUrl?: string | null;
+  /**
+   * Lower numbers appear first.
+   */
   sortOrder?: number | null;
+  published?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -248,6 +277,9 @@ export interface Testimonial {
 export interface News {
   id: number;
   title: string;
+  /**
+   * Filled in from the title. It becomes the page address.
+   */
   slug: string;
   coverImageUrl?: string | null;
   shortBlurb: string;
@@ -266,6 +298,9 @@ export interface News {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * A future date schedules the post.
+   */
   publishedDate: string;
   status: 'draft' | 'published';
   seoTitle?: string | null;
@@ -288,6 +323,10 @@ export interface Lead {
   status: 'new' | 'contacted' | 'qualified' | 'application-started' | 'not-proceeding';
   assignedTo?: (number | null) | User;
   followUpAt?: string | null;
+  /**
+   * Link the application once this lead converts.
+   */
+  application?: (number | null) | Application;
   staffNotes?: string | null;
   emailVerified?: boolean | null;
   verificationToken?: string | null;
@@ -301,6 +340,9 @@ export interface Lead {
  */
 export interface Application {
   id: number;
+  /**
+   * Generated automatically.
+   */
   reference: string;
   studentName: string;
   email: string;
@@ -311,10 +353,6 @@ export interface Application {
   intake?: string | null;
   message?: string | null;
   sourcePage?: string | null;
-  assignedTo?: (number | null) | User;
-  priority?: ('low' | 'normal' | 'high' | 'urgent') | null;
-  nextAction?: string | null;
-  nextActionAt?: string | null;
   status:
     | 'submitted'
     | 'profile-review'
@@ -324,6 +362,10 @@ export interface Application {
     | 'offer-received'
     | 'enrolled'
     | 'closed';
+  priority?: ('low' | 'normal' | 'high' | 'urgent') | null;
+  assignedTo?: (number | null) | User;
+  nextAction?: string | null;
+  nextActionAt?: string | null;
   documents?:
     | {
         label: string;
@@ -336,7 +378,7 @@ export interface Application {
       }[]
     | null;
   /**
-   * Internal timeline of important application updates.
+   * Filled in automatically whenever the status changes.
    */
   statusHistory?:
     | {
@@ -386,6 +428,7 @@ export interface SiteSetting {
   email?: string | null;
   facebookUrl?: string | null;
   instagramUrl?: string | null;
+  linkedinUrl?: string | null;
   maintenanceMode?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -529,6 +572,7 @@ export interface CountriesSelect<T extends boolean = true> {
   heroImageUrl?: T;
   body?: T;
   relatedUniversities?: T;
+  universityList?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -576,10 +620,12 @@ export interface ServicesSelect<T extends boolean = true> {
 export interface TestimonialsSelect<T extends boolean = true> {
   studentName?: T;
   university?: T;
+  country?: T;
   quote?: T;
   rating?: T;
   photoUrl?: T;
   sortOrder?: T;
+  published?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -614,6 +660,7 @@ export interface LeadsSelect<T extends boolean = true> {
   status?: T;
   assignedTo?: T;
   followUpAt?: T;
+  application?: T;
   staffNotes?: T;
   emailVerified?: T;
   verificationToken?: T;
@@ -636,11 +683,11 @@ export interface ApplicationsSelect<T extends boolean = true> {
   intake?: T;
   message?: T;
   sourcePage?: T;
-  assignedTo?: T;
+  status?: T;
   priority?: T;
+  assignedTo?: T;
   nextAction?: T;
   nextActionAt?: T;
-  status?: T;
   documents?:
     | T
     | {
@@ -695,6 +742,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   email?: T;
   facebookUrl?: T;
   instagramUrl?: T;
+  linkedinUrl?: T;
   maintenanceMode?: T;
   updatedAt?: T;
   createdAt?: T;

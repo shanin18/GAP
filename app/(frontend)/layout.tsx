@@ -9,7 +9,12 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
 };
-export const dynamic = "force-dynamic";
+
+// Pages are built once and served from cache, then refreshed in the background
+// at most every 5 minutes (instead of querying the database on every request).
+// Lower the number if you need edits from Payload to appear sooner.
+export const revalidate = 300;
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

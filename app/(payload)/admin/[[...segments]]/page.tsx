@@ -1,6 +1,6 @@
-import config from '@/payload/payload.config';
-import { RootPage, generatePageMetadata } from '@payloadcms/next/views';
-import { importMap } from '../importMap';
+import config from "@/payload/payload.config";
+import { RootPage, generatePageMetadata } from "@payloadcms/next/views";
+import { importMap } from "../importMap";
 
 type Props = {
   params: Promise<{ segments: string[] }>;
