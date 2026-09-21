@@ -1,8 +1,8 @@
 import { CollectionConfig } from "payload";
 import { isAdmin, isLoggedIn, publicRead } from "../access";
-import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
-import { slugFrom } from "../hooks/slug";
-import { urlOrPath } from "../hooks/validators";
+import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/Revalidate";
+import { slugFrom } from "../hooks/Slug";
+import { urlOrPath } from "../hooks/Validators";
 
 
 export const Countries: CollectionConfig = {

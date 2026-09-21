@@ -1,7 +1,7 @@
 import { CollectionConfig } from "payload";
 import { isAdmin, isLoggedIn, publishedFlagOrStaff } from "../access";
-import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
-import { urlOrPath } from "../hooks/validators";
+import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/Revalidate";
+import { urlOrPath } from "../hooks/Validators";
 
 
 export const Testimonials: CollectionConfig = {

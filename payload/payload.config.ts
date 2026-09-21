@@ -1,5 +1,5 @@
 import { buildConfig } from "payload";
-import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Users } from "./collections/Users";

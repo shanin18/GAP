@@ -1,6 +1,6 @@
 import { CollectionConfig } from "payload";
 import { isAdmin, isLoggedIn, publicRead } from "../access";
-import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/revalidate";
+import { revalidateAfterChange, revalidateAfterDelete } from "../hooks/Revalidate";
 
 
 export const Services: CollectionConfig = {
