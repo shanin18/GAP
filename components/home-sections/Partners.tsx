@@ -1,18 +1,7 @@
+import { getSectionText } from "@/lib/website-content-server";
 import Image from "next/image";
 
 type Partner = { id: number; name: string; logoUrl?: string | null };
-
-// TEMPORARY: preview data only. Delete this and the fallback below before launch.
-const PREVIEW_PARTNERS: Partner[] = [
-  { id: 1, name: "Northfield University" },
-  { id: 2, name: "Harbour Institute" },
-  { id: 3, name: "Maple Leaf College" },
-  { id: 4, name: "Southern Cross Academy" },
-  { id: 5, name: "Kiwi Tech Institute" },
-  { id: 6, name: "Lakeside University" },
-  { id: 7, name: "Pacific Business School" },
-  { id: 8, name: "Summit College" },
-];
 
 /** Each card is w-56 (224px) + gap-4 (16px). */
 const CARD = 240;
@@ -21,11 +10,19 @@ const SPEED = 55;
 /** Each half of the track must be at least this wide so the loop never shows a gap. */
 const MIN_HALF = 2400;
 
-export function Partners({ items: incoming = [] }: { items?: Partner[] }) {
-  const items = incoming.length ? incoming : PREVIEW_PARTNERS; // remove fallback before launch
+export async function Partners({
+  items: incoming = [],
+}: {
+  items?: Partner[];
+}) {
+  const t = await getSectionText("home-partners");
+
+  const items = incoming;
 
   // Repeat the list inside each half until it is wide enough for any screen
-  const repeats = Math.max(1, Math.ceil(MIN_HALF / (items.length * CARD)));
+  const repeats = items.length
+    ? Math.max(1, Math.ceil(MIN_HALF / (items.length * CARD)))
+    : 0;
   const half = Array.from({ length: repeats }, (_, r) =>
     items.map((partner) => ({ partner, dup: r > 0 })),
   ).flat();
@@ -51,13 +48,13 @@ export function Partners({ items: incoming = [] }: { items?: Partner[] }) {
           id="partners-heading"
           className="text-center text-xs font-extrabold uppercase tracking-[0.16em] text-primary"
         >
-          Our partners
+          {t("Our partners")}
         </h2>
 
         {items.length ? (
           <div
             role="region"
-            aria-label="Partner institutions"
+            aria-label={t("Partner institutions")}
             tabIndex={0}
             className="partners-wrap mt-10 overflow-hidden rounded-2xl outline-offset-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] motion-reduce:overflow-x-auto motion-reduce:[mask-image:none]"
           >
@@ -100,7 +97,7 @@ export function Partners({ items: incoming = [] }: { items?: Partner[] }) {
           </div>
         ) : (
           <p className="mt-6 text-center text-sm text-muted-foreground">
-            Partner information will be available soon.
+            {t("Partner information will be available soon.")}
           </p>
         )}
       </div>

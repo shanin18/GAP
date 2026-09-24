@@ -1,4 +1,6 @@
 "use client";
+import { useDestinations } from "../destinations-provider";
+import { useWebsiteContent } from "@/components/website-content-provider";
 
 import { type FormEvent, type ReactNode, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
@@ -35,6 +37,9 @@ export function ApplyNowDialog({
   triggerClass?: string;
   triggerContent?: ReactNode;
 }) {
+  const t = useWebsiteContent("enquiry-form");
+  const destinations = useDestinations();
+
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -77,7 +82,11 @@ export function ApplyNowDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className={triggerClass}>{triggerContent}</Button>
+        <Button className={triggerClass}>
+          {typeof triggerContent === "string"
+            ? t(triggerContent)
+            : triggerContent}
+        </Button>
       </DialogTrigger>
       <DialogContent
         onOpenAutoFocus={(event) => {
@@ -94,48 +103,48 @@ export function ApplyNowDialog({
               tabIndex={-1}
               className="font-display text-4xl tracking-tight focus:outline-none"
             >
-              You’re on your way.
+              {t("You’re on your way.")}
             </DialogTitle>
             <DialogDescription className="text-muted-foreground">
-              Thanks for reaching out. Our team will contact you shortly.
+              {t("Thanks for reaching out. Our team will contact you shortly.")}
             </DialogDescription>
           </div>
         ) : (
           <>
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">
-              Apply now
+              {t("Apply now")}
             </p>
             <DialogTitle
               ref={titleRef}
               tabIndex={-1}
               className="font-display text-4xl tracking-tight focus:outline-none"
             >
-              Start your journey.
+              {t("Start your journey.")}
             </DialogTitle>
             <DialogDescription className="mt-3 text-muted-foreground">
-              Tell us a little about your study-abroad plans.
+              {t("Tell us a little about your study-abroad plans.")}
             </DialogDescription>
             <form onSubmit={submitLead} className="mt-7 grid gap-4">
               <Input
                 required
                 value={form.name}
                 onChange={(e) => updateField("name", e.target.value)}
-                aria-label="Full name"
-                placeholder="Full name"
+                aria-label={t("Full name")}
+                placeholder={t("Full name")}
               />
               <Input
                 required
                 type="email"
                 value={form.email}
                 onChange={(e) => updateField("email", e.target.value)}
-                aria-label="Email address"
-                placeholder="Email address"
+                aria-label={t("Email address")}
+                placeholder={t("Email address")}
               />
               <Input
                 value={form.phone}
                 onChange={(e) => updateField("phone", e.target.value)}
-                aria-label="Phone number"
-                placeholder="Phone number"
+                aria-label={t("Phone number")}
+                placeholder={t("Phone number")}
               />
               <Select
                 name="interestedCountry"
@@ -145,11 +154,11 @@ export function ApplyNowDialog({
                   updateField("interestedCountry", value)
                 }
               >
-                <SelectTrigger aria-label="Interested country">
-                  <SelectValue placeholder="Interested country" />
+                <SelectTrigger aria-label={t("Interested country")}>
+                  <SelectValue placeholder={t("Interested country")} />
                 </SelectTrigger>
                 <SelectContent>
-                  {["Australia", "Canada", "New Zealand"].map((country) => (
+                  {destinations.map(({ name: country }) => (
                     <SelectItem key={country} value={country}>
                       {country}
                     </SelectItem>
@@ -160,8 +169,8 @@ export function ApplyNowDialog({
                 value={form.message}
                 onChange={(e) => updateField("message", e.target.value)}
                 className="min-h-28"
-                aria-label="Tell us about your goals"
-                placeholder="Tell us about your goals"
+                aria-label={t("Tell us about your goals")}
+                placeholder={t("Tell us about your goals")}
               />
               {error && (
                 <p role="alert" className="text-sm text-red-600">
@@ -174,7 +183,7 @@ export function ApplyNowDialog({
                 ) : (
                   <Send size={17} />
                 )}{" "}
-                {status === "loading" ? "Submitting…" : "Submit interest"}
+                {status === "loading" ? t("Submitting…") : t("Submit interest")}
               </Button>
             </form>
           </>

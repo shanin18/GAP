@@ -1,5 +1,5 @@
 import { buildConfig } from "payload";
-import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Users } from "./collections/Users";
@@ -13,6 +13,8 @@ import { SiteSettings } from "./collections/SiteSettings";
 import { Applications } from "./collections/Applications";
 import { Documents } from "./collections/Documents";
 import { env } from "../lib/env";
+import { WebsiteContent } from "./collections/WebsiteContent";
+import { Media } from "./collections/Media";
 
 export default buildConfig({
   admin: {
@@ -22,16 +24,18 @@ export default buildConfig({
     meta: { titleSuffix: " | GAP Workspace" },
     components: {
       graphics: {
-        Logo: "/components/admin/Brand#Logo",
-        Icon: "/components/admin/Brand#Icon",
+        Logo: "/components/admin/_Brand#Logo",
+        Icon: "/components/admin/_Brand#Icon",
       },
-      beforeLogin: ["/components/admin/Brand#LoginIntro"],
-      beforeDashboard: ["/components/admin/Brand#DashboardIntro"],
+      beforeLogin: ["/components/admin/_Brand#LoginIntro"],
+      beforeDashboard: ["/components/admin/_Brand#DashboardIntro"],
       Nav: "/components/admin/CollectionLinks#CollectionLinks",
-      actions: ["/components/admin/Brand#WebsiteLink"],
+      actions: ["/components/admin/_Brand#WebsiteLink"],
     },
   },
   collections: [
+    WebsiteContent,
+    Media,
     Users,
     Countries,
     Universities,

@@ -1,4 +1,5 @@
 "use client";
+import { useWebsiteContent } from "@/components/website-content-provider";
 
 import { useEffect, useRef, useState } from "react";
 import { FileCheck2, MessageCircle, Search } from "lucide-react";
@@ -26,6 +27,8 @@ const guidance = [
 const DOT = 48; // px, matches size-12
 
 export function AcademicGuidance() {
+  const t = useWebsiteContent("home-guidance");
+
   const listRef = useRef<HTMLOListElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
@@ -83,9 +86,9 @@ export function AcademicGuidance() {
     <section>
       <div className="mx-auto max-w-7xl px-5 py-16 md:py-20 lg:px-8 lg:py-24">
         <SectionHeading
-          eyebrow="Academic guidance"
-          title="Support at the moments that matter."
-          text="Three practical stages, connected by one consistent team."
+          eyebrow={t("Academic guidance")}
+          title={t("Support at the moments that matter.")}
+          text={t("Three practical stages, connected by one consistent team.")}
         />
 
         <ol ref={listRef} className="relative mx-auto mt-14 max-w-5xl">
@@ -120,7 +123,7 @@ export function AcademicGuidance() {
                     "relative z-10 col-start-1 row-start-1 grid size-12 place-items-center rounded-full border bg-background font-display text-lg transition-[background-color,color,border-color,box-shadow] duration-300 md:col-start-2",
                     on
                       ? "border-primary bg-primary text-primary-foreground shadow-[0_0_0_6px_color-mix(in_oklch,var(--primary)_18%,transparent)]"
-                      : "border-[var(--border)] text-muted-foreground"
+                      : "border-[var(--border)] text-muted-foreground",
                   )}
                 >
                   {i + 1}
@@ -133,13 +136,13 @@ export function AcademicGuidance() {
                     left
                       ? "md:col-start-1 md:ml-auto md:text-right"
                       : "md:col-start-3",
-                    on ? "opacity-100" : "opacity-45"
+                    on ? "opacity-100" : "opacity-45",
                   )}
                 >
                   <div
                     className={cn(
                       "flex items-center gap-3",
-                      left && "md:flex-row-reverse"
+                      left && "md:flex-row-reverse",
                     )}
                   >
                     <span
@@ -147,17 +150,17 @@ export function AcademicGuidance() {
                         "flex size-10 items-center justify-center rounded-xl transition-colors duration-300",
                         on
                           ? "bg-[color-mix(in_oklch,var(--primary)_18%,var(--surface))] text-primary"
-                          : "bg-[var(--surface)] text-muted-foreground"
+                          : "bg-[var(--surface)] text-muted-foreground",
                       )}
                     >
                       <Icon size={20} />
                     </span>
                     <h3 className="font-display text-2xl leading-tight">
-                      {x.title}
+                      {t(x.title)}
                     </h3>
                   </div>
                   <p className="mt-3 leading-7 text-muted-foreground">
-                    {x.text}
+                    {t(x.text)}
                   </p>
                 </div>
               </li>

@@ -1,0 +1,38 @@
+{
+  "counselling": {
+    "intro": "Every journey starts with a conversation. We listen first, then help you turn a big, unclear idea into a plan you can act on.",
+    "points": [
+      "Review your academic background, interests and goals",
+      "Talk through budget and realistic study options",
+      "Compare destinations and what student life there is really like",
+      "Leave with a clear plan for what to do next"
+    ]
+  },
+  "university & program selection": {
+    "intro": "Instead of a long list of famous names, you get a short, honest list built around your profile and your plans.",
+    "points": [
+      "Build a shortlist matched to your grades, budget and career direction",
+      "Compare programs, entry requirements and costs side by side",
+      "Understand intakes, deadlines and what each university looks for",
+      "Narrow the list together until you feel confident"
+    ]
+  },
+  "admission & enrollment": {
+    "intro": "Applications are full of small details. We keep track of them with you so nothing is missed or sent late.",
+    "points": [
+      "Prepare and double-check your documents",
+      "Submit applications accurately and on time",
+      "Follow progress and respond to university requests",
+      "Support with offer acceptance and enrollment steps"
+    ]
+  },
+  "pre-departure guidance": {
+    "intro": "Before you leave, we make sure you know what to expect, so you arrive prepared rather than surprised.",
+    "points": [
+      "Travel and arrival preparation",
+      "What to pack and what to carry with you",
+      "Adjusting to life and culture in your destination",
+      "Practical safety tips and who to contact"
+    ]
+  }
+}

@@ -1,35 +1,16 @@
+import { getSectionText } from "@/lib/website-content-server";
 import Image from "next/image";
 import { SectionHeading } from "../section-heading";
+import { getGlobeDestinations } from "@/lib/globe-destinations";
 
-/**
- * Add your own photos to /public/images and set the paths here.
- * Until then, a lightweight CSS placeholder is shown (no extra requests).
- */
 const PHOTOS = {
   main: {
-    src: undefined as string | undefined, // e.g. "/images/about-students.jpg"
     alt: "A student talking with a GAP counsellor",
   },
   side: {
-    src: undefined as string | undefined, // e.g. "/images/about-campus.jpg"
     alt: "A university campus",
   },
 };
-
-const principles = [
-  {
-    title: "Honest advice",
-    body: "If a course, university or country is not the right fit, we will tell you, even when it is not what you hoped to hear.",
-  },
-  {
-    title: "Your pace, your family",
-    body: "Big decisions take time. We explain every option clearly so you and your family can decide without pressure.",
-  },
-  {
-    title: "Clear next steps",
-    body: "After every conversation you know what has been done, what comes next, and what we need from you.",
-  },
-];
 
 function Photo({
   src,
@@ -76,20 +57,23 @@ function Photo({
   );
 }
 
-export function About() {
+export async function About() {
+  const t = await getSectionText("home-about");
+  const destinations = await getGlobeDestinations();
+
   return (
     <section id="about" className="border-y border-[var(--border)]">
       <div className="mx-auto max-w-7xl px-5 py-16 md:py-20 lg:px-8 lg:py-28">
         {/* Intro */}
         <div className="flex flex-col gap-6 w-full">
           <SectionHeading
-            eyebrow="About us"
-            title="A clearer path to your next chapter."
+            eyebrow={t("About us")}
+            title={t("A clearer path to your next chapter.")}
           />
           <p className="max-w-4xl leading-8 text-muted-foreground sm:text-lg sm:leading-9">
-            GAP brings counselling, university and program selection, and
-            admission support into one guided journey. The goal is simple: help
-            students make informed choices and move forward with confidence.
+            {t(
+              "GAP brings counselling, university and program selection, and admission support into one guided journey. The goal is simple: help students make informed choices and move forward with confidence.",
+            )}
           </p>
         </div>
 
@@ -98,36 +82,43 @@ export function About() {
           {/* Large photo with caption */}
           <div className="relative md:row-span-2">
             <Photo
-              {...PHOTOS.main}
+              src={t("Main photo URL", "") || undefined}
+              alt={t(PHOTOS.main.alt)}
               priority={false}
               className="h-full min-h-[22rem]"
             />
             <p className="absolute inset-x-0 bottom-0 max-w-sm p-6 font-display text-2xl leading-tight text-white sm:p-8 sm:text-3xl">
-              Good guidance starts with a conversation, not a form.
+              {t("Good guidance starts with a conversation, not a form.")}
             </p>
           </div>
 
           {/* Promise card */}
           <div className="flex flex-col justify-between rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 sm:p-8">
             <p className="font-display text-2xl leading-snug sm:text-3xl">
-              We are built around one idea: every student deserves a person who
-              knows their story.
+              {t(
+                "We are built around one idea: every student deserves a person who knows their story.",
+              )}
             </p>
             <p className="mt-6 leading-7 text-muted-foreground">
-              That is why every student is guided one-to-one, from the first
-              question about where to study to the day the offer letter arrives.
+              {t(
+                "That is why every student is guided one-to-one, from the first question about where to study to the day the offer letter arrives.",
+              )}
             </p>
           </div>
 
           {/* Second photo + destinations */}
           <div className="relative">
-            <Photo {...PHOTOS.side} className="h-full min-h-[13rem]" />
+            <Photo
+              src={t("Campus photo URL", "") || undefined}
+              alt={t(PHOTOS.side.alt)}
+              className="h-full min-h-[13rem]"
+            />
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-3 p-6">
               <p className="text-sm font-semibold text-white">
-                Now guiding students to
+                {t("Now guiding students to")}
               </p>
               <ul className="flex flex-wrap gap-2 text-xs font-semibold">
-                {["Australia", "Canada", "New Zealand"].map((c) => (
+                {destinations.map(({ name: c }) => (
                   <li
                     key={c}
                     className="rounded-full bg-white/15 px-3 py-1 text-white backdrop-blur"

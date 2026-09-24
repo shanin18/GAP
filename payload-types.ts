@@ -67,6 +67,8 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    'website-content': WebsiteContent;
+    media: Media;
     users: User;
     countries: Country;
     universities: University;
@@ -88,6 +90,8 @@ export interface Config {
     };
   };
   collectionsSelect: {
+    'website-content': WebsiteContentSelect<false> | WebsiteContentSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     countries: CountriesSelect<false> | CountriesSelect<true>;
     universities: UniversitiesSelect<false> | UniversitiesSelect<true>;
@@ -138,6 +142,87 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Edit page text, buttons and images here. Countries, universities, services, articles and testimonials have their own collections. Empty text clears a phrase; reset it by copying the original shown below it.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "website-content".
+ */
+export interface WebsiteContent {
+  id: number;
+  title?: string | null;
+  /**
+   * One record per section. Save a new record to load its editable content.
+   */
+  key:
+    | 'home-hero'
+    | 'home-about'
+    | 'home-guidance'
+    | 'home-process'
+    | 'home-testimonials'
+    | 'home-news'
+    | 'home-partners'
+    | 'home-cta'
+    | 'trust-strip'
+    | 'header'
+    | 'footer'
+    | 'mobile-navigation'
+    | 'country-menu'
+    | 'enquiry-form'
+    | 'application-form'
+    | 'university-filters'
+    | 'university-card'
+    | 'about-page'
+    | 'services-page'
+    | 'universities-page'
+    | 'university-page'
+    | 'country-page'
+    | 'news-page'
+    | 'article-page'
+    | 'apply-page';
+  /**
+   * Hide this homepage section without deleting its content.
+   */
+  enabled?: boolean | null;
+  /**
+   * Homepage sections with lower numbers appear first.
+   */
+  sortOrder?: number | null;
+  entries?:
+    | {
+        key: string;
+        kind?: ('text' | 'image' | 'link') | null;
+        label?: string | null;
+        value?: string | null;
+        image?: (number | null) | Media;
+        original?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Upload public website images. Copy a file URL into image URL fields in other collections, or select it in Website Content.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -175,6 +260,33 @@ export interface Country {
    */
   slug: string;
   heroImageUrl?: string | null;
+  introduction?: string | null;
+  highlights?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  gallery?:
+    | {
+        imageUrl: string;
+        caption: string;
+        id?: string | null;
+      }[]
+    | null;
+  steps?:
+    | {
+        title: string;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Published articles to show on this country page.
+   */
+  relatedNews?: (number | News)[] | null;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   body?: {
     root: {
       type: string;
@@ -199,6 +311,44 @@ export interface Country {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
+export interface News {
+  id: number;
+  title: string;
+  /**
+   * Filled in from the title. It becomes the page address.
+   */
+  slug: string;
+  coverImageUrl?: string | null;
+  shortBlurb: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * A future date schedules the post.
+   */
+  publishedDate: string;
+  status: 'draft' | 'published';
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -241,6 +391,20 @@ export interface Service {
   icon?: ('MessageCircle' | 'Search' | 'FileCheck2' | 'Plane') | null;
   shortDescription: string;
   /**
+   * Detailed service introduction. Uses the short description when empty.
+   */
+  introduction?: string | null;
+  points?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Paste an image URL from Media or an external HTTPS image.
+   */
+  imageUrl?: string | null;
+  /**
    * Lower numbers appear first.
    */
   sortOrder?: number | null;
@@ -267,44 +431,6 @@ export interface Testimonial {
    */
   sortOrder?: number | null;
   published?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "news".
- */
-export interface News {
-  id: number;
-  title: string;
-  /**
-   * Filled in from the title. It becomes the page address.
-   */
-  slug: string;
-  coverImageUrl?: string | null;
-  shortBlurb: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * A future date schedules the post.
-   */
-  publishedDate: string;
-  status: 'draft' | 'published';
-  seoTitle?: string | null;
-  seoDescription?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -423,13 +549,24 @@ export interface Document {
 export interface SiteSetting {
   id: number;
   siteName: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
+  faviconUrl?: string | null;
   address?: string | null;
   phone?: string | null;
   email?: string | null;
   facebookUrl?: string | null;
   instagramUrl?: string | null;
   linkedinUrl?: string | null;
+  socialLinks?:
+    | {
+        platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
   maintenanceMode?: boolean | null;
+  maintenanceMessage?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -457,6 +594,14 @@ export interface PayloadKv {
 export interface PayloadLockedDocument {
   id: number;
   document?:
+    | ({
+        relationTo: 'website-content';
+        value: number | WebsiteContent;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
     | ({
         relationTo: 'users';
         value: number | User;
@@ -541,6 +686,47 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "website-content_select".
+ */
+export interface WebsiteContentSelect<T extends boolean = true> {
+  title?: T;
+  key?: T;
+  enabled?: T;
+  sortOrder?: T;
+  entries?:
+    | T
+    | {
+        key?: T;
+        kind?: T;
+        label?: T;
+        value?: T;
+        image?: T;
+        original?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -570,6 +756,30 @@ export interface CountriesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   heroImageUrl?: T;
+  introduction?: T;
+  highlights?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  gallery?:
+    | T
+    | {
+        imageUrl?: T;
+        caption?: T;
+        id?: T;
+      };
+  steps?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  relatedNews?: T;
+  seoTitle?: T;
+  seoDescription?: T;
   body?: T;
   relatedUniversities?: T;
   universityList?: T;
@@ -609,6 +819,14 @@ export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   icon?: T;
   shortDescription?: T;
+  introduction?: T;
+  points?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  imageUrl?: T;
   sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -737,13 +955,24 @@ export interface DocumentsSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
+  seoTitle?: T;
+  seoDescription?: T;
+  faviconUrl?: T;
   address?: T;
   phone?: T;
   email?: T;
   facebookUrl?: T;
   instagramUrl?: T;
   linkedinUrl?: T;
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
   maintenanceMode?: T;
+  maintenanceMessage?: T;
   updatedAt?: T;
   createdAt?: T;
 }

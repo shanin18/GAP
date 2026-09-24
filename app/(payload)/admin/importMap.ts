@@ -1,3 +1,4 @@
+import { ContentRowLabel as ContentRowLabel_29e1c3d7b6cd24eee07c76805164eab3 } from '../../../components/admin/ContentRowLabel'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -21,16 +22,17 @@ import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93
 import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
-import { CollectionLinks as CollectionLinks_afa834a8dfa6703b4d04da29d2900472 } from '../../../components/admin/_CollectionLinks'
-import { Icon as Icon_81fda60f3e3709e861f40982a767707d } from '../../../components/admin/_Brand'
-import { Logo as Logo_81fda60f3e3709e861f40982a767707d } from '../../../components/admin/_Brand'
-import { WebsiteLink as WebsiteLink_81fda60f3e3709e861f40982a767707d } from '../../../components/admin/_Brand'
-import { DashboardIntro as DashboardIntro_81fda60f3e3709e861f40982a767707d } from '../../../components/admin/_Brand'
-import { LoginIntro as LoginIntro_81fda60f3e3709e861f40982a767707d } from '../../../components/admin/_Brand'
+import { CollectionLinks as CollectionLinks_afa834a8dfa6703b4d04da29d2900472 } from '../../../components/admin/CollectionLinks'
+import { Icon as Icon_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
+import { Logo as Logo_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
+import { WebsiteLink as WebsiteLink_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
+import { DashboardIntro as DashboardIntro_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
+import { LoginIntro as LoginIntro_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
+  "/components/admin/ContentRowLabel#ContentRowLabel": ContentRowLabel_29e1c3d7b6cd24eee07c76805164eab3,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#LexicalDiffComponent": LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -55,10 +57,10 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "/components/admin/CollectionLinks#CollectionLinks": CollectionLinks_afa834a8dfa6703b4d04da29d2900472,
-  "/components/admin/Brand#Icon": Icon_81fda60f3e3709e861f40982a767707d,
-  "/components/admin/Brand#Logo": Logo_81fda60f3e3709e861f40982a767707d,
-  "/components/admin/Brand#WebsiteLink": WebsiteLink_81fda60f3e3709e861f40982a767707d,
-  "/components/admin/Brand#DashboardIntro": DashboardIntro_81fda60f3e3709e861f40982a767707d,
-  "/components/admin/Brand#LoginIntro": LoginIntro_81fda60f3e3709e861f40982a767707d,
+  "/components/admin/_Brand#Icon": Icon_fa4daeaebc4b6b72da366a1851fb0d6d,
+  "/components/admin/_Brand#Logo": Logo_fa4daeaebc4b6b72da366a1851fb0d6d,
+  "/components/admin/_Brand#WebsiteLink": WebsiteLink_fa4daeaebc4b6b72da366a1851fb0d6d,
+  "/components/admin/_Brand#DashboardIntro": DashboardIntro_fa4daeaebc4b6b72da366a1851fb0d6d,
+  "/components/admin/_Brand#LoginIntro": LoginIntro_fa4daeaebc4b6b72da366a1851fb0d6d,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

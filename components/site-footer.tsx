@@ -1,3 +1,4 @@
+import { getSectionText } from "@/lib/website-content-server";
 import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
@@ -118,6 +119,8 @@ function ContactRow({
 }
 
 export async function SiteFooter() {
+  const t = await getSectionText("footer");
+
   const [settings, destinations] = await Promise.all([
     getSiteSettings(),
     getGlobeDestinations(),
@@ -125,9 +128,12 @@ export async function SiteFooter() {
   const hasContact = settings?.address || settings?.phone || settings?.email;
 
   // Managed in Payload: Site settings > Social links
-  const rows =
-    (settings as { socialLinks?: SocialLinkRow[] | null } | null)
-      ?.socialLinks ?? [];
+  const rows = (settings as { socialLinks?: SocialLinkRow[] | null } | null)
+    ?.socialLinks ?? [
+    { platform: "facebook", url: settings?.facebookUrl },
+    { platform: "instagram", url: settings?.instagramUrl },
+    { platform: "linkedin", url: settings?.linkedinUrl },
+  ];
   const socials = rows.flatMap((row) => {
     const meta = SOCIAL_ICONS[row.platform as keyof typeof SOCIAL_ICONS];
     const href = safeUrl(row.url);
@@ -138,39 +144,46 @@ export async function SiteFooter() {
     <footer className="border-t border-border">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div>
-          <Link href="/" aria-label="GAP home" className="inline-flex">
+          <Link href="/" aria-label={t("GAP home")} className="inline-flex">
             <Image
-              src="/images/gap-logo.webp"
-              alt="Global Admission Platform"
+              src={t("/images/gap-logo.webp")}
+              alt={t("Global Admission Platform")}
               width={140}
               height={99}
               className="rounded-lg"
             />
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-6 text-muted-foreground">
-            Global education guidance from first conversation to final
-            departure.
+            {t(
+              "Global education guidance from first conversation to final departure.",
+            )}
           </p>
         </div>
         <div>
-          <h2 className="font-bold">Explore</h2>
+          <h2 className="font-bold">{t("Explore")}</h2>
           <div className="mt-3 grid justify-items-start text-sm text-muted-foreground">
             <Link
               className="inline-flex min-h-11 items-center transition-colors duration-200 ease-out hover:text-primary"
               href="/"
             >
-              Home
+              {t("Home")}
             </Link>
             <Link
               className="inline-flex min-h-11 items-center transition-colors duration-200 ease-out hover:text-primary"
               href="/services"
             >
-              Services
+              {t("Services")}
+            </Link>
+            <Link
+              className="inline-flex min-h-11 items-center transition-colors duration-200 ease-out hover:text-primary"
+              href="/about"
+            >
+              {t("About")}
             </Link>
           </div>
         </div>
         <div>
-          <h2 className="font-bold">Destinations</h2>
+          <h2 className="font-bold">{t("Destinations")}</h2>
           <div className="mt-3 grid text-sm text-muted-foreground">
             {destinations.map(({ slug, name }) => (
               <Link
@@ -184,16 +197,16 @@ export async function SiteFooter() {
           </div>
         </div>
         <div>
-          <h2 className="font-bold">Contact</h2>
+          <h2 className="font-bold">{t("Contact")}</h2>
           {hasContact ? (
             <address className="mt-4 space-y-4 text-sm not-italic leading-6 text-muted-foreground">
               {settings?.address && (
-                <ContactRow icon={<MapPin size={16} />} label="Visit us">
+                <ContactRow icon={<MapPin size={16} />} label={t("Visit us")}>
                   <p className="mt-1 whitespace-pre-line">{settings.address}</p>
                 </ContactRow>
               )}
               {settings?.phone && (
-                <ContactRow icon={<Phone size={16} />} label="Call us">
+                <ContactRow icon={<Phone size={16} />} label={t("Call us")}>
                   <a
                     className="mt-1 inline-flex min-h-8 items-center transition-colors duration-200 ease-out hover:text-primary"
                     href={"tel:" + settings.phone.replace(/[^+0-9]/g, "")}
@@ -203,7 +216,7 @@ export async function SiteFooter() {
                 </ContactRow>
               )}
               {settings?.email && (
-                <ContactRow icon={<Mail size={16} />} label="Email us">
+                <ContactRow icon={<Mail size={16} />} label={t("Email us")}>
                   <a
                     className="mt-1 inline-flex min-h-8 items-center break-all transition-colors duration-200 ease-out hover:text-primary"
                     href={"mailto:" + settings.email}
@@ -215,14 +228,14 @@ export async function SiteFooter() {
             </address>
           ) : (
             <p className="mt-4 text-sm leading-6 text-muted-foreground">
-              Start a conversation with our team about your study plans.
+              {t("Start a conversation with our team about your study plans.")}
             </p>
           )}
 
           {socials.length > 0 && (
             <div className="mt-6">
               <p className="text-xs font-semibold uppercase tracking-widest text-foreground/70">
-                Follow us
+                {t("Follow us")}
               </p>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {socials.map(({ label, Icon, href }) => (
@@ -245,8 +258,8 @@ export async function SiteFooter() {
       </div>
       <div className="border-t border-border px-5 py-5 text-center text-xs text-muted-foreground">
         &copy; {new Date().getFullYear()}{" "}
-        {settings?.siteName || "Global Admission Platform"}. All rights
-        reserved.
+        {settings?.siteName || "Global Admission Platform"}
+        {t(". All rights reserved.")}
       </div>
     </footer>
   );

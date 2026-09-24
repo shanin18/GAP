@@ -53,6 +53,9 @@ export function DashboardIntro() {
         <h1 id="gap-workspace-heading">Good guidance starts here.</h1>
         <p>Manage your content and keep every student's next step in view.</p>
         <div className="gap-admin-quick-links">
+          <Link href="/admin/collections/website-content">
+            <Globe2 size={17} aria-hidden="true" /> Edit website content
+          </Link>
           <Link href="/staff">
             <ClipboardList size={17} aria-hidden="true" /> Student pipeline
           </Link>

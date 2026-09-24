@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "generate:types": "payload generate:types",
+    "cms:initialize": "payload run scripts/initialize-website-content.ts",
+    "cms:verify": "payload run scripts/verify-cms.ts",
     "payload": "payload",
     "typecheck": "tsc --noEmit",
     "verify": "npm run generate:types && npm run typecheck && npm run build"

@@ -1,4 +1,5 @@
 "use client";
+import { useWebsiteContent } from "@/components/website-content-provider";
 
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
@@ -49,6 +50,8 @@ const steps = [
 ];
 
 export function HowGapWorks() {
+  const t = useWebsiteContent("home-process");
+
   const id = useId().replace(/:/g, "");
   const diagramRef = useRef<HTMLDivElement>(null);
 
@@ -61,7 +64,9 @@ export function HowGapWorks() {
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
-    setReduceMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    setReduceMotion(
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    );
 
     const el = diagramRef.current;
     const io = el
@@ -98,12 +103,14 @@ export function HowGapWorks() {
         @media (prefers-reduced-motion: reduce) { .gap-fade { animation: none } }
       `}</style>
 
-      <h2 className="sr-only">One step at a time, all the way to the globe.</h2>
+      <h2 className="sr-only">
+        {t("One step at a time, all the way to the globe.")}
+      </h2>
 
       <div className="mx-auto grid max-w-7xl gap-x-12 gap-y-8 px-5 py-16 md:py-20 lg:grid-cols-[.8fr_1.2fr] lg:grid-rows-[1fr_auto_auto_1fr] lg:px-8 lg:py-24">
         {/* Eyebrow only */}
         <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary lg:col-start-1 lg:row-start-2">
-          How GAP works
+          {t("How GAP works")}
         </p>
 
         {/* Diagram */}
@@ -113,7 +120,10 @@ export function HowGapWorks() {
           onPointerEnter={(e) => e.pointerType === "mouse" && setHovered(true)}
           onPointerLeave={() => setHovered(false)}
           onFocus={(e) =>
-            setFocused(e.target instanceof HTMLElement && e.target.matches(":focus-visible"))
+            setFocused(
+              e.target instanceof HTMLElement &&
+                e.target.matches(":focus-visible"),
+            )
           }
           onBlur={() => setFocused(false)}
         >
@@ -128,7 +138,6 @@ export function HowGapWorks() {
               aria-hidden="true"
               className="absolute inset-0 size-full text-primary/35"
             >
-
               {[0, 1, 2, 3].map((i) => {
                 const rotate = `rotate(${i * 90} 200 200)`;
                 const isCurrent = i === selected && !reduceMotion;
@@ -182,7 +191,8 @@ export function HowGapWorks() {
                           : null),
                       }}
                       onAnimationEnd={(e) => {
-                        if (e.animationName === "gap-draw") go((selected + 1) % steps.length);
+                        if (e.animationName === "gap-draw")
+                          go((selected + 1) % steps.length);
                       }}
                     />
                   </g>
@@ -194,8 +204,8 @@ export function HowGapWorks() {
             <div className="absolute left-1/2 top-1/2 z-10 size-28 -translate-x-1/2 -translate-y-1/2 sm:size-52">
               <div className="relative size-full overflow-hidden rounded-full border border-primary/20 bg-background">
                 <Image
-                  src="/images/gap-logo.webp"
-                  alt="GAP logo"
+                  src={t("/images/gap-logo.webp")}
+                  alt={t("GAP logo")}
                   fill
                   sizes="(min-width: 640px) 208px, 112px"
                   className="object-contain p-5 sm:p-9"
@@ -203,7 +213,10 @@ export function HowGapWorks() {
               </div>
             </div>
 
-            <ol aria-label="Your study abroad journey" className="pointer-events-none absolute inset-0">
+            <ol
+              aria-label={t("Your study abroad journey")}
+              className="pointer-events-none absolute inset-0"
+            >
               {steps.map(({ title, position, icon: Icon }, index) => (
                 <li key={title} className={"absolute w-24 sm:w-36 " + position}>
                   <button
@@ -220,7 +233,7 @@ export function HowGapWorks() {
                           ? "border-primary bg-primary text-primary-foreground"
                           : index < selected
                             ? "border-primary/60 bg-background text-primary"
-                            : "border-border bg-background text-primary group-hover:bg-secondary"
+                            : "border-border bg-background text-primary group-hover:bg-secondary",
                       )}
                     >
                       <Icon aria-hidden="true" className="size-6 sm:size-8" />
@@ -228,11 +241,16 @@ export function HowGapWorks() {
                     <span
                       className={cn(
                         "mt-2 text-xs font-bold transition-colors sm:text-base",
-                        selected === index ? "text-foreground" : "text-foreground/80"
+                        selected === index
+                          ? "text-foreground"
+                          : "text-foreground/80",
                       )}
                     >
-                      <span className="sr-only">Step {index + 1}: </span>
-                      {title}
+                      <span className="sr-only">
+                        {t("Step ")}
+                        {index + 1}:{" "}
+                      </span>
+                      {t(title)}
                     </span>
                   </button>
                 </li>
@@ -251,10 +269,10 @@ export function HowGapWorks() {
               Step {selected + 1} of {steps.length}
             </p> */}
             <h3 className="font-display text-3xl leading-tight tracking-[-0.02em] sm:text-4xl">
-              {current.title}
+              {t(current.title)}
             </h3>
             <p className="mt-4 max-w-md leading-8 text-muted-foreground">
-              {current.description}
+              {t(current.description)}
             </p>
           </div>
         </div>

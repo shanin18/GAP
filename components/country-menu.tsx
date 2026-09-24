@@ -1,4 +1,6 @@
 "use client";
+import { useWebsiteContent } from "@/components/website-content-provider";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Globe2, Check } from "lucide-react";
@@ -14,6 +16,8 @@ import { cn } from "@/lib/utils";
 import { useDestinations } from "./destinations-provider";
 
 export function CountryMenu({ mobile = false }: { mobile?: boolean }) {
+  const t = useWebsiteContent("country-menu");
+
   const destinations = useDestinations();
   const pathname = usePathname();
   return (
@@ -31,7 +35,7 @@ export function CountryMenu({ mobile = false }: { mobile?: boolean }) {
         >
           {mobile && <Globe2 aria-hidden="true" size={20} />}
           <span className="inline-flex items-center gap-1">
-            Countries
+            {t("Countries")}
             {!mobile && (
               <ChevronDown
                 aria-hidden="true"
@@ -43,7 +47,7 @@ export function CountryMenu({ mobile = false }: { mobile?: boolean }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        aria-label="Study destinations"
+        aria-label={t("Study destinations")}
         side={mobile ? "top" : "bottom"}
         align="start"
       >

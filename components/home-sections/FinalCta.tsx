@@ -1,13 +1,16 @@
+import { getGlobeDestinations } from "@/lib/globe-destinations";
+
+import { getSectionText } from "@/lib/website-content-server";
 import Link from "next/link";
 import { ApplyNowDialog } from "../ui/apply-now-dialog";
 
-const destinations = [
-  { name: "Australia", href: "/countries/australia" },
-  { name: "Canada", href: "/countries/canada" },
-  { name: "New Zealand", href: "/countries/new-zealand" },
-];
+export async function FinalCta() {
+  const t = await getSectionText("home-cta");
+  const destinations = (await getGlobeDestinations()).map((d) => ({
+    name: d.name,
+    href: `/country/${d.slug}`,
+  }));
 
-export function FinalCta() {
   return (
     <section className="px-5 pb-20 lg:px-8 lg:pb-28">
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-[color-mix(in_oklch,var(--primary)_14%,var(--background))] via-background to-background p-8 sm:p-12 lg:p-16">
@@ -36,20 +39,21 @@ export function FinalCta() {
 
         <div className="relative z-10 max-w-xl">
           <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">
-            Ready when you are
+            {t("Ready when you are")}
           </p>
           <h2 className="mt-4 font-display text-4xl leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
-            {"Let's map your route to the world."}
+            {t("Let's map your route to the world.")}
           </h2>
           <p className="mt-5 max-w-md leading-8 text-muted-foreground sm:text-lg">
-            Tell us where you would like to study, and a GAP adviser will help
-            you take the first step.
+            {t(
+              "Tell us where you would like to study, and a GAP adviser will help you take the first step.",
+            )}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
             <ApplyNowDialog />
             <p className="text-sm text-muted-foreground">
-              or explore{" "}
+              {t("or explore")}{" "}
               {destinations.map((d, i) => (
                 <span key={d.href}>
                   <Link

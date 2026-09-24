@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type Testimonial = {
@@ -10,6 +10,7 @@ export type Testimonial = {
   universityName?: string;
   quote: string;
   photoUrl?: string | null;
+  rating?: number | null;
 };
 
 /** How long each story stays on screen before moving on (ms). */
@@ -61,10 +62,14 @@ export function TestimonialShowcase({ items }: { items: Testimonial[] }) {
   const paused = hovered || focused || !inView || tabHidden;
 
   useEffect(() => {
-    setReduceMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    setReduceMotion(
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    );
     const el = rootRef.current;
     const io = el
-      ? new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.3 })
+      ? new IntersectionObserver(([e]) => setInView(e.isIntersecting), {
+          threshold: 0.3,
+        })
       : null;
     if (el && io) io.observe(el);
     const onVis = () => setTabHidden(document.hidden);
@@ -101,7 +106,9 @@ export function TestimonialShowcase({ items }: { items: Testimonial[] }) {
     running && autoplay
       ? {
           animation: `tst-fill ${DWELL}ms linear forwards`,
-          animationPlayState: paused ? ("paused" as const) : ("running" as const),
+          animationPlayState: paused
+            ? ("paused" as const)
+            : ("running" as const),
         }
       : undefined;
 
@@ -112,7 +119,9 @@ export function TestimonialShowcase({ items }: { items: Testimonial[] }) {
       onPointerEnter={(e) => e.pointerType === "mouse" && setHovered(true)}
       onPointerLeave={() => setHovered(false)}
       onFocus={(e) =>
-        setFocused(e.target instanceof HTMLElement && e.target.matches(":focus-visible"))
+        setFocused(
+          e.target instanceof HTMLElement && e.target.matches(":focus-visible"),
+        )
       }
       onBlur={() => setFocused(false)}
     >
@@ -159,7 +168,11 @@ export function TestimonialShowcase({ items }: { items: Testimonial[] }) {
       )}
 
       {/* Featured story: every quote shares one grid cell, so height never jumps */}
-      <div className="relative" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+      <div
+        className="relative"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <div className="mb-6 flex items-center gap-4 text-primary">
           <Quote aria-hidden="true" size={44} className="opacity-40" />
           {many && (
@@ -173,38 +186,59 @@ export function TestimonialShowcase({ items }: { items: Testimonial[] }) {
         </div>
 
         <div className="grid" aria-live={autoplay ? "off" : "polite"}>
-          {items.map(({ studentName, universityName, quote, photoUrl }, i) => {
-            const on = i === active;
-            return (
-              <figure
-                key={`${studentName}-${i}`}
-                aria-hidden={!on}
-                className={cn(
-                  "col-start-1 row-start-1 transition-[opacity,transform,visibility] duration-500",
-                  on
-                    ? "visible translate-y-0 opacity-100"
-                    : "invisible translate-y-3 opacity-0",
-                )}
-              >
-                <blockquote className="font-display text-2xl leading-[1.2] tracking-[-0.02em] sm:text-4xl sm:leading-[1.15] lg:text-5xl">
-                  “{quote}”
-                </blockquote>
-                <figcaption className="mt-8 flex items-center gap-4 sm:mt-10">
-                  <Avatar
-                    name={studentName}
-                    photoUrl={photoUrl}
-                    className="size-14 text-xl"
-                  />
-                  <div className="min-w-0">
-                    <p className="text-lg font-semibold">{studentName}</p>
-                    {universityName && (
-                      <p className="mt-0.5 text-muted-foreground">{universityName}</p>
-                    )}
-                  </div>
-                </figcaption>
-              </figure>
-            );
-          })}
+          {items.map(
+            ({ studentName, universityName, quote, photoUrl, rating }, i) => {
+              const on = i === active;
+              return (
+                <figure
+                  key={`${studentName}-${i}`}
+                  aria-hidden={!on}
+                  className={cn(
+                    "col-start-1 row-start-1 transition-[opacity,transform,visibility] duration-500",
+                    on
+                      ? "visible translate-y-0 opacity-100"
+                      : "invisible translate-y-3 opacity-0",
+                  )}
+                >
+                  <blockquote className="font-display text-2xl leading-[1.2] tracking-[-0.02em] sm:text-4xl sm:leading-[1.15] lg:text-5xl">
+                    “{quote}”
+                  </blockquote>
+                  {rating != null && (
+                    <div
+                      className="mt-6 flex gap-1 text-primary"
+                      aria-label={`${rating} out of 5 stars`}
+                    >
+                      {Array.from({ length: 5 }, (_, index) => (
+                        <Star
+                          key={index}
+                          size={16}
+                          aria-hidden="true"
+                          className={
+                            index < rating ? "fill-current" : "opacity-30"
+                          }
+                        />
+                      ))}
+                    </div>
+                  )}
+                  <figcaption className="mt-8 flex items-center gap-4 sm:mt-10">
+                    <Avatar
+                      name={studentName}
+                      photoUrl={photoUrl}
+                      className="size-14 text-xl"
+                    />
+                    <div className="min-w-0">
+                      <p className="text-lg font-semibold">{studentName}</p>
+                      {universityName && (
+                        <p className="mt-0.5 text-muted-foreground">
+                          {universityName}
+                        </p>
+                      )}
+                    </div>
+                  </figcaption>
+                </figure>
+              );
+            },
+          )}
         </div>
       </div>
 

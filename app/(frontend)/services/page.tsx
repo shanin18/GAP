@@ -1,82 +1,19 @@
+import { getSectionText } from "@/lib/website-content-server";
 import Image from "next/image";
-import { Check, MessageCircle, Search, FileCheck2, Plane, ChevronDown } from "lucide-react";
+import {
+  Check,
+  MessageCircle,
+  Search,
+  FileCheck2,
+  Plane,
+  ChevronDown,
+} from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MobileNav } from "@/components/mobile-nav";
 import { getServices } from "@/lib/cms-queries";
 
-const fallbackServices = [
-  [
-    "Counselling",
-    "Understand your goals and identify a practical study-abroad direction.",
-    MessageCircle,
-  ],
-  [
-    "University & Program Selection",
-    "Compare suitable universities and programs around your academic goals.",
-    Search,
-  ],
-  [
-    "Admission & Enrollment",
-    "Move through applications, documents and enrollment with structured support.",
-    FileCheck2,
-  ],
-  [
-    "Pre-departure Guidance",
-    "Prepare for the transition from admission to your departure.",
-    Plane,
-  ],
-] as const;
-
 const iconMap = { MessageCircle, Search, FileCheck2, Plane };
-
-/**
- * Extra detail shown under each service, matched by title (case-insensitive).
- * Services from the CMS that are not listed here still render, just without a checklist.
- * Please check these points match what GAP really offers.
- */
-const DETAILS: Record<string, { intro: string; points: string[] }> = {
-  counselling: {
-    intro:
-      "Every journey starts with a conversation. We listen first, then help you turn a big, unclear idea into a plan you can act on.",
-    points: [
-      "Review your academic background, interests and goals",
-      "Talk through budget and realistic study options",
-      "Compare destinations and what student life there is really like",
-      "Leave with a clear plan for what to do next",
-    ],
-  },
-  "university & program selection": {
-    intro:
-      "Instead of a long list of famous names, you get a short, honest list built around your profile and your plans.",
-    points: [
-      "Build a shortlist matched to your grades, budget and career direction",
-      "Compare programs, entry requirements and costs side by side",
-      "Understand intakes, deadlines and what each university looks for",
-      "Narrow the list together until you feel confident",
-    ],
-  },
-  "admission & enrollment": {
-    intro:
-      "Applications are full of small details. We keep track of them with you so nothing is missed or sent late.",
-    points: [
-      "Prepare and double-check your documents",
-      "Submit applications accurately and on time",
-      "Follow progress and respond to university requests",
-      "Support with offer acceptance and enrollment steps",
-    ],
-  },
-  "pre-departure guidance": {
-    intro:
-      "Before you leave, we make sure you know what to expect, so you arrive prepared rather than surprised.",
-    points: [
-      "Travel and arrival preparation",
-      "What to pack and what to carry with you",
-      "Adjusting to life and culture in your destination",
-      "Practical safety tips and who to contact",
-    ],
-  },
-};
 
 const faqs = () => [
   {
@@ -96,11 +33,6 @@ const faqs = () => [
     a: "As early as you can. Intakes and deadlines vary by university and program, so an early conversation gives you more time to prepare.",
   },
 ];
-
-/** Optional photos, keyed by service slug. Add files to /public and fill these in. */
-const SERVICE_IMAGES: Record<string, string> = {
-  // counselling: "/images/services/counselling.jpg",
-};
 
 const slugify = (s: string) =>
   s
@@ -165,17 +97,18 @@ function Visual({
 }
 
 export default async function ServicesPage() {
+  const t = await getSectionText("services-page");
+
   const cmsServices = await getServices();
-  const services = cmsServices.length
-    ? cmsServices.map(
-        (service) =>
-          [
-            service.title,
-            service.shortDescription,
-            iconMap[service.icon as keyof typeof iconMap] ?? MessageCircle,
-          ] as const,
-      )
-    : fallbackServices;
+  const services = cmsServices.map(
+    (service) =>
+      [
+        service.title,
+        service.shortDescription,
+        iconMap[service.icon as keyof typeof iconMap] ?? MessageCircle,
+        service,
+      ] as const,
+  );
 
   return (
     <>
@@ -189,18 +122,21 @@ export default async function ServicesPage() {
           />
           <div className="relative mx-auto max-w-7xl px-5 py-16 md:py-20 lg:px-8 lg:py-24">
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">
-              Services
+              {t("Services")}
             </p>
             <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-tight">
-              Guidance that turns <em>plans</em> into progress.
+              {t("Guidance that turns ")}
+              <em>{t("plans")}</em>
+              {t(" into progress.")}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-              A repeatable, human-led support system for students preparing to
-              study abroad.
+              {t(
+                "A repeatable, human-led support system for students preparing to study abroad.",
+              )}
             </p>
 
             {/* Jump links */}
-            <nav aria-label="Services" className="mt-10">
+            <nav aria-label={t("Services")} className="mt-10">
               <ul className="flex flex-wrap gap-3">
                 {services.map(([title], i) => (
                   <li key={title}>
@@ -223,9 +159,12 @@ export default async function ServicesPage() {
         {/* Service by service */}
         <section>
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            {services.map(([title, text, Icon], i) => {
+            {services.map(([title, text, Icon, service], i) => {
               const slug = slugify(title);
-              const detail = DETAILS[title.toLowerCase()];
+              const detail = {
+                intro: service.introduction || text,
+                points: service.points?.map((point) => point.text) ?? [],
+              };
               return (
                 <article
                   key={title}
@@ -244,10 +183,10 @@ export default async function ServicesPage() {
                         {detail?.intro ?? text}
                       </p>
 
-                      {detail && (
+                      {detail.points.length > 0 && (
                         <div className="mt-8">
                           <h3 className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">
-                            What we do
+                            {t("What we do")}
                           </h3>
                           <ul className="mt-4 space-y-3">
                             {detail.points.map((point) => (
@@ -273,7 +212,7 @@ export default async function ServicesPage() {
                         index={i}
                         title={title}
                         Icon={Icon}
-                        image={SERVICE_IMAGES[slug]}
+                        image={service.imageUrl || undefined}
                       />
                     </div>
                   </div>
@@ -288,17 +227,17 @@ export default async function ServicesPage() {
           <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:py-20 lg:grid-cols-[.8fr_1.2fr] lg:gap-16 lg:px-8 lg:py-24">
             <div>
               <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">
-                Questions
+                {t("Questions")}
               </p>
               <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
-                Good to know before you start.
+                {t("Good to know before you start.")}
               </h2>
             </div>
             <div className="divide-y divide-[var(--border)] border-y border-[var(--border)]">
               {faqs().map(({ q, a }) => (
-                <details key={q} className="group py-5">
+                <details key={t(q)} className="group py-5">
                   <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-display text-xl [&::-webkit-details-marker]:hidden">
-                    {q}
+                    {t(q)}
                     <ChevronDown
                       aria-hidden="true"
                       size={20}
@@ -306,7 +245,7 @@ export default async function ServicesPage() {
                     />
                   </summary>
                   <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">
-                    {a}
+                    {t(a)}
                   </p>
                 </details>
               ))}

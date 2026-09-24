@@ -1,0 +1,29 @@
+{
+  "australia": {
+    "name": "Australia",
+    "intro": "A welcoming destination for ambitious students looking for globally recognised education.",
+    "facts": [
+      "Globally recognised universities",
+      "Wide range of programs",
+      "Strong student support"
+    ]
+  },
+  "canada": {
+    "name": "Canada",
+    "intro": "Build your next chapter in a destination known for diverse communities and strong education options.",
+    "facts": [
+      "Internationally respected institutions",
+      "Diverse study choices",
+      "Student-focused communities"
+    ]
+  },
+  "new-zealand": {
+    "name": "New Zealand",
+    "intro": "Explore a focused study experience surrounded by a distinctive culture and environment.",
+    "facts": [
+      "Quality education options",
+      "Supportive communities",
+      "Distinctive study experience"
+    ]
+  }
+}

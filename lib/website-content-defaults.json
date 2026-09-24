@@ -1,0 +1,1809 @@
+[
+  {
+    "key": "home-hero",
+    "title": "Home / Hero",
+    "sortOrder": 0,
+    "entries": [
+      {
+        "key": "copy_1v1upt9",
+        "kind": "text",
+        "label": "Global education, human guidance",
+        "value": "Global education, human guidance"
+      },
+      {
+        "key": "copy_1c8teba",
+        "kind": "text",
+        "label": "Your next chapter,",
+        "value": "Your next chapter, "
+      },
+      {
+        "key": "copy_1a7s896",
+        "kind": "text",
+        "label": "without borders.",
+        "value": "without borders."
+      },
+      {
+        "key": "copy_ic7edn",
+        "kind": "text",
+        "label": "Personal guidance, trusted university choices, and practical admission support for student",
+        "value": "Personal guidance, trusted university choices, and practical admission support for students planning to study abroad."
+      },
+      {
+        "key": "copy_1lrzbkg",
+        "kind": "text",
+        "label": "How it works",
+        "value": "How it works"
+      },
+      {
+        "key": "copy_1p47jcv",
+        "kind": "text",
+        "label": "launch destinations",
+        "value": "launch destinations"
+      },
+      {
+        "key": "copy_x8ee3b",
+        "kind": "text",
+        "label": "guidance",
+        "value": "guidance"
+      },
+      {
+        "key": "copy_rsb1p5",
+        "label": "1:1",
+        "kind": "text",
+        "value": "1:1"
+      }
+    ]
+  },
+  {
+    "key": "home-about",
+    "title": "Home / About",
+    "sortOrder": 10,
+    "entries": [
+      {
+        "key": "copy_5adpr8",
+        "kind": "text",
+        "label": "A student talking with a GAP counsellor",
+        "value": "A student talking with a GAP counsellor"
+      },
+      {
+        "key": "copy_1jxlyw5",
+        "kind": "text",
+        "label": "A university campus",
+        "value": "A university campus"
+      },
+      {
+        "key": "copy_ukccui",
+        "kind": "text",
+        "label": "About us",
+        "value": "About us"
+      },
+      {
+        "key": "copy_q4wctv",
+        "kind": "text",
+        "label": "A clearer path to your next chapter.",
+        "value": "A clearer path to your next chapter."
+      },
+      {
+        "key": "copy_1d0fqu7",
+        "kind": "text",
+        "label": "GAP brings counselling, university and program selection, and admission support into one g",
+        "value": "GAP brings counselling, university and program selection, and admission support into one guided journey. The goal is simple: help students make informed choices and move forward with confidence."
+      },
+      {
+        "key": "copy_77wb9p",
+        "kind": "text",
+        "label": "Good guidance starts with a conversation, not a form.",
+        "value": "Good guidance starts with a conversation, not a form."
+      },
+      {
+        "key": "copy_1vffvtr",
+        "kind": "text",
+        "label": "We are built around one idea: every student deserves a person who knows their story.",
+        "value": "We are built around one idea: every student deserves a person who knows their story."
+      },
+      {
+        "key": "copy_1243gi9",
+        "kind": "text",
+        "label": "That is why every student is guided one-to-one, from the first question about where to stu",
+        "value": "That is why every student is guided one-to-one, from the first question about where to study to the day the offer letter arrives."
+      },
+      {
+        "key": "copy_53diqd",
+        "kind": "text",
+        "label": "Now guiding students to",
+        "value": "Now guiding students to"
+      },
+      {
+        "key": "copy_14rra8d",
+        "label": "Main photo URL",
+        "kind": "image",
+        "value": ""
+      },
+      {
+        "key": "copy_15u0p0l",
+        "label": "Campus photo URL",
+        "kind": "image",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "key": "home-guidance",
+    "title": "Home / Academic guidance",
+    "sortOrder": 20,
+    "entries": [
+      {
+        "key": "copy_1a41fo4",
+        "kind": "text",
+        "label": "Counselling",
+        "value": "Counselling"
+      },
+      {
+        "key": "copy_g4tl5a",
+        "kind": "text",
+        "label": "Understand your goals, profile and options with practical one-to-one guidance.",
+        "value": "Understand your goals, profile and options with practical one-to-one guidance."
+      },
+      {
+        "key": "copy_179oddc",
+        "kind": "text",
+        "label": "Selection of University & Program",
+        "value": "Selection of University & Program"
+      },
+      {
+        "key": "copy_1ov5b6k",
+        "kind": "text",
+        "label": "Compare destinations, universities and programs that fit your academic direction.",
+        "value": "Compare destinations, universities and programs that fit your academic direction."
+      },
+      {
+        "key": "copy_re3xgn",
+        "kind": "text",
+        "label": "University Admission / Enrollment",
+        "value": "University Admission / Enrollment"
+      },
+      {
+        "key": "copy_1o9xnzt",
+        "kind": "text",
+        "label": "Get structured support through applications, documents and enrollment steps.",
+        "value": "Get structured support through applications, documents and enrollment steps."
+      },
+      {
+        "key": "copy_tq08cg",
+        "kind": "text",
+        "label": "Academic guidance",
+        "value": "Academic guidance"
+      },
+      {
+        "key": "copy_1v63itl",
+        "kind": "text",
+        "label": "Support at the moments that matter.",
+        "value": "Support at the moments that matter."
+      },
+      {
+        "key": "copy_qamd50",
+        "kind": "text",
+        "label": "Three practical stages, connected by one consistent team.",
+        "value": "Three practical stages, connected by one consistent team."
+      }
+    ]
+  },
+  {
+    "key": "home-process",
+    "title": "Home / How GAP works",
+    "sortOrder": 30,
+    "entries": [
+      {
+        "key": "copy_1xb0x0k",
+        "kind": "text",
+        "label": "Consultation",
+        "value": "Consultation"
+      },
+      {
+        "key": "copy_17ciq3",
+        "kind": "text",
+        "label": "Discuss your goals, academic background and preferred destinations with a GAP adviser.",
+        "value": "Discuss your goals, academic background and preferred destinations with a GAP adviser."
+      },
+      {
+        "key": "copy_1k6e5zv",
+        "kind": "text",
+        "label": "Apply",
+        "value": "Apply"
+      },
+      {
+        "key": "copy_16bisvj",
+        "kind": "text",
+        "label": "Build your shortlist and prepare your application with clear guidance on the documents you",
+        "value": "Build your shortlist and prepare your application with clear guidance on the documents you need."
+      },
+      {
+        "key": "copy_10c9hp6",
+        "kind": "text",
+        "label": "Appointment",
+        "value": "Appointment"
+      },
+      {
+        "key": "copy_1e7tm8r",
+        "kind": "text",
+        "label": "Meet your adviser to review progress, discuss your options and plan the next steps.",
+        "value": "Meet your adviser to review progress, discuss your options and plan the next steps."
+      },
+      {
+        "key": "copy_9kgcci",
+        "kind": "text",
+        "label": "Fly",
+        "value": "Fly"
+      },
+      {
+        "key": "copy_dkkfhu",
+        "kind": "text",
+        "label": "Prepare for departure and arrive ready for your new chapter abroad.",
+        "value": "Prepare for departure and arrive ready for your new chapter abroad."
+      },
+      {
+        "key": "copy_1jopwd4",
+        "kind": "text",
+        "label": "One step at a time, all the way to the globe.",
+        "value": "One step at a time, all the way to the globe."
+      },
+      {
+        "key": "copy_1n4wxcf",
+        "kind": "text",
+        "label": "How GAP works",
+        "value": "How GAP works"
+      },
+      {
+        "key": "copy_18p2jy3",
+        "kind": "image",
+        "label": "Image URL",
+        "value": "/images/gap-logo.webp"
+      },
+      {
+        "key": "copy_8nos82",
+        "kind": "text",
+        "label": "GAP logo",
+        "value": "GAP logo"
+      },
+      {
+        "key": "copy_7jilbk",
+        "kind": "text",
+        "label": "Your study abroad journey",
+        "value": "Your study abroad journey"
+      },
+      {
+        "key": "copy_jtn9kf",
+        "kind": "text",
+        "label": "Step",
+        "value": "Step "
+      }
+    ]
+  },
+  {
+    "key": "home-testimonials",
+    "title": "Home / Testimonials",
+    "sortOrder": 40,
+    "entries": [
+      {
+        "key": "copy_1bknur6",
+        "kind": "text",
+        "label": "What our clients say",
+        "value": "What our clients say"
+      },
+      {
+        "key": "copy_nrju22",
+        "kind": "text",
+        "label": "Confidence feels different when you don't have to do it alone.",
+        "value": "Confidence feels different when you don't have to do it alone."
+      },
+      {
+        "key": "copy_nax10z",
+        "kind": "text",
+        "label": "Student stories are on their way.",
+        "value": "Student stories are on their way."
+      },
+      {
+        "key": "copy_id1sky",
+        "kind": "text",
+        "label": "In the meantime, meet an adviser and find out how we can support your study plans.",
+        "value": "In the meantime, meet an adviser and find out how we can support your study plans."
+      },
+      {
+        "key": "copy_j2o2rx",
+        "kind": "text",
+        "label": "Talk to an adviser",
+        "value": "Talk to an adviser"
+      }
+    ]
+  },
+  {
+    "key": "home-news",
+    "title": "Home / News feed",
+    "sortOrder": 50,
+    "entries": [
+      {
+        "key": "copy_1oaszoc",
+        "kind": "text",
+        "label": "Find your study destination",
+        "value": "Find your study destination"
+      },
+      {
+        "key": "copy_1wplc8v",
+        "kind": "text",
+        "label": "Explore your options and discuss the destination that suits your goals.",
+        "value": "Explore your options and discuss the destination that suits your goals."
+      },
+      {
+        "key": "copy_vr87rw",
+        "kind": "text",
+        "label": "Choose a course with confidence",
+        "value": "Choose a course with confidence"
+      },
+      {
+        "key": "copy_1ap6tuc",
+        "kind": "text",
+        "label": "Connect your interests and ambitions with a study plan that fits.",
+        "value": "Connect your interests and ambitions with a study plan that fits."
+      },
+      {
+        "key": "copy_18malh9",
+        "kind": "text",
+        "label": "Plan your university application",
+        "value": "Plan your university application"
+      },
+      {
+        "key": "copy_1mujeqt",
+        "kind": "text",
+        "label": "Get guidance on choosing a university and preparing your next steps.",
+        "value": "Get guidance on choosing a university and preparing your next steps."
+      },
+      {
+        "key": "copy_zy00h6",
+        "kind": "text",
+        "label": "Think ahead about your intake",
+        "value": "Think ahead about your intake"
+      },
+      {
+        "key": "copy_128luxl",
+        "kind": "text",
+        "label": "Talk with an adviser about your preferred start date and application timeline.",
+        "value": "Talk with an adviser about your preferred start date and application timeline."
+      },
+      {
+        "key": "copy_1tmxsjh",
+        "kind": "text",
+        "label": "Prepare your documents",
+        "value": "Prepare your documents"
+      },
+      {
+        "key": "copy_1n49t4i",
+        "kind": "text",
+        "label": "Ask which academic records and supporting documents your application needs.",
+        "value": "Ask which academic records and supporting documents your application needs."
+      },
+      {
+        "key": "copy_t5s246",
+        "kind": "text",
+        "label": "Speak with a GAP adviser",
+        "value": "Speak with a GAP adviser"
+      },
+      {
+        "key": "copy_1hobl4n",
+        "kind": "text",
+        "label": "Bring your questions and get personal guidance for your study journey.",
+        "value": "Bring your questions and get personal guidance for your study journey."
+      },
+      {
+        "key": "copy_1ujeisa",
+        "kind": "text",
+        "label": "News feed",
+        "value": "News feed"
+      },
+      {
+        "key": "copy_g7yuvw",
+        "kind": "text",
+        "label": "Useful things to know before you go.",
+        "value": "Useful things to know before you go."
+      },
+      {
+        "key": "copy_57opbo",
+        "kind": "text",
+        "label": "Study guidance",
+        "value": "Study guidance"
+      },
+      {
+        "key": "copy_w7adgg",
+        "kind": "text",
+        "label": "GAP Journal",
+        "value": "GAP Journal"
+      },
+      {
+        "key": "copy_kryj7x",
+        "kind": "text",
+        "label": "Explore our support",
+        "value": "Explore our support"
+      },
+      {
+        "key": "copy_1seye22",
+        "kind": "text",
+        "label": "Read more",
+        "value": "Read more"
+      }
+    ]
+  },
+  {
+    "key": "home-partners",
+    "title": "Home / Partners",
+    "sortOrder": 60,
+    "entries": [
+      {
+        "key": "copy_1b5hq04",
+        "kind": "text",
+        "label": "Our partners",
+        "value": "Our partners"
+      },
+      {
+        "key": "copy_h49l64",
+        "kind": "text",
+        "label": "Partner institutions",
+        "value": "Partner institutions"
+      },
+      {
+        "key": "copy_1vm0axe",
+        "kind": "text",
+        "label": "Partner information will be available soon.",
+        "value": "Partner information will be available soon."
+      }
+    ]
+  },
+  {
+    "key": "home-cta",
+    "title": "Home / Closing invitation",
+    "sortOrder": 70,
+    "entries": [
+      {
+        "key": "copy_bcauy5",
+        "kind": "text",
+        "label": "Ready when you are",
+        "value": "Ready when you are"
+      },
+      {
+        "key": "copy_rpcbxs",
+        "kind": "text",
+        "label": "Let's map your route to the world.",
+        "value": "Let's map your route to the world."
+      },
+      {
+        "key": "copy_1f59r0c",
+        "kind": "text",
+        "label": "Tell us where you would like to study, and a GAP adviser will help you take the first step",
+        "value": "Tell us where you would like to study, and a GAP adviser will help you take the first step."
+      },
+      {
+        "key": "copy_1mjudxf",
+        "kind": "text",
+        "label": "or explore",
+        "value": "or explore"
+      }
+    ]
+  },
+  {
+    "key": "trust-strip",
+    "title": "Shared / Trust badges",
+    "sortOrder": 80,
+    "entries": [
+      {
+        "key": "copy_ldchls",
+        "kind": "text",
+        "label": "Human-led guidance",
+        "value": "Human-led guidance"
+      },
+      {
+        "key": "copy_1x6dvpk",
+        "kind": "text",
+        "label": "Clear next steps",
+        "value": "Clear next steps"
+      },
+      {
+        "key": "copy_49721h",
+        "kind": "text",
+        "label": "Trusted destinations",
+        "value": "Trusted destinations"
+      }
+    ]
+  },
+  {
+    "key": "header",
+    "title": "Shared / Header",
+    "sortOrder": 90,
+    "entries": [
+      {
+        "key": "copy_huzdti",
+        "kind": "text",
+        "label": "GAP home",
+        "value": "GAP home"
+      },
+      {
+        "key": "copy_18p2jy3",
+        "kind": "image",
+        "label": "Image URL",
+        "value": "/images/gap-logo.webp"
+      },
+      {
+        "key": "copy_1ieddy2",
+        "kind": "text",
+        "label": "Global Admission Platform",
+        "value": "Global Admission Platform"
+      },
+      {
+        "key": "copy_1iucaq2",
+        "kind": "text",
+        "label": "Main navigation",
+        "value": "Main navigation"
+      },
+      {
+        "key": "copy_n0mxf2",
+        "kind": "text",
+        "label": "Home",
+        "value": "Home"
+      },
+      {
+        "key": "copy_rnv8lx",
+        "kind": "text",
+        "label": "Services",
+        "value": "Services"
+      },
+      {
+        "key": "copy_onrqou",
+        "kind": "text",
+        "label": "About",
+        "value": "About"
+      }
+    ]
+  },
+  {
+    "key": "footer",
+    "title": "Shared / Footer",
+    "sortOrder": 100,
+    "entries": [
+      {
+        "key": "copy_huzdti",
+        "kind": "text",
+        "label": "GAP home",
+        "value": "GAP home"
+      },
+      {
+        "key": "copy_18p2jy3",
+        "kind": "image",
+        "label": "Image URL",
+        "value": "/images/gap-logo.webp"
+      },
+      {
+        "key": "copy_1ieddy2",
+        "kind": "text",
+        "label": "Global Admission Platform",
+        "value": "Global Admission Platform"
+      },
+      {
+        "key": "copy_147pa4q",
+        "kind": "text",
+        "label": "Global education guidance from first conversation to final departure.",
+        "value": "Global education guidance from first conversation to final departure."
+      },
+      {
+        "key": "copy_ljbnj0",
+        "kind": "text",
+        "label": "Explore",
+        "value": "Explore"
+      },
+      {
+        "key": "copy_n0mxf2",
+        "kind": "text",
+        "label": "Home",
+        "value": "Home"
+      },
+      {
+        "key": "copy_rnv8lx",
+        "kind": "text",
+        "label": "Services",
+        "value": "Services"
+      },
+      {
+        "key": "copy_onrqou",
+        "kind": "text",
+        "label": "About",
+        "value": "About"
+      },
+      {
+        "key": "copy_xboev8",
+        "kind": "text",
+        "label": "Destinations",
+        "value": "Destinations"
+      },
+      {
+        "key": "copy_w3fq2r",
+        "kind": "text",
+        "label": "Contact",
+        "value": "Contact"
+      },
+      {
+        "key": "copy_cjmpmo",
+        "kind": "text",
+        "label": "Visit us",
+        "value": "Visit us"
+      },
+      {
+        "key": "copy_17uff4b",
+        "kind": "text",
+        "label": "Call us",
+        "value": "Call us"
+      },
+      {
+        "key": "copy_9ttas9",
+        "kind": "text",
+        "label": "Email us",
+        "value": "Email us"
+      },
+      {
+        "key": "copy_q2pual",
+        "kind": "text",
+        "label": "Start a conversation with our team about your study plans.",
+        "value": "Start a conversation with our team about your study plans."
+      },
+      {
+        "key": "copy_1ainxb8",
+        "kind": "text",
+        "label": "Follow us",
+        "value": "Follow us"
+      },
+      {
+        "key": "copy_1q1tedb",
+        "kind": "text",
+        "label": ". All rights reserved.",
+        "value": ". All rights reserved."
+      }
+    ]
+  },
+  {
+    "key": "mobile-navigation",
+    "title": "Shared / Mobile navigation",
+    "sortOrder": 110,
+    "entries": [
+      {
+        "key": "copy_1l5ighf",
+        "kind": "text",
+        "label": "Mobile navigation",
+        "value": "Mobile navigation"
+      },
+      {
+        "key": "copy_n0mxf2",
+        "kind": "text",
+        "label": "Home",
+        "value": "Home"
+      },
+      {
+        "key": "copy_rnv8lx",
+        "kind": "text",
+        "label": "Services",
+        "value": "Services"
+      },
+      {
+        "key": "copy_onrqou",
+        "kind": "text",
+        "label": "About",
+        "value": "About"
+      }
+    ]
+  },
+  {
+    "key": "country-menu",
+    "title": "Shared / Country menu",
+    "sortOrder": 120,
+    "entries": [
+      {
+        "key": "copy_8zhvfx",
+        "kind": "text",
+        "label": "Countries",
+        "value": "Countries"
+      },
+      {
+        "key": "copy_z2r27b",
+        "kind": "text",
+        "label": "Study destinations",
+        "value": "Study destinations"
+      }
+    ]
+  },
+  {
+    "key": "enquiry-form",
+    "title": "Forms / Enquiry dialog",
+    "sortOrder": 130,
+    "entries": [
+      {
+        "key": "copy_1m303g5",
+        "kind": "text",
+        "label": "You’re on your way.",
+        "value": "You’re on your way."
+      },
+      {
+        "key": "copy_ilzqr5",
+        "kind": "text",
+        "label": "Thanks for reaching out. Our team will contact you shortly.",
+        "value": "Thanks for reaching out. Our team will contact you shortly."
+      },
+      {
+        "key": "copy_17y4a1f",
+        "kind": "text",
+        "label": "Apply now",
+        "value": "Apply now"
+      },
+      {
+        "key": "copy_1oltow8",
+        "kind": "text",
+        "label": "Start your journey.",
+        "value": "Start your journey."
+      },
+      {
+        "key": "copy_1k9p6zk",
+        "kind": "text",
+        "label": "Tell us a little about your study-abroad plans.",
+        "value": "Tell us a little about your study-abroad plans."
+      },
+      {
+        "key": "copy_13z0t9r",
+        "kind": "text",
+        "label": "Full name",
+        "value": "Full name"
+      },
+      {
+        "key": "copy_1cdit03",
+        "kind": "text",
+        "label": "Email address",
+        "value": "Email address"
+      },
+      {
+        "key": "copy_gc0vlk",
+        "kind": "text",
+        "label": "Phone number",
+        "value": "Phone number"
+      },
+      {
+        "key": "copy_jrftt0",
+        "kind": "text",
+        "label": "Interested country",
+        "value": "Interested country"
+      },
+      {
+        "key": "copy_1vu6a7m",
+        "kind": "text",
+        "label": "Tell us about your goals",
+        "value": "Tell us about your goals"
+      },
+      {
+        "key": "copy_ruylux",
+        "kind": "text",
+        "label": "Submitting…",
+        "value": "Submitting…"
+      },
+      {
+        "key": "copy_1w2kg1t",
+        "kind": "text",
+        "label": "Submit interest",
+        "value": "Submit interest"
+      },
+      {
+        "key": "copy_glte7n",
+        "label": "Default button label",
+        "kind": "text",
+        "value": "Apply Now"
+      }
+    ]
+  },
+  {
+    "key": "application-form",
+    "title": "Forms / Application",
+    "sortOrder": 140,
+    "entries": [
+      {
+        "key": "copy_1tos2t6",
+        "kind": "text",
+        "label": "Application received.",
+        "value": "Application received."
+      },
+      {
+        "key": "copy_s91rtv",
+        "kind": "text",
+        "label": "Keep this reference for your records.",
+        "value": "Keep this reference for your records."
+      },
+      {
+        "key": "copy_17cf8ws",
+        "kind": "text",
+        "label": "A GAP adviser will review your profile and contact you about the next steps.",
+        "value": "A GAP adviser will review your profile and contact you about the next steps."
+      },
+      {
+        "key": "copy_1817glj",
+        "kind": "text",
+        "label": "Your study plans",
+        "value": "Your study plans"
+      },
+      {
+        "key": "copy_13z0t9r",
+        "kind": "text",
+        "label": "Full name",
+        "value": "Full name "
+      },
+      {
+        "key": "copy_1cdit03",
+        "kind": "text",
+        "label": "Email address",
+        "value": "Email address "
+      },
+      {
+        "key": "copy_137tc7z",
+        "kind": "text",
+        "label": "Phone number (optional)",
+        "value": "Phone number (optional) "
+      },
+      {
+        "key": "copy_11c7r6w",
+        "kind": "text",
+        "label": "Study level",
+        "value": "Study level"
+      },
+      {
+        "key": "copy_bilagn",
+        "kind": "text",
+        "label": "Choose study level",
+        "value": "Choose study level"
+      },
+      {
+        "key": "copy_1mr0jd0",
+        "kind": "text",
+        "label": "Foundation",
+        "value": "Foundation"
+      },
+      {
+        "key": "copy_67sm04",
+        "kind": "text",
+        "label": "Undergraduate",
+        "value": "Undergraduate"
+      },
+      {
+        "key": "copy_1aj2lme",
+        "kind": "text",
+        "label": "Postgraduate",
+        "value": "Postgraduate"
+      },
+      {
+        "key": "copy_1koktv7",
+        "kind": "text",
+        "label": "PhD",
+        "value": "PhD"
+      },
+      {
+        "key": "copy_ukzedx",
+        "kind": "text",
+        "label": "Other",
+        "value": "Other"
+      },
+      {
+        "key": "copy_gfzm1r",
+        "kind": "text",
+        "label": "Destination",
+        "value": "Destination"
+      },
+      {
+        "key": "copy_yeusw0",
+        "kind": "text",
+        "label": "Choose destination",
+        "value": "Choose destination"
+      },
+      {
+        "key": "copy_19g1q04",
+        "kind": "text",
+        "label": "University (optional)",
+        "value": "University (optional)"
+      },
+      {
+        "key": "copy_zejb3h",
+        "kind": "text",
+        "label": "Help me choose",
+        "value": "Help me choose"
+      },
+      {
+        "key": "copy_1p88ymt",
+        "kind": "text",
+        "label": "Preferred intake (optional)",
+        "value": "Preferred intake (optional)"
+      },
+      {
+        "key": "copy_1yxwzk",
+        "kind": "text",
+        "label": "e.g. February 2027",
+        "value": "e.g. February 2027"
+      },
+      {
+        "key": "copy_i7c2hv",
+        "kind": "text",
+        "label": "Loading study destinations…",
+        "value": "Loading study destinations…"
+      },
+      {
+        "key": "copy_3w0575",
+        "kind": "text",
+        "label": "We couldn't load the study destinations. Your details are still here.",
+        "value": "We couldn't load the study destinations. Your details are still here."
+      },
+      {
+        "key": "copy_982hh6",
+        "kind": "text",
+        "label": "Try again",
+        "value": "Try again"
+      },
+      {
+        "key": "copy_1yjarrk",
+        "kind": "text",
+        "label": "Online applications are not available yet. Use Apply Now to speak with an adviser about yo",
+        "value": "Online applications are not available yet. Use Apply Now to speak with an adviser about your destination."
+      },
+      {
+        "key": "copy_vgb8hi",
+        "kind": "text",
+        "label": "Your study goals (optional)",
+        "value": "Your study goals (optional)"
+      },
+      {
+        "key": "copy_167jt0e",
+        "kind": "text",
+        "label": "After submission, an adviser will explain how to provide any required documents securely.",
+        "value": "After submission, an adviser will explain how to provide any required documents securely."
+      },
+      {
+        "key": "copy_ruylux",
+        "kind": "text",
+        "label": "Submitting…",
+        "value": "Submitting…"
+      },
+      {
+        "key": "copy_tzqxj",
+        "kind": "text",
+        "label": "Submit application",
+        "value": "Submit application"
+      }
+    ]
+  },
+  {
+    "key": "university-filters",
+    "title": "Universities / Search and filters",
+    "sortOrder": 150,
+    "entries": [
+      {
+        "key": "copy_veaz1r",
+        "kind": "text",
+        "label": "Search universities",
+        "value": "Search universities"
+      },
+      {
+        "key": "copy_u63ew3",
+        "kind": "text",
+        "label": "Search university or city",
+        "value": "Search university or city"
+      },
+      {
+        "key": "copy_1ws7ym6",
+        "kind": "text",
+        "label": "Filter by country",
+        "value": "Filter by country"
+      },
+      {
+        "key": "copy_15yu7om",
+        "kind": "text",
+        "label": "All countries",
+        "value": "All countries"
+      },
+      {
+        "key": "copy_hrce9g",
+        "kind": "text",
+        "label": "No universities match your search.",
+        "value": "No universities match your search."
+      },
+      {
+        "key": "copy_chwl5v",
+        "kind": "text",
+        "label": "Try another name or destination, or clear the filters to see all available universities.",
+        "value": "Try another name or destination, or clear the filters to see all available universities."
+      },
+      {
+        "key": "copy_a043pl",
+        "kind": "text",
+        "label": "Clear filters",
+        "value": "Clear filters"
+      }
+    ]
+  },
+  {
+    "key": "university-card",
+    "title": "Universities / Cards",
+    "sortOrder": 160,
+    "entries": [
+      {
+        "key": "copy_x3ftbv",
+        "kind": "text",
+        "label": "Featured",
+        "value": "Featured"
+      },
+      {
+        "key": "copy_xtfbu0",
+        "kind": "text",
+        "label": "View university",
+        "value": "View university "
+      }
+    ]
+  },
+  {
+    "key": "about-page",
+    "title": "About / Page content",
+    "sortOrder": 170,
+    "entries": [
+      {
+        "key": "copy_onrqou",
+        "kind": "text",
+        "label": "About",
+        "value": "About"
+      },
+      {
+        "key": "copy_1n2w9ux",
+        "kind": "text",
+        "label": "Get to know Global Admission Platform and our personal approach to study-abroad counsellin",
+        "value": "Get to know Global Admission Platform and our personal approach to study-abroad counselling, university selection and admission support."
+      },
+      {
+        "key": "copy_ush39g",
+        "kind": "text",
+        "label": "People come first",
+        "value": "People come first"
+      },
+      {
+        "key": "copy_1g6f0ym",
+        "kind": "text",
+        "label": "Your background, ambitions and concerns shape the conversation. We take time to understand",
+        "value": "Your background, ambitions and concerns shape the conversation. We take time to understand your story before helping you plan your next step."
+      },
+      {
+        "key": "copy_3250xj",
+        "kind": "text",
+        "label": "Choices with purpose",
+        "value": "Choices with purpose"
+      },
+      {
+        "key": "copy_1318dwo",
+        "kind": "text",
+        "label": "We help you compare destinations, universities and programs around your academic interests",
+        "value": "We help you compare destinations, universities and programs around your academic interests, budget and future plans."
+      },
+      {
+        "key": "copy_1xvs5ir",
+        "kind": "text",
+        "label": "Clarity at every step",
+        "value": "Clarity at every step"
+      },
+      {
+        "key": "copy_egimdy",
+        "kind": "text",
+        "label": "From preparing documents to understanding enrollment, we break the journey into practical ",
+        "value": "From preparing documents to understanding enrollment, we break the journey into practical steps so you know what comes next."
+      },
+      {
+        "key": "copy_3pj33a",
+        "kind": "text",
+        "label": "About GAP",
+        "value": "About GAP"
+      },
+      {
+        "key": "copy_1ar3lfu",
+        "kind": "text",
+        "label": "Global education.",
+        "value": "Global education."
+      },
+      {
+        "key": "copy_18n7xd6",
+        "kind": "text",
+        "label": "Human guidance.",
+        "value": "Human guidance."
+      },
+      {
+        "key": "copy_8x4366",
+        "kind": "text",
+        "label": "Global Admission Platform brings counselling, university and program selection, and admiss",
+        "value": "Global Admission Platform brings counselling, university and program selection, and admission support into one guided journey. We help students make informed choices and move forward with confidence."
+      },
+      {
+        "key": "copy_5pjhuh",
+        "kind": "text",
+        "label": "Every student has a story. Your study plans should reflect yours.",
+        "value": "Every student has a story. Your study plans should reflect yours."
+      },
+      {
+        "key": "copy_2xl4op",
+        "kind": "text",
+        "label": "Personal, one-to-one guidance from your first question to your next chapter.",
+        "value": "Personal, one-to-one guidance from your first question to your next chapter."
+      },
+      {
+        "key": "copy_113hc6n",
+        "kind": "text",
+        "label": "Our purpose",
+        "value": "Our purpose"
+      },
+      {
+        "key": "copy_q4wctv",
+        "kind": "text",
+        "label": "A clearer path to your next chapter.",
+        "value": "A clearer path to your next chapter."
+      },
+      {
+        "key": "copy_jtn1r7",
+        "kind": "text",
+        "label": "Studying abroad starts with big questions: where to go, what to study and how to get there",
+        "value": "Studying abroad starts with big questions: where to go, what to study and how to get there. Our purpose is to make those decisions easier to understand, with guidance that puts your goals at the centre."
+      },
+      {
+        "key": "copy_xvt7dr",
+        "kind": "text",
+        "label": "We bring the steps together, from exploring your options and building a university shortli",
+        "value": "We bring the steps together, from exploring your options and building a university shortlist to preparing applications and getting ready for departure. You can start with a clear ambition or simply a question."
+      },
+      {
+        "key": "copy_1ymx31v",
+        "kind": "text",
+        "label": "Our approach",
+        "value": "Our approach"
+      },
+      {
+        "key": "copy_q459un",
+        "kind": "text",
+        "label": "Built around you.",
+        "value": "Built around you."
+      },
+      {
+        "key": "copy_1eyqc61",
+        "kind": "text",
+        "label": "Your next chapter starts with a conversation.",
+        "value": "Your next chapter starts with a conversation."
+      },
+      {
+        "key": "copy_ix29lo",
+        "kind": "text",
+        "label": "Tell us where you are now and where you would like to go. We will help you explore the nex",
+        "value": "Tell us where you are now and where you would like to go. We will help you explore the next steps."
+      },
+      {
+        "key": "copy_skutuk",
+        "kind": "text",
+        "label": "Explore services",
+        "value": "Explore services "
+      }
+    ]
+  },
+  {
+    "key": "services-page",
+    "title": "Services / Page content and questions",
+    "sortOrder": 180,
+    "entries": [
+      {
+        "key": "copy_1fmr7ax",
+        "kind": "text",
+        "label": "Do I need to choose a university before I contact GAP?",
+        "value": "Do I need to choose a university before I contact GAP?"
+      },
+      {
+        "key": "copy_1gtjrx",
+        "kind": "text",
+        "label": "No. Many students start with only a rough idea. An adviser helps you compare options and b",
+        "value": "No. Many students start with only a rough idea. An adviser helps you compare options and build a shortlist that fits your goals."
+      },
+      {
+        "key": "copy_ffmppb",
+        "kind": "text",
+        "label": "Can I compare destinations with other options?",
+        "value": "Can I compare destinations with other options?"
+      },
+      {
+        "key": "copy_yylfgg",
+        "kind": "text",
+        "label": "Yes. You can explore more than one destination before you decide, and an adviser can help ",
+        "value": "Yes. You can explore more than one destination before you decide, and an adviser can help you weigh them up side by side."
+      },
+      {
+        "key": "copy_1bcds2q",
+        "kind": "text",
+        "label": "What does GAP help with?",
+        "value": "What does GAP help with?"
+      },
+      {
+        "key": "copy_5rwu8t",
+        "kind": "text",
+        "label": "Counselling, university and program selection, admission and enrollment support, and guida",
+        "value": "Counselling, university and program selection, admission and enrollment support, and guidance to prepare you for departure."
+      },
+      {
+        "key": "copy_19bip53",
+        "kind": "text",
+        "label": "When should I get started?",
+        "value": "When should I get started?"
+      },
+      {
+        "key": "copy_7zpjye",
+        "kind": "text",
+        "label": "As early as you can. Intakes and deadlines vary by university and program, so an early con",
+        "value": "As early as you can. Intakes and deadlines vary by university and program, so an early conversation gives you more time to prepare."
+      },
+      {
+        "key": "copy_rnv8lx",
+        "kind": "text",
+        "label": "Services",
+        "value": "Services"
+      },
+      {
+        "key": "copy_dd7j2g",
+        "kind": "text",
+        "label": "Guidance that turns",
+        "value": "Guidance that turns "
+      },
+      {
+        "key": "copy_1epv25v",
+        "kind": "text",
+        "label": "plans",
+        "value": "plans"
+      },
+      {
+        "key": "copy_e0adck",
+        "kind": "text",
+        "label": "into progress.",
+        "value": " into progress."
+      },
+      {
+        "key": "copy_30augm",
+        "kind": "text",
+        "label": "A repeatable, human-led support system for students preparing to study abroad.",
+        "value": "A repeatable, human-led support system for students preparing to study abroad."
+      },
+      {
+        "key": "copy_1xklz5a",
+        "kind": "text",
+        "label": "What we do",
+        "value": "What we do"
+      },
+      {
+        "key": "copy_80mhlu",
+        "kind": "text",
+        "label": "Questions",
+        "value": "Questions"
+      },
+      {
+        "key": "copy_1fwg4uu",
+        "kind": "text",
+        "label": "Good to know before you start.",
+        "value": "Good to know before you start."
+      }
+    ]
+  },
+  {
+    "key": "universities-page",
+    "title": "Universities / Directory introduction",
+    "sortOrder": 190,
+    "entries": [
+      {
+        "key": "copy_1xquivh",
+        "kind": "text",
+        "label": "Universities | GAP",
+        "value": "Universities | GAP"
+      },
+      {
+        "key": "copy_1nndbed",
+        "kind": "text",
+        "label": "Explore universities and study destinations supported by Global Admission Platform.",
+        "value": "Explore universities and study destinations supported by Global Admission Platform."
+      },
+      {
+        "key": "copy_1mucq37",
+        "kind": "text",
+        "label": "University discovery",
+        "value": "University discovery"
+      },
+      {
+        "key": "copy_16h7v9o",
+        "kind": "text",
+        "label": "Find a university that fits",
+        "value": "Find a university that fits "
+      },
+      {
+        "key": "copy_sw7f07",
+        "kind": "text",
+        "label": "your direction.",
+        "value": "your direction."
+      },
+      {
+        "key": "copy_2uakml",
+        "kind": "text",
+        "label": "Explore GAP-supported institutions by destination and location, then speak with our team a",
+        "value": "Explore GAP-supported institutions by destination and location, then speak with our team about programs and admission requirements."
+      },
+      {
+        "key": "copy_2rbtze",
+        "kind": "text",
+        "label": "Let's find your university together.",
+        "value": "Let's find your university together."
+      },
+      {
+        "key": "copy_1qwwqtp",
+        "kind": "text",
+        "label": "Our university directory is being prepared. An adviser can help you explore destinations a",
+        "value": "Our university directory is being prepared. An adviser can help you explore destinations and build a shortlist that fits your goals."
+      },
+      {
+        "key": "copy_wn55dd",
+        "kind": "text",
+        "label": "Get university guidance",
+        "value": "Get university guidance"
+      }
+    ]
+  },
+  {
+    "key": "university-page",
+    "title": "Universities / Profile template",
+    "sortOrder": 200,
+    "entries": [
+      {
+        "key": "copy_x8qgq9",
+        "kind": "text",
+        "label": "University | GAP",
+        "value": "University | GAP"
+      },
+      {
+        "key": "copy_1fuy9ow",
+        "kind": "text",
+        "label": "All universities",
+        "value": " All universities"
+      },
+      {
+        "key": "copy_1psu6d0",
+        "kind": "text",
+        "label": "University profile",
+        "value": "University profile"
+      },
+      {
+        "key": "copy_1t8tteg",
+        "kind": "text",
+        "label": "University website",
+        "value": "University website "
+      },
+      {
+        "key": "copy_thnxru",
+        "kind": "text",
+        "label": "Overview",
+        "value": "Overview"
+      },
+      {
+        "key": "copy_onrqou",
+        "kind": "text",
+        "label": "About",
+        "value": "About "
+      },
+      {
+        "key": "copy_v02sa1",
+        "kind": "text",
+        "label": "Why consider this university?",
+        "value": "Why consider this university?"
+      },
+      {
+        "key": "copy_7332o6",
+        "kind": "text",
+        "label": "Discuss suitable programs with a GAP counsellor",
+        "value": "Discuss suitable programs with a GAP counsellor"
+      },
+      {
+        "key": "copy_19jg2qe",
+        "kind": "text",
+        "label": "Review entry requirements for your profile",
+        "value": "Review entry requirements for your profile"
+      },
+      {
+        "key": "copy_vtir4y",
+        "kind": "text",
+        "label": "Build a clear application plan",
+        "value": "Build a clear application plan"
+      },
+      {
+        "key": "copy_40sdg6",
+        "kind": "text",
+        "label": "Explore studying in",
+        "value": "Explore studying in "
+      }
+    ]
+  },
+  {
+    "key": "country-page",
+    "title": "Countries / Page template",
+    "sortOrder": 210,
+    "entries": [
+      {
+        "key": "copy_j2o2rx",
+        "kind": "text",
+        "label": "Talk to an adviser",
+        "value": "Talk to an adviser"
+      },
+      {
+        "key": "copy_bo0cz8",
+        "kind": "text",
+        "label": "Build your shortlist",
+        "value": "Build your shortlist"
+      },
+      {
+        "key": "copy_1bb19ni",
+        "kind": "text",
+        "label": "Compare universities and programs that fit your profile and budget.",
+        "value": "Compare universities and programs that fit your profile and budget."
+      },
+      {
+        "key": "copy_11ggoqy",
+        "kind": "text",
+        "label": "Apply with support",
+        "value": "Apply with support"
+      },
+      {
+        "key": "copy_1fx7aer",
+        "kind": "text",
+        "label": "Prepare documents and submit your applications accurately and on time.",
+        "value": "Prepare documents and submit your applications accurately and on time."
+      },
+      {
+        "key": "copy_1vhens4",
+        "kind": "text",
+        "label": "Get ready to fly",
+        "value": "Get ready to fly"
+      },
+      {
+        "key": "copy_k9hrsm",
+        "kind": "text",
+        "label": "Prepare for departure so you arrive informed and confident.",
+        "value": "Prepare for departure so you arrive informed and confident."
+      },
+      {
+        "key": "copy_cz773i",
+        "kind": "text",
+        "label": "Study destination",
+        "value": "Study destination"
+      },
+      {
+        "key": "copy_1og5xpx",
+        "kind": "text",
+        "label": "Study in",
+        "value": "Study in "
+      },
+      {
+        "key": "copy_1swttbz",
+        "kind": "text",
+        "label": "Discover study options, admission guidance, and university pathways for this destination.",
+        "value": "Discover study options, admission guidance, and university pathways for this destination."
+      },
+      {
+        "key": "copy_xvrllg",
+        "kind": "text",
+        "label": "See universities",
+        "value": "See universities "
+      },
+      {
+        "key": "copy_14m1ztv",
+        "kind": "text",
+        "label": "Why this destination",
+        "value": "Why this destination"
+      },
+      {
+        "key": "copy_md0rik",
+        "kind": "text",
+        "label": "Choose with your goals in mind.",
+        "value": "Choose with your goals in mind."
+      },
+      {
+        "key": "copy_11ajcbk",
+        "kind": "text",
+        "label": "GAP combines destination guidance, university selection, and application support into one ",
+        "value": "GAP combines destination guidance, university selection, and application support into one practical journey, so you can compare "
+      },
+      {
+        "key": "copy_ksrqi7",
+        "kind": "text",
+        "label": "with your goals, your budget and your plans for the future.",
+        "value": " with your goals, your budget and your plans for the future."
+      },
+      {
+        "key": "copy_kryj7x",
+        "kind": "text",
+        "label": "Explore our support",
+        "value": "Explore our support "
+      },
+      {
+        "key": "copy_amvggi",
+        "kind": "text",
+        "label": "Student life",
+        "value": "Student life"
+      },
+      {
+        "key": "copy_qv9iml",
+        "kind": "text",
+        "label": "A glimpse of life in",
+        "value": "A glimpse of life in "
+      },
+      {
+        "key": "copy_lfszb",
+        "kind": "text",
+        "label": "Your route",
+        "value": "Your route"
+      },
+      {
+        "key": "copy_1w90w8m",
+        "kind": "text",
+        "label": "From first question to",
+        "value": "From first question to "
+      },
+      {
+        "key": "copy_63rbcf",
+        "kind": "text",
+        "label": "University options",
+        "value": "University options"
+      },
+      {
+        "key": "copy_7ip5mv",
+        "kind": "text",
+        "label": "Explore universities in",
+        "value": "Explore universities in "
+      },
+      {
+        "key": "copy_zewoxt",
+        "kind": "text",
+        "label": "View all universities",
+        "value": "View all universities"
+      },
+      {
+        "key": "copy_1fc6u0m",
+        "kind": "text",
+        "label": "Reviews",
+        "value": "Reviews"
+      },
+      {
+        "key": "copy_1ofpwhy",
+        "kind": "text",
+        "label": "From the blog",
+        "value": "From the blog"
+      },
+      {
+        "key": "copy_qomtld",
+        "kind": "text",
+        "label": "Read before you decide.",
+        "value": "Read before you decide."
+      },
+      {
+        "key": "copy_1seye22",
+        "kind": "text",
+        "label": "Read more",
+        "value": "Read more "
+      },
+      {
+        "key": "copy_1uldevw",
+        "kind": "text",
+        "label": "Ready to plan your journey to",
+        "value": "Ready to plan your journey to "
+      },
+      {
+        "key": "copy_nm7vpq",
+        "kind": "text",
+        "label": "Start with a conversation and we will help you understand your next step.",
+        "value": "Start with a conversation and we will help you understand your next step."
+      },
+      {
+        "key": "copy_k9umfj",
+        "kind": "text",
+        "label": "Exploring other destinations?",
+        "value": "Exploring other destinations?"
+      },
+      {
+        "key": "copy_1o255dq",
+        "label": "Share your goals and ask anything about studying in {country}.",
+        "kind": "text",
+        "value": "Share your goals and ask anything about studying in {country}."
+      },
+      {
+        "key": "copy_w7adgg",
+        "label": "GAP Journal",
+        "kind": "text",
+        "value": "GAP Journal"
+      },
+      {
+        "key": "copy_1tghyhu",
+        "label": "Students who started with a conversation",
+        "kind": "text",
+        "value": "Students who started with a conversation"
+      }
+    ]
+  },
+  {
+    "key": "news-page",
+    "title": "News / Directory",
+    "sortOrder": 220,
+    "entries": [
+      {
+        "key": "copy_w7adgg",
+        "kind": "text",
+        "label": "GAP Journal",
+        "value": "GAP Journal"
+      },
+      {
+        "key": "copy_jbs1cg",
+        "kind": "text",
+        "label": "Study-abroad guidance, application advice and destination insights from GAP.",
+        "value": "Study-abroad guidance, application advice and destination insights from GAP."
+      },
+      {
+        "key": "copy_1ky0yvn",
+        "kind": "text",
+        "label": "Useful guidance for your",
+        "value": "Useful guidance for your "
+      },
+      {
+        "key": "copy_1fjrmkx",
+        "kind": "text",
+        "label": "next move.",
+        "value": "next move."
+      },
+      {
+        "key": "copy_g2vdr4",
+        "kind": "text",
+        "label": "Practical articles about destinations, university applications and preparing to study abro",
+        "value": "Practical articles about destinations, university applications and preparing to study abroad."
+      },
+      {
+        "key": "copy_1s56aq7",
+        "kind": "text",
+        "label": "Read article",
+        "value": "Read article "
+      },
+      {
+        "key": "copy_meefiz",
+        "kind": "text",
+        "label": "Fresh guidance is on its way.",
+        "value": "Fresh guidance is on its way."
+      },
+      {
+        "key": "copy_yl1fj6",
+        "kind": "text",
+        "label": "Our next articles are being prepared. For advice on your own study plans, start a conversa",
+        "value": "Our next articles are being prepared. For advice on your own study plans, start a conversation with an adviser."
+      },
+      {
+        "key": "copy_eh1qf3",
+        "kind": "text",
+        "label": "Ask an adviser",
+        "value": "Ask an adviser"
+      }
+    ]
+  },
+  {
+    "key": "article-page",
+    "title": "News / Article template",
+    "sortOrder": 230,
+    "entries": [
+      {
+        "key": "copy_fy3q0s",
+        "kind": "text",
+        "label": "Back to journal",
+        "value": " Back to journal"
+      },
+      {
+        "key": "copy_w7adgg",
+        "kind": "text",
+        "label": "GAP Journal",
+        "value": "GAP Journal"
+      },
+      {
+        "key": "copy_1f8qmyw",
+        "kind": "text",
+        "label": "Need personal guidance?",
+        "value": "Need personal guidance?"
+      },
+      {
+        "key": "copy_12knm7r",
+        "kind": "text",
+        "label": "Turn your research into a clear application plan.",
+        "value": "Turn your research into a clear application plan."
+      }
+    ]
+  },
+  {
+    "key": "apply-page",
+    "title": "Apply / Introduction",
+    "sortOrder": 240,
+    "entries": [
+      {
+        "key": "copy_j0ttqg",
+        "kind": "text",
+        "label": "Start an Application | GAP",
+        "value": "Start an Application | GAP"
+      },
+      {
+        "key": "copy_1y03vl0",
+        "kind": "text",
+        "label": "Start your study-abroad application with Global Admission Platform.",
+        "value": "Start your study-abroad application with Global Admission Platform."
+      },
+      {
+        "key": "copy_1n7wqha",
+        "kind": "text",
+        "label": "Student application",
+        "value": "Student application"
+      },
+      {
+        "key": "copy_jo30t",
+        "kind": "text",
+        "label": "Turn your plan into an",
+        "value": "Turn your plan into an "
+      },
+      {
+        "key": "copy_1ats229",
+        "kind": "text",
+        "label": "application.",
+        "value": "application."
+      },
+      {
+        "key": "copy_zg8c9r",
+        "kind": "text",
+        "label": "Share your destination, study level, and preferred university. GAP can then review the pro",
+        "value": "Share your destination, study level, and preferred university. GAP can then review the profile and guide the next steps."
+      },
+      {
+        "key": "copy_1ab3u47",
+        "kind": "text",
+        "label": "What happens next",
+        "value": "What happens next"
+      },
+      {
+        "key": "copy_1bn37p2",
+        "kind": "text",
+        "label": "A visible application journey.",
+        "value": "A visible application journey."
+      },
+      {
+        "key": "copy_qypsm8",
+        "kind": "text",
+        "label": "Application submitted",
+        "value": "Application submitted"
+      },
+      {
+        "key": "copy_fsa0gs",
+        "kind": "text",
+        "label": "Profile reviewed by GAP",
+        "value": "Profile reviewed by GAP"
+      },
+      {
+        "key": "copy_1fqyqje",
+        "kind": "text",
+        "label": "Documents prepared",
+        "value": "Documents prepared"
+      },
+      {
+        "key": "copy_1l2vi4a",
+        "kind": "text",
+        "label": "Application sent to university",
+        "value": "Application sent to university"
+      },
+      {
+        "key": "copy_193saz7",
+        "kind": "text",
+        "label": "Offer and enrollment progress",
+        "value": "Offer and enrollment progress"
+      }
+    ]
+  }
+]
