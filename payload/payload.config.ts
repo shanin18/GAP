@@ -1,4 +1,4 @@
-import { buildConfig } from "payload";
+import { buildConfig, type CollectionConfig } from "payload";
 import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
@@ -48,12 +48,37 @@ export default buildConfig({
     Applications,
     Documents,
     SiteSettings,
-  ],
+  ].map((collection): CollectionConfig => ({
+    ...collection,
+    admin: {
+      ...collection.admin,
+      components: {
+        ...collection.admin?.components,
+        edit: {
+          ...collection.admin?.components?.edit,
+          SaveButton: "/components/admin/FormActions#BottomSaveButton",
+          SaveDraftButton: "/components/admin/FormActions#BottomSaveDraftButton",
+          PublishButton: "/components/admin/FormActions#BottomPublishButton",
+        },
+      },
+    },
+    fields: [
+      ...collection.fields,
+      {
+        name: "formActions",
+        type: "ui",
+        admin: {
+          components: { Field: "/components/admin/FormActions#FormActions" },
+        },
+      },
+    ],
+  })),
   editor: lexicalEditor(),
   db: postgresAdapter({
     // Schema inspection over a remote connection is slow. Sync explicitly after
     // collection changes with npm run cms:sync (or cms:initialize).
     push: process.env.PAYLOAD_PUSH_SCHEMA === "true",
+    migrationDir: "./payload/migrations",
     schemaName: env.databaseSchema,
     pool: { connectionString: env.databaseUrl, connectionTimeoutMillis: 10000 },
   }),

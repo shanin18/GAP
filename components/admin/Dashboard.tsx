@@ -1,20 +1,11 @@
 import Link from "next/link";
-import type { CollectionSlug, PayloadRequest, Where } from "payload";
+import type { PayloadRequest } from "payload";
+import { APPLICATION_STATUSES, loadDashboardData } from "@/lib/admin-dashboard-data";
 import { Gutter } from "@payloadcms/ui";
 import { ArrowUpRight, ClipboardList, Clock, FileText, Globe, Inbox, Newspaper, Plus, UserPlus } from "lucide-react";
 
 type Props = { initPageResult: { req: PayloadRequest } };
 
-const APPLICATION_STATUSES = [
-  { value: "submitted", label: "Submitted" },
-  { value: "profile-review", label: "Profile review" },
-  { value: "documents-required", label: "Documents required" },
-  { value: "ready-to-apply", label: "Ready to apply" },
-  { value: "university-submitted", label: "Submitted to university" },
-  { value: "offer-received", label: "Offer received" },
-  { value: "enrolled", label: "Enrolled" },
-  { value: "closed", label: "Closed" },
-];
 const statusLabel = (value?: string | null) =>
   APPLICATION_STATUSES.find((s) => s.value === value)?.label ?? value ?? "";
 const LEAD_STATUS: Record<string, string> = {
@@ -38,39 +29,6 @@ function timeAgo(value?: string | null) {
   return new Date(value).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 }
 
-async function count(req: PayloadRequest, collection: CollectionSlug, where?: Where) {
-  try {
-    const { totalDocs } = await req.payload.count({ collection, where, user: req.user ?? undefined, overrideAccess: false });
-    return totalDocs;
-  } catch {
-    return 0;
-  }
-}
-
-async function recentLeads(req: PayloadRequest) {
-  try {
-    const { docs } = await req.payload.find({
-      collection: "leads", limit: 5, sort: "-createdAt", depth: 0,
-      user: req.user ?? undefined, overrideAccess: false,
-    });
-    return docs;
-  } catch {
-    return [];
-  }
-}
-
-async function recentApplications(req: PayloadRequest) {
-  try {
-    const { docs } = await req.payload.find({
-      collection: "applications", limit: 5, sort: "-createdAt", depth: 1,
-      user: req.user ?? undefined, overrideAccess: false,
-    });
-    return docs;
-  } catch {
-    return [];
-  }
-}
-
 function Stat({ icon: Icon, label, value, hint, href }: { icon: typeof Inbox; label: string; value: number; hint: string; href: string }) {
   return (
     <Link href={href} className="gap-stat">
@@ -85,23 +43,7 @@ function Stat({ icon: Icon, label, value, hint, href }: { icon: typeof Inbox; la
 export async function Dashboard({ initPageResult }: Props) {
   const { req } = initPageResult;
   const admin = req.payload.config.routes.admin;
-  const now = new Date().toISOString();
-  const closed = ["enrolled", "closed"];
-
-  const [totalLeads, totalDocuments, countries, universities, newLeads, openApps, needsUpdate, leadsDue, appsDue, byStatus, leads, applications] = await Promise.all([
-    count(req, "leads"),
-    count(req, "documents"),
-    count(req, "countries"),
-    count(req, "universities"),
-    count(req, "leads", { status: { equals: "new" } }),
-    count(req, "applications", { status: { not_in: closed } }),
-    count(req, "documents", { reviewStatus: { equals: "needs-update" } }),
-    count(req, "leads", { and: [{ followUpAt: { less_than_equal: now } }, { status: { not_in: ["not-proceeding", "application-started"] } }] }),
-    count(req, "applications", { and: [{ nextActionAt: { less_than_equal: now } }, { status: { not_in: closed } }] }),
-    Promise.all(APPLICATION_STATUSES.map((s) => count(req, "applications", { status: { equals: s.value } }))),
-    recentLeads(req),
-    recentApplications(req),
-  ]);
+  const { totalLeads, totalDocuments, countries, universities, newLeads, openApps, needsUpdate, leadsDue, appsDue, byStatus, leads, applications } = await loadDashboardData(req);
 
   const total = byStatus.reduce((a, b) => a + b, 0);
   const max = Math.max(1, ...byStatus);

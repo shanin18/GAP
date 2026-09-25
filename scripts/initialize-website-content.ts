@@ -6,7 +6,7 @@ import { seedData } from "../payload/seed-data";
 import type { WebsiteContent } from "../payload-types";
 
 // Add missing content only. Existing editorial changes are preserved on repeat runs.
-process.env.PAYLOAD_PUSH_SCHEMA = "true";
+process.env.PAYLOAD_PUSH_SCHEMA = process.env.NODE_ENV === "production" ? "false" : "true";
 const { default: config } = await import("../payload/payload.config");
 const payload = await getPayload({ config });
 try {

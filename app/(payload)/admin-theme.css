@@ -165,7 +165,47 @@
 
   /* ---------- Sidebar ---------- */
   .gap-admin .nav {
+    display: flex;
+    flex-direction: column;
     border-inline-end: 1px solid var(--gap-admin-border);
+  }
+
+  .gap-admin .gap-nav__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 0 0 56px;
+    gap: 8px;
+    padding: 6px 16px 6px 65px;
+    border-bottom: 1px solid var(--gap-admin-border);
+  }
+
+  .gap-admin .gap-nav__brand {
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .gap-admin .nav .nav__scroll {
+    flex: 1;
+    min-height: 0;
+    height: auto;
+    padding-top: 8px;
+  }
+
+  .gap-admin .nav-toggler .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    padding: 0;
+  }
+
+  .gap-admin :is(.nav-toggler, .nav__mobile-close):focus-visible {
+    outline: 2px solid var(--gap-admin-primary);
+    outline-offset: 2px;
   }
 
   .gap-nav {
@@ -260,6 +300,185 @@
   }
 
   /* ---------- Form fields ---------- */
+  /* Metadata stays above the form; submission actions live below its fields. */
+  .gap-admin .collection-edit__form > .doc-controls {
+    position: relative;
+    top: auto;
+    background: var(--theme-bg);
+  }
+
+  /* Portalled save buttons must not leave an empty mobile toolbar behind. */
+  .gap-admin .doc-controls__controls-wrapper:not(:has(button, a, .popup)) {
+    display: none;
+  }
+
+  .gap-admin .gap-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  .gap-admin .gap-form-actions:empty {
+    display: none;
+  }
+
+  .gap-admin .gap-form-actions > .form-submit,
+  .gap-admin .gap-form-actions > .btn {
+    flex: 1 1 240px;
+    width: 100%;
+  }
+
+  .gap-admin .gap-form-actions .btn {
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    margin: 0;
+    justify-content: center;
+    font-weight: 700;
+  }
+
+  .gap-nav-backdrop {
+    display: none;
+  }
+
+  .gap-admin .nav__controls {
+    width: 100%;
+  }
+
+  .gap-admin .gap-nav__logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 10px 14px;
+    border: 1px solid var(--gap-admin-border);
+    border-radius: 10px;
+    background: var(--gap-admin-soft);
+    text-decoration: none;
+  }
+
+  @media (max-width: 1024px) {
+    .gap-admin .template-default {
+      display: block;
+      transition: none;
+    }
+
+    .gap-admin .template-default .template-default__wrap {
+      width: 100%;
+      min-width: 0;
+      transform: none;
+    }
+
+    .gap-admin .template-default .nav {
+      display: flex;
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: min(320px, 86vw);
+      height: 100dvh;
+      z-index: 101;
+      background: var(--theme-bg);
+      border-radius: 0;
+      box-shadow: 12px 0 40px #0005;
+      opacity: 1;
+      visibility: hidden;
+      transform: translateX(-100%);
+      transition: transform 220ms ease, visibility 220ms;
+    }
+
+    .gap-admin .template-default .nav--nav-open {
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .gap-admin .gap-nav-backdrop {
+      display: block;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100dvh;
+      border: 0;
+      padding: 0;
+      background: #0008;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 220ms ease, visibility 220ms;
+    }
+
+    .gap-admin .gap-nav-backdrop--open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .gap-admin .gap-nav__header {
+      padding-inline: 16px 8px;
+    }
+
+    .gap-admin .template-default__nav-toggler-wrapper {
+      display: none;
+    }
+
+    .gap-admin .nav__mobile-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      margin-inline-start: auto;
+      padding: 10px;
+      flex: 0 0 44px;
+      color: var(--theme-text);
+      border: 1px solid var(--gap-admin-border);
+      border-radius: 10px;
+      background: var(--gap-admin-soft);
+    }
+  }
+
+  .gap-admin .document-fields__edit {
+    container-type: inline-size;
+    container-name: admin-fields;
+    padding-bottom: 24px;
+  }
+
+  .gap-admin .document-fields__sidebar-wrap {
+    --sidebar-wrap-top: 16px;
+    --sidebar-wrap-height: auto;
+    position: relative;
+    top: auto;
+    align-self: flex-start;
+  }
+
+  .gap-admin .document-fields__sidebar {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .gap-admin .document-fields__sidebar-fields {
+    padding-bottom: 24px;
+  }
+
+  /* Measure the field area, so drawers and narrow previews stay single-column. */
+  @container admin-fields (min-width: 640px) {
+    .gap-admin .document-fields__fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 24px;
+      align-items: start;
+    }
+
+    .gap-admin .document-fields__fields > * {
+      grid-column: 1 / -1;
+    }
+
+    .gap-admin .document-fields__fields > :is(.text, .email, .number, .select, .relationship, .date-time-field):not(.has-many) {
+      grid-column: auto;
+    }
+  }
+
   .gap-admin .field-label {
     font-size: 13px;
     font-weight: 600;
@@ -522,6 +741,34 @@
     min-width: 0;
     align-items: center;
     gap: 16px;
+  }
+
+  /* A small gap avoids doubled borders between independently focused controls. */
+  .gap-admin .relationship__wrap {
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .gap-admin .relationship__wrap .relationship-add-new {
+    flex: 0 0 44px;
+  }
+
+  .gap-admin .relationship__wrap .relationship-add-new__add-button {
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    border: 1px solid var(--gap-admin-border);
+    border-radius: 10px;
+    margin: 0;
+    height: 100%;
+    box-shadow: none;
+    background: var(--theme-input-bg);
+  }
+
+  .gap-admin .relationship__wrap .relationship-add-new__add-button:focus-visible {
+    outline: 2px solid var(--gap-admin-primary);
+    outline-offset: 2px;
+    z-index: 1;
   }
 
   .gap-admin .list-header__title-actions {
@@ -1085,4 +1332,10 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* react-select injects unlayered styles; keep its geometry in the same cascade. */
+.gap-admin .react-select .rs__control {
+  min-height: 44px;
+  border-radius: 10px;
 }

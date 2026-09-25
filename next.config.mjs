@@ -1,4 +1,7 @@
 import { withPayload } from "@payloadcms/next/withPayload";
+import { validateEnvironment } from "./lib/validate-environment.mjs";
+
+validateEnvironment(process.env);
 
 // Comma-separated list of hosts your editors paste image links from, e.g.
 // IMAGE_HOSTS=images.unsplash.com,cdn.example.com

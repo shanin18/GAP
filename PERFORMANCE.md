@@ -18,6 +18,19 @@ Production build, local Chrome, September 25, 2026. Browser measurements cover p
 
 Mobile results use desktop Chrome emulation, not a physical phone. Production server measurements preceded the final browser rendering optimizations. These are local observations, not latency guarantees: cold starts, compilation, cache expiry, devices, hosting and network distance affect results. The initial clean development compilation still took about 24 seconds.
 
+## Admin dashboard data loading
+
+Read-only local measurements on September 25, 2026, using the configured database and a staff user's collection permissions:
+
+| Dashboard data load | Before | After |
+| --- | --- | --- |
+| First load after Payload initialization | 486 ms | 434 ms |
+| Two warm loads | 202–247 ms | 111–114 ms |
+
+The dashboard now derives the open-application total from its existing status counts. Recent-item queries select only displayed fields, populate only country names, and skip unused pagination totals. Private dashboard data remains uncached and permission checked.
+
+Run `npm run payload -- run scripts/benchmark-dashboard.ts` to repeat these read-only measurements. The script loads an existing staff user locally without creating a login session. These numbers cover the dashboard data loader only, excluding HTTP routing, authentication, sidebar queries, rendering, and browser hydration; they are not full route latency measurements. Payload initialization took approximately 1.8 seconds in both runs.
+
 ## Running and checking
 
 Use `npm run build` followed by `npm start` to assess production navigation. `npm run dev` includes compilation and development overhead.

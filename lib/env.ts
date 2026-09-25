@@ -1,4 +1,6 @@
 import { normalizeDatabaseUrl } from "./database-url";
+import { validateEnvironment } from "./validate-environment.mjs";
+validateEnvironment(process.env);
 const production = process.env.NODE_ENV === "production";
 function required(name: string, value?: string) {
   if (production && !value)

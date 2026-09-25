@@ -1,5 +1,7 @@
 # GAP security and deployment checklist
 
+See [DEPLOYMENT.md](DEPLOYMENT.md) for environment validation, migration commands, release ordering, storage, and rollback procedures.
+
 ## Authentication and authorization
 - Payload `users` remains the staff auth collection.
 - `/staff` now requires a valid Payload-authenticated staff session and otherwise redirects to Payload login.
