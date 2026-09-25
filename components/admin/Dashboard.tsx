@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { PayloadRequest, Where } from "payload";
+import type { CollectionSlug, PayloadRequest, Where } from "payload";
 import { Gutter } from "@payloadcms/ui";
 import { ArrowUpRight, ClipboardList, Clock, FileText, Globe, Inbox, Newspaper, Plus, UserPlus } from "lucide-react";
 
@@ -38,7 +38,7 @@ function timeAgo(value?: string | null) {
   return new Date(value).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 }
 
-async function count(req: PayloadRequest, collection: "leads" | "applications" | "documents", where?: Where) {
+async function count(req: PayloadRequest, collection: CollectionSlug, where?: Where) {
   try {
     const { totalDocs } = await req.payload.count({ collection, where, user: req.user ?? undefined, overrideAccess: false });
     return totalDocs;
@@ -88,7 +88,11 @@ export async function Dashboard({ initPageResult }: Props) {
   const now = new Date().toISOString();
   const closed = ["enrolled", "closed"];
 
-  const [newLeads, openApps, needsUpdate, leadsDue, appsDue, byStatus, leads, applications] = await Promise.all([
+  const [totalLeads, totalDocuments, countries, universities, newLeads, openApps, needsUpdate, leadsDue, appsDue, byStatus, leads, applications] = await Promise.all([
+    count(req, "leads"),
+    count(req, "documents"),
+    count(req, "countries"),
+    count(req, "universities"),
     count(req, "leads", { status: { equals: "new" } }),
     count(req, "applications", { status: { not_in: closed } }),
     count(req, "documents", { reviewStatus: { equals: "needs-update" } }),
@@ -108,9 +112,9 @@ export async function Dashboard({ initPageResult }: Props) {
       <div className="gap-dash">
         <header className="gap-dash__head">
           <div>
-            <span className="gap-admin-eyebrow">Overview</span>
-            <h1>Good guidance starts here.</h1>
-            <p>Welcome back, {name}. Here is what needs attention today.</p>
+            <span className="gap-admin-eyebrow">Dashboard</span>
+            <h1>Overall overview</h1>
+            <p>Welcome back, {name}. Your students, applications, and website at a glance.</p>
           </div>
           <div className="gap-dash__actions">
             <Link href={`${admin}/collections/leads/create`} className="gap-chip"><UserPlus size={16} aria-hidden="true" /> New lead</Link>
@@ -120,7 +124,14 @@ export async function Dashboard({ initPageResult }: Props) {
           </div>
         </header>
 
-        <section className="gap-dash__stats" aria-label="Key numbers">
+        <section className="gap-dash__stats" aria-label="Overall totals">
+          <Stat icon={UserPlus} label="Total leads" value={totalLeads} hint="All student enquiries" href={`${admin}/collections/leads`} />
+          <Stat icon={ClipboardList} label="Total applications" value={total} hint={`${byStatus[6]} enrolled`} href={`${admin}/collections/applications`} />
+          <Stat icon={FileText} label="Total documents" value={totalDocuments} hint="Student documents" href={`${admin}/collections/documents`} />
+          <Stat icon={Globe} label="Universities" value={universities} hint={`${countries} countries in your directory`} href={`${admin}/collections/universities`} />
+        </section>
+
+        <section className="gap-dash__stats" aria-label="Needs attention">
           <Stat icon={Inbox} label="New leads" value={newLeads} hint="Waiting for a first reply" href={`${admin}/collections/leads?where[status][equals]=new`} />
           <Stat icon={ClipboardList} label="Open applications" value={openApps} hint="Not yet enrolled or closed" href={`${admin}/collections/applications`} />
           <Stat icon={FileText} label="Documents to fix" value={needsUpdate} hint="Marked as needs update" href={`${admin}/collections/documents?where[reviewStatus][equals]=needs-update`} />

@@ -26,8 +26,8 @@ import { CollectionLinks as CollectionLinks_afa834a8dfa6703b4d04da29d2900472 } f
 import { Icon as Icon_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
 import { Logo as Logo_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
 import { WebsiteLink as WebsiteLink_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
-import { DashboardIntro as DashboardIntro_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
 import { LoginIntro as LoginIntro_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
+import { Dashboard as Dashboard_16b88e9b8c48e393fa86591406efd08f } from '../../../components/admin/Dashboard'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 /** @type import('payload').ImportMap */
@@ -60,7 +60,7 @@ export const importMap = {
   "/components/admin/_Brand#Icon": Icon_fa4daeaebc4b6b72da366a1851fb0d6d,
   "/components/admin/_Brand#Logo": Logo_fa4daeaebc4b6b72da366a1851fb0d6d,
   "/components/admin/_Brand#WebsiteLink": WebsiteLink_fa4daeaebc4b6b72da366a1851fb0d6d,
-  "/components/admin/_Brand#DashboardIntro": DashboardIntro_fa4daeaebc4b6b72da366a1851fb0d6d,
   "/components/admin/_Brand#LoginIntro": LoginIntro_fa4daeaebc4b6b72da366a1851fb0d6d,
+  "/components/admin/Dashboard#Dashboard": Dashboard_16b88e9b8c48e393fa86591406efd08f,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

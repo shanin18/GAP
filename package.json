@@ -10,6 +10,7 @@
     "lint": "next lint",
     "generate:types": "payload generate:types",
     "cms:initialize": "payload run scripts/initialize-website-content.ts",
+    "cms:sync": "payload run scripts/sync-cms-schema.ts",
     "cms:verify": "payload run scripts/verify-cms.ts",
     "payload": "payload",
     "typecheck": "tsc --noEmit",

@@ -216,7 +216,72 @@ try {
     deviceScaleFactor: 1,
     mobile: false,
   });
-  if (process.argv.includes("--globe-fixture")) {
+  if (process.argv.includes("--navigation")) {
+    const results = [];
+    for (const width of [1440, 390]) {
+      await command("Emulation.setDeviceMetricsOverride", {
+        width,
+        height: 900,
+        deviceScaleFactor: 1,
+        mobile: width < 768,
+      });
+      await navigate(
+        "/",
+        "!!document.querySelector('header nav a') && !!document.querySelector('main h1')",
+      );
+      await until(
+        () =>
+          evaluate(
+            "Object.keys(document.querySelector('header nav a')).some(k=>k.startsWith('__reactProps'))",
+          ),
+        "navigation hydration",
+      );
+      await pause(2500); // Allow the visible links to prefetch before measuring clicks.
+      for (const route of [
+        "/about",
+        "/services",
+        "/",
+        "/about",
+        "/services",
+        "/",
+      ]) {
+        const result = await evaluate(`(async () => {
+          const scope = ${JSON.stringify(width < 768 ? '[aria-label="Mobile navigation"]' : '[aria-label="Main navigation"]')};
+          const link = document.querySelector(scope + ' a[href="${route}"]');
+          if (!link) throw new Error('Navigation link missing');
+          const previousHeading = document.querySelector('main h1')?.textContent;
+          const start = performance.now();
+          link.click();
+          while (location.pathname !== ${JSON.stringify(route)} || !document.querySelector('main h1') || document.querySelector('main h1').textContent === previousHeading) {
+            if (performance.now() - start > 10000) throw new Error('Navigation did not finish');
+            await new Promise(requestAnimationFrame);
+          }
+          await new Promise(requestAnimationFrame);
+          await new Promise(requestAnimationFrame);
+          return {ms: Math.round(performance.now() - start), heading: document.querySelector('main h1').textContent};
+        })()`);
+        results.push({ width, route, ...result });
+        await pause(300);
+      }
+    }
+    assert.deepEqual(errors, [], "Navigation browser errors");
+    console.log(
+      JSON.stringify(
+        {
+          metric:
+            "Prefetched click to updated heading plus two animation frames, local Chrome",
+          results,
+        },
+        null,
+        2,
+      ),
+    );
+    await writeFile(
+      path.join(output, "navigation.json"),
+      JSON.stringify(results, null, 2),
+    );
+    console.log(`PASS desktop/mobile navigation. Results: ${output}`);
+  } else if (process.argv.includes("--globe-fixture")) {
     await navigate(
       "/qa-globe-local",
       "!!document.querySelector('canvas[tabindex=\"0\"]')",
@@ -374,6 +439,11 @@ try {
       x: 0,
       y: 0,
     });
+    await until(
+      () =>
+        evaluate(`${track}.children.length > 6 && ${track}.scrollLeft > 50`),
+      "visible carousel initializes its loop",
+    );
     const initialPosition = await evaluate(`${track}.scrollLeft`);
     await until(
       () => evaluate(`${track}.scrollLeft > ${initialPosition} + 50`),
@@ -456,7 +526,18 @@ try {
       reducedPosition,
       "Reduced motion stops autoplay",
     );
-    assert.deepEqual(errors, [], "Carousel browser errors");
+    await evaluate(
+      "document.querySelector('canvas[aria-label=\"Interactive globe showing study destinations\"]').scrollIntoView({behavior:'instant',block:'center'})",
+    );
+    await until(
+      () =>
+        evaluate(
+          "(()=>{const c=document.querySelector('canvas[aria-label=\"Interactive globe showing study destinations\"]');return c.width > 0 && c.style.opacity === '1'})()",
+        ),
+      "deferred globe initializes when visible",
+    );
+    await screenshot("deferred-globe");
+    assert.deepEqual(errors, [], "Carousel and globe browser errors");
     console.log(
       `PASS carousel autoplay, pause, wrap, responsive widths and reduced motion. Screenshots: ${output}`,
     );
@@ -736,20 +817,20 @@ try {
       await command("Emulation.setEmulatedMedia", {
         features: [{ name: "prefers-reduced-motion", value: "no-preference" }],
       });
-      await evaluate(
-        "window.__gapRouteSeen=false; let checks=0; function sample(){if(document.getAnimations().some(a=>a.id==='gap-route-enter'))window.__gapRouteSeen=true; if(checks++<600&&!window.__gapRouteSeen)requestAnimationFrame(sample)} requestAnimationFrame(sample)",
-      );
       await click("document.querySelector('header a[href=\"/services\"]')");
       await until(
-        () => evaluate("window.__gapRouteSeen === true"),
-        "client navigation fade",
+        () =>
+          evaluate(
+            "location.pathname === '/services' && !!document.querySelector('main h1') && !document.getAnimations().some(a=>a.id==='gap-route-enter')",
+          ),
+        "client navigation without delaying content with a fade",
       );
       await navigate(
         "/",
         "!!document.querySelector('header button[aria-haspopup=menu]')",
       );
       console.log(
-        "PASS scroll reveal, live reduced-motion preference, and route fade",
+        "PASS scroll reveal, live reduced-motion preference, and immediate route content",
       );
       await click(
         "document.querySelector('header button[aria-haspopup=menu]')",

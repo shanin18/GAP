@@ -26,6 +26,7 @@ export function MobileNav() {
       <div className="grid grid-cols-4 gap-1">
         <Link
           href="/"
+          prefetch={true}
           aria-current={pathname === "/" ? "page" : undefined}
           className={linkClass(pathname === "/")}
         >
@@ -35,6 +36,7 @@ export function MobileNav() {
         <CountryMenu mobile />
         <Link
           href="/services"
+          prefetch={true}
           aria-current={pathname === "/services" ? "page" : undefined}
           className={linkClass(pathname === "/services")}
         >
@@ -43,6 +45,7 @@ export function MobileNav() {
         </Link>
         <Link
           href="/about"
+          prefetch={true}
           aria-current={pathname === "/about" ? "page" : undefined}
           className={linkClass(pathname === "/about")}
         >

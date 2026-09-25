@@ -13,9 +13,8 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-// Pages are built once and served from cache, then refreshed in the background
-// at most every 5 minutes (instead of querying the database on every request).
-// Lower the number if you need edits from Payload to appear sooner.
+// Production pages use ISR; public CMS reads also have a shared Data Cache.
+// Both expire after five minutes, and CMS save hooks invalidate them sooner.
 export const revalidate = 300;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -50,9 +49,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const destinations = await getGlobeDestinations();
-  const content = await getWebsiteContent();
-  const settings = await getSiteSettings();
+  const [destinations, content, settings] = await Promise.all([
+    getGlobeDestinations(),
+    getWebsiteContent(),
+    getSiteSettings(),
+  ]);
   return (
     <html lang="en" data-scroll-behavior="smooth" data-theme="dark">
       <body

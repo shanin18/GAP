@@ -55,6 +55,7 @@ export function UniversityCard({ university }: { university: CmsUniversity }) {
       </p>
       <Link
         href={`/universities/${university.slug}`}
+        prefetch={true}
         className="mt-auto inline-flex min-h-11 items-center gap-2 rounded-lg pt-6 font-semibold text-primary transition-colors duration-200 hover:text-foreground active:opacity-80"
       >
         {t("View university ")}

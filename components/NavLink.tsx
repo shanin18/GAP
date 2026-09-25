@@ -23,6 +23,7 @@ export function NavLink({
   return (
     <Link
       href={href}
+      prefetch={true}
       aria-current={active ? "page" : undefined}
       className={cn(
         "inline-flex min-h-11 items-center px-3 transition-colors duration-200 ease-out hover:text-primary hover:bg-secondary rounded-xl",

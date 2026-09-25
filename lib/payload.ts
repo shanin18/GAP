@@ -1,12 +1,9 @@
-import { getPayload } from 'payload';
-import config from '@/payload/payload.config';
-
-let payloadPromise: ReturnType<typeof getPayload> | undefined;
-
-export function getCms() {
-  payloadPromise ??= getPayload({ config }).catch((error) => {
-    payloadPromise = undefined;
-    throw error;
-  });
-  return payloadPromise;
+export async function getCms() {
+  // Cache hits need neither Payload initialization nor its rich-text/admin modules.
+  // getPayload itself shares its initialization promise and handles config HMR.
+  const [{ getPayload }, { default: config }] = await Promise.all([
+    import("payload"),
+    import("@/payload/payload.config"),
+  ]);
+  return getPayload({ config });
 }

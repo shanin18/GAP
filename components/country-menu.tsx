@@ -55,6 +55,7 @@ export function CountryMenu({ mobile = false }: { mobile?: boolean }) {
           <DropdownMenuItem key={slug} asChild>
             <Link
               href={"/country/" + slug}
+              prefetch={true}
               aria-current={
                 pathname === "/country/" + slug ? "page" : undefined
               }

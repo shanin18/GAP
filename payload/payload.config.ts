@@ -28,7 +28,9 @@ export default buildConfig({
         Icon: "/components/admin/_Brand#Icon",
       },
       beforeLogin: ["/components/admin/_Brand#LoginIntro"],
-      beforeDashboard: ["/components/admin/_Brand#DashboardIntro"],
+      views: {
+        dashboard: { Component: "/components/admin/Dashboard#Dashboard" },
+      },
       Nav: "/components/admin/CollectionLinks#CollectionLinks",
       actions: ["/components/admin/_Brand#WebsiteLink"],
     },
@@ -49,6 +51,9 @@ export default buildConfig({
   ],
   editor: lexicalEditor(),
   db: postgresAdapter({
+    // Schema inspection over a remote connection is slow. Sync explicitly after
+    // collection changes with npm run cms:sync (or cms:initialize).
+    push: process.env.PAYLOAD_PUSH_SCHEMA === "true",
     schemaName: env.databaseSchema,
     pool: { connectionString: env.databaseUrl, connectionTimeoutMillis: 10000 },
   }),

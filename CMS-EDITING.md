@@ -29,6 +29,10 @@ Admin and Editor roles can manage content. Only admins can delete records or cha
 
 ## Setup and verification
 
+Public CMS reads are cached across requests for five minutes and invalidated when their collection changes. Admin, student records, authentication and submissions are never placed in this shared cache. A refreshed browser page sees saved content; an already-open tab can retain prefetched content until refreshed.
+
+Normal development requests no longer inspect or push the PostgreSQL schema. After changing collection fields, run `npm run cms:sync` once, then restart the development server. `cms:initialize` also syncs the development schema. You can explicitly opt into automatic development sync with `PAYLOAD_PUSH_SCHEMA=true`.
+
 `npm run cms:initialize` adds missing section records and default service/country content without replacing existing edits. It has already been run for the configured development database.
 
 `npm run cms:verify` exercises all collections in a disposable PostgreSQL schema and removes that schema and its uploaded fixtures afterward. It does not modify existing website records or send email.

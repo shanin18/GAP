@@ -37,6 +37,7 @@ export function AcademicGuidance() {
 
   useEffect(() => {
     let raf = 0;
+    let visible = false;
 
     const update = () => {
       raf = 0;
@@ -69,14 +70,23 @@ export function AcademicGuidance() {
     };
 
     const onScroll = () => {
+      if (!visible) return;
       if (!raf) raf = requestAnimationFrame(update);
     };
 
-    update();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) onScroll();
+      },
+      { rootMargin: "200px" },
+    );
+    if (listRef.current) observer.observe(listRef.current);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
       if (raf) cancelAnimationFrame(raf);
+      observer.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };

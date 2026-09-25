@@ -59,7 +59,20 @@ export async function Hero() {
           </div>
         </div>
         <div className="min-w-0">
-          <JourneyGlobe />
+          <JourneyGlobe
+            markers={destinations.flatMap((destination) =>
+              destination.location
+                ? [
+                    {
+                      id: destination.slug,
+                      label: destination.name,
+                      location: destination.location,
+                      href: `/country/${destination.slug}`,
+                    },
+                  ]
+                : [],
+            )}
+          />
         </div>
       </div>
     </section>

@@ -10,6 +10,7 @@ import type { WebsiteContent } from "../payload-types";
 // All writes use a disposable schema, never the site's records. No email is sent.
 const schema = `gap_cms_qa_${randomUUID().replaceAll("-", "")}`;
 process.env.DATABASE_SCHEMA = schema;
+process.env.PAYLOAD_PUSH_SCHEMA = "true";
 process.env.SMTP_HOST = "";
 const { default: config } = await import("../payload/payload.config");
 const payload = await getPayload({ config });

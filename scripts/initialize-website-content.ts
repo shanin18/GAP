@@ -1,5 +1,4 @@
 import { getPayload } from "payload";
-import config from "../payload/payload.config";
 import catalog from "../lib/website-content-defaults.json";
 import details from "../lib/service-details-defaults.json";
 import countryDefaults from "../lib/country-content-defaults.json";
@@ -7,6 +6,8 @@ import { seedData } from "../payload/seed-data";
 import type { WebsiteContent } from "../payload-types";
 
 // Add missing content only. Existing editorial changes are preserved on repeat runs.
+process.env.PAYLOAD_PUSH_SCHEMA = "true";
+const { default: config } = await import("../payload/payload.config");
 const payload = await getPayload({ config });
 try {
   for (const section of catalog) {

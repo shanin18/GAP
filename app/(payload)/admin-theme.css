@@ -170,6 +170,8 @@
 
   .gap-nav {
     display: grid;
+    width: 100%;
+    min-width: 0;
     gap: 4px;
     padding-block: 8px;
   }
@@ -516,6 +518,19 @@
   }
 
   /* ---------- Lists and tables ---------- */
+  .gap-admin .list-header__title-and-actions {
+    min-width: 0;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .gap-admin .list-header__title-actions {
+    margin-inline-start: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
   .gap-admin .collection-list__header {
     align-items: center;
     gap: 16px;
