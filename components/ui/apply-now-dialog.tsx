@@ -2,7 +2,8 @@
 import { useDestinations } from "../destinations-provider";
 import { useWebsiteContent } from "@/components/website-content-provider";
 
-import { type FormEvent, type ReactNode, useRef, useState } from "react";
+import { type FormEvent, type ReactNode, useId, useRef, useState } from "react";
+import { leadSchema } from "@/lib/validations/lead";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -45,16 +46,42 @@ export function ApplyNowDialog({
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof typeof initialForm, string>>>({});
+  const errorPrefix = useId();
+  const submitting = useRef(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
   function updateField(field: keyof typeof initialForm, value: string) {
+    if (submitting.current) return;
     setForm((current) => ({ ...current, [field]: value }));
+    setFieldErrors((current) => {
+      if (!current[field]) return current;
+      const result = leadSchema.shape[field].safeParse(value);
+      return { ...current, [field]: result.success ? undefined : result.error.issues[0]?.message };
+    });
     if (status !== "idle") setStatus("idle");
     setError("");
   }
 
   async function submitLead(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submitting.current) return;
+    const parsed = leadSchema.safeParse({ ...form, sourcePage: window.location.pathname });
+    if (!parsed.success) {
+      const errors: typeof fieldErrors = {};
+      for (const issue of parsed.error.issues) {
+        const field = issue.path[0] as keyof typeof initialForm;
+        if (field in initialForm && !errors[field]) errors[field] = issue.message;
+      }
+      setFieldErrors(errors);
+      setError("");
+      setStatus("idle");
+      const first = Object.keys(errors)[0];
+      event.currentTarget.querySelector<HTMLElement>(`[data-lead-field="${first}"]`)?.focus();
+      return;
+    }
+    submitting.current = true;
+    setFieldErrors({});
     setStatus("loading");
     setError("");
 
@@ -62,10 +89,10 @@ export function ApplyNowDialog({
       const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, sourcePage: window.location.pathname }),
+        body: JSON.stringify(parsed.data),
       });
       const result = await response.json();
-      if (!response.ok)
+      if (!response.ok || result.ok !== true)
         throw new Error(result.error || "Unable to submit your request.");
       setStatus("success");
       setForm(initialForm);
@@ -76,11 +103,32 @@ export function ApplyNowDialog({
           ? submissionError.message
           : "Unable to submit your request.",
       );
+    } finally {
+      submitting.current = false;
     }
   }
 
+  function validationProps(field: keyof typeof initialForm) {
+    return {
+      "data-lead-field": field,
+      "aria-invalid": Boolean(fieldErrors[field]),
+      "aria-describedby": fieldErrors[field] ? `${errorPrefix}-${field}` : undefined,
+      disabled: status === "loading",
+    };
+  }
+
+  function fieldError(field: keyof typeof initialForm) {
+    return fieldErrors[field] ? <p id={`${errorPrefix}-${field}`} role="alert" className="text-sm text-red-600">{fieldErrors[field]}</p> : null;
+  }
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={(open) => {
+      if (open && status === "success") {
+        setStatus("idle");
+        setError("");
+        setFieldErrors({});
+      }
+    }}>
       <DialogTrigger asChild>
         <Button className={triggerClass}>
           {typeof triggerContent === "string"
@@ -124,15 +172,22 @@ export function ApplyNowDialog({
             <DialogDescription className="mt-3 text-muted-foreground">
               {t("Tell us a little about your study-abroad plans.")}
             </DialogDescription>
-            <form onSubmit={submitLead} className="mt-7 grid gap-4">
+            <form noValidate onSubmit={submitLead} className="mt-7 grid gap-4">
               <Input
+                {...validationProps("name")}
+                name="name"
+                autoComplete="name"
                 required
                 value={form.name}
                 onChange={(e) => updateField("name", e.target.value)}
                 aria-label={t("Full name")}
                 placeholder={t("Full name")}
               />
+              {fieldError("name")}
               <Input
+                {...validationProps("email")}
+                name="email"
+                autoComplete="email"
                 required
                 type="email"
                 value={form.email}
@@ -140,13 +195,20 @@ export function ApplyNowDialog({
                 aria-label={t("Email address")}
                 placeholder={t("Email address")}
               />
+              {fieldError("email")}
               <Input
+                {...validationProps("phone")}
+                name="phone"
+                type="tel"
+                autoComplete="tel"
                 value={form.phone}
                 onChange={(e) => updateField("phone", e.target.value)}
                 aria-label={t("Phone number")}
                 placeholder={t("Phone number")}
               />
+              {fieldError("phone")}
               <Select
+                disabled={status === "loading"}
                 name="interestedCountry"
                 required
                 value={form.interestedCountry}
@@ -154,7 +216,7 @@ export function ApplyNowDialog({
                   updateField("interestedCountry", value)
                 }
               >
-                <SelectTrigger aria-label={t("Interested country")}>
+                <SelectTrigger {...validationProps("interestedCountry")} aria-label={t("Interested country")}>
                   <SelectValue placeholder={t("Interested country")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -165,13 +227,17 @@ export function ApplyNowDialog({
                   ))}
                 </SelectContent>
               </Select>
+              {fieldError("interestedCountry")}
               <Textarea
+                {...validationProps("message")}
+                name="message"
                 value={form.message}
                 onChange={(e) => updateField("message", e.target.value)}
                 className="min-h-28"
                 aria-label={t("Tell us about your goals")}
                 placeholder={t("Tell us about your goals")}
               />
+              {fieldError("message")}
               {error && (
                 <p role="alert" className="text-sm text-red-600">
                   {error}

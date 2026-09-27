@@ -1,6 +1,7 @@
 import type { ServerProps, Where } from "payload";
 import { getTranslation } from "@payloadcms/translations";
 import { CollectionLinksClient, type NavGroup } from "./CollectionLinksClient";
+import { adminRead } from "@/lib/admin-read-cache";
 
 // How the sidebar is organised. Collections not listed here still appear, under "More".
 const GROUPS: { title: string; slugs: string[] }[] = [
@@ -27,12 +28,12 @@ async function countOf(
   user: ServerProps["user"],
 ) {
   try {
-    const { totalDocs } = await payload.count({
+    const { totalDocs } = await adminRead(payload, user, `count:${collection}:${JSON.stringify(where)}`, () => payload.count({
       collection,
       where,
       user: user ?? undefined,
       overrideAccess: false,
-    });
+    }));
     return totalDocs;
   } catch {
     return 0;
@@ -107,6 +108,10 @@ export async function CollectionLinks({
     .filter((c) => !used.has(c.slug))
     .map((c) => ({ ...c, badge: 0 }));
   if (rest.length) groups.push({ title: "More", items: rest });
+  if (user) groups.push({
+    title: "Account",
+    items: [{ slug: "account", label: "My Account", href: `${payload.config.routes.admin}/account`, badge: 0 }],
+  });
 
   return (
     <CollectionLinksClient

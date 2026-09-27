@@ -18,14 +18,16 @@ import {
   Settings,
   UserPlus,
   Users,
+  UserRound,
   X,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export type NavItem = { slug: string; label: string; href: string; badge: number };
 export type NavGroup = { title: string; items: NavItem[] };
 
 const ICONS = {
+  account: UserRound,
   "website-content": FileText,
   media: Image,
   leads: UserPlus,
@@ -48,6 +50,7 @@ export function CollectionLinksClient({
   groups: NavGroup[];
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const { config } = useConfig();
   const sidebar = useRef<HTMLElement>(null);
   const { navOpen, navRef, hydrated, shouldAnimate, setNavOpen } = useNav();
@@ -131,6 +134,8 @@ export function CollectionLinksClient({
             <Link
               href={dashboardHref}
               prefetch={false}
+              onMouseEnter={() => router.prefetch(dashboardHref)}
+              onFocus={() => router.prefetch(dashboardHref)}
               className="nav__link gap-nav__link"
               aria-current={pathname === dashboardHref ? "page" : undefined}
             >
@@ -149,6 +154,8 @@ export function CollectionLinksClient({
                       id={`nav-${slug}`}
                       href={href}
                       prefetch={false}
+                      onMouseEnter={() => router.prefetch(href)}
+                      onFocus={() => router.prefetch(href)}
                       className="nav__link gap-nav__link"
                       aria-current={isActive(href) ? "page" : undefined}
                     >

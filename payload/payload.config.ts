@@ -1,4 +1,4 @@
-import { buildConfig, type CollectionConfig } from "payload";
+import { buildConfig, type CollectionConfig, type ClientUser } from "payload";
 import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
@@ -15,6 +15,10 @@ import { Documents } from "./collections/Documents";
 import { env } from "../lib/env";
 import { WebsiteContent } from "./collections/WebsiteContent";
 import { Media } from "./collections/Media";
+import { invalidateAdminReads } from "../lib/admin-read-cache";
+import { isAdmin } from './access';
+
+const contentCollections = new Set(['website-content', 'media', 'countries', 'universities', 'services', 'testimonials', 'news', 'site-settings']);
 
 export default buildConfig({
   admin: {
@@ -32,7 +36,7 @@ export default buildConfig({
         dashboard: { Component: "/components/admin/Dashboard#Dashboard" },
       },
       Nav: "/components/admin/CollectionLinks#CollectionLinks",
-      actions: ["/components/admin/_Brand#WebsiteLink"],
+      actions: ["/components/admin/Reminders#Reminders", "/components/admin/_Brand#WebsiteLink"],
     },
   },
   collections: [
@@ -50,8 +54,26 @@ export default buildConfig({
     SiteSettings,
   ].map((collection): CollectionConfig => ({
     ...collection,
+    access: contentCollections.has(collection.slug) ? {
+      ...collection.access,
+      create: async (args) => args.req.user?.role === 'admin'
+        && (collection.access?.create ? await collection.access.create(args) : true),
+      update: isAdmin,
+    } : collection.access,
+    hooks: {
+      ...collection.hooks,
+      afterChange: [...(collection.hooks?.afterChange ?? []), ({ req, doc }) => {
+        invalidateAdminReads(req.payload);
+        return doc;
+      }],
+      afterDelete: [...(collection.hooks?.afterDelete ?? []), ({ req, doc }) => {
+        invalidateAdminReads(req.payload);
+        return doc;
+      }],
+    },
     admin: {
       ...collection.admin,
+      ...(contentCollections.has(collection.slug) ? { hidden: ({ user }: { user: ClientUser }) => user?.role !== 'admin' } : {}),
       components: {
         ...collection.admin?.components,
         edit: {
@@ -80,11 +102,13 @@ export default buildConfig({
     push: process.env.PAYLOAD_PUSH_SCHEMA === "true",
     migrationDir: "./payload/migrations",
     schemaName: env.databaseSchema,
-    pool: { connectionString: env.databaseUrl, connectionTimeoutMillis: 10000 },
+    pool: { connectionString: env.databaseUrl, connectionTimeoutMillis: 10000, idleTimeoutMillis: 60000, keepAlive: true },
   }),
   secret: env.payloadSecret,
   email: process.env.SMTP_HOST
     ? nodemailerAdapter({
+        // Validate credentials on actual sends, not during builds/migration generation.
+        skipVerify: true,
         defaultFromAddress:
           process.env.EMAIL_FROM_ADDRESS ?? process.env.SMTP_USER ?? "",
         defaultFromName: "Global Admission Platform",

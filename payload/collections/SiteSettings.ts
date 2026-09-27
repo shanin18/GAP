@@ -62,6 +62,7 @@ export const SiteSettings: CollectionConfig = {
       type: "checkbox",
       defaultValue: false,
       access: { update: isAdminField },
+      admin: { description: "Only administrators can change maintenance mode. This field is read-only for editors." },
     },
     {
       name: "maintenanceMessage",

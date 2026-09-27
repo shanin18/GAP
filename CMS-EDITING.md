@@ -25,9 +25,22 @@ Header, footer and journey-diagram logos can be edited in their respective Websi
 
 An empty selection of related universities uses the destination's published universities. Country articles use **Related news**; draft and scheduled articles stay hidden. Unpublished testimonials and universities stay hidden. There are no fictional review or partner fallbacks.
 
-Admin and Editor roles can manage content. Only admins can delete records or change maintenance mode. Site Settings and Website Content records cannot be deleted accidentally. Saving public content invalidates the website cache; refresh the public page after saving.
+Admins manage website content and settings. Staff (stored as `editor`) handle only assigned CRM records and their own account. Site Settings and Website Content records cannot be deleted accidentally. Saving public content invalidates the website cache; refresh the public page after saving.
 
 ## Setup and verification
+
+See [README.md](README.md) for local setup and [DEPLOYMENT.md](DEPLOYMENT.md) for production releases.
+
+## Staff workflow
+
+Use `/admin` to manage student records. `/staff` is an additional authenticated overview with the same record permissions. See [the detailed workspace guide](WORKSPACE-GUIDE.md) for roles, all sidebar items, assignments, conversion, documents and reminders.
+
+- Leads: admins assign staff; staff update their assigned records, set follow-up dates and record notes. Link an application when an enquiry converts.
+- Applications: manage priority, assigned staff, next actions, required documents, and progress. Status history is recorded automatically.
+- Documents: upload private files and mark them received, approved, or needing updates. Staff access and downloads are limited to documents of their assigned applications; admins have access to all.
+- Users: administrators manage staff accounts and roles.
+
+## Development schema and content
 
 Public CMS reads are cached across requests for five minutes and invalidated when their collection changes. Admin, student records, authentication and submissions are never placed in this shared cache. A refreshed browser page sees saved content; an already-open tab can retain prefetched content until refreshed.
 

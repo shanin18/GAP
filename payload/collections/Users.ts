@@ -8,7 +8,7 @@ export const Users: CollectionConfig = {
     lockTime: 10 * 60 * 1000, // ...for 10 minutes
     cookies: { secure: process.env.NODE_ENV === 'production', sameSite: 'Lax' },
   },
-  admin: { useAsTitle: 'email', defaultColumns: ['email', 'role', 'updatedAt'] },
+  admin: { useAsTitle: 'email', defaultColumns: ['email', 'role', 'updatedAt'], hidden: ({ user }) => user?.role !== 'admin' },
   access: {
     admin: ({ req }) => Boolean(req.user),
     read: ({ req }) => (!req.user ? false : req.user.role === 'admin' ? true : { id: { equals: req.user.id } }),
@@ -51,10 +51,10 @@ export const Users: CollectionConfig = {
       defaultValue: 'editor',
       options: [
         { label: 'Admin', value: 'admin' },
-        { label: 'Editor', value: 'editor' },
+        { label: 'Staff', value: 'editor' },
       ],
       access: { update: ({ req }) => req.user?.role === 'admin' },
-      admin: { position: 'sidebar' },
+      admin: { position: 'sidebar', description: 'Only administrators can change roles. This field is read-only for staff.' },
     },
   ],
 };

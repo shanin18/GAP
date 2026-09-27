@@ -1,4 +1,5 @@
 import type { CollectionSlug, PayloadRequest, Where } from "payload";
+import { adminRead } from "./admin-read-cache";
 
 export const APPLICATION_STATUSES = [
   { value: "submitted", label: "Submitted" },
@@ -13,7 +14,8 @@ export const APPLICATION_STATUSES = [
 
 async function count(req: PayloadRequest, collection: CollectionSlug, where?: Where) {
   try {
-    const { totalDocs } = await req.payload.count({ collection, where, user: req.user ?? undefined, overrideAccess: false });
+    const { totalDocs } = await adminRead(req.payload, req.user, `count:${collection}:${JSON.stringify(where)}`, () =>
+      req.payload.count({ collection, where, req, user: req.user ?? undefined, overrideAccess: false }));
     return totalDocs;
   } catch {
     return 0;
@@ -22,12 +24,12 @@ async function count(req: PayloadRequest, collection: CollectionSlug, where?: Wh
 
 async function recentLeads(req: PayloadRequest) {
   try {
-    const { docs } = await req.payload.find({
+    const { docs } = await adminRead(req.payload, req.user, "recent:leads", () => req.payload.find({
       collection: "leads", limit: 5, sort: "-createdAt", depth: 0,
       pagination: false,
       select: { name: true, email: true, interestedCountry: true, status: true, createdAt: true },
-      user: req.user ?? undefined, overrideAccess: false,
-    });
+      req, user: req.user ?? undefined, overrideAccess: false,
+    }));
     return docs;
   } catch {
     return [];
@@ -36,13 +38,13 @@ async function recentLeads(req: PayloadRequest) {
 
 async function recentApplications(req: PayloadRequest) {
   try {
-    const { docs } = await req.payload.find({
+    const { docs } = await adminRead(req.payload, req.user, "recent:applications", () => req.payload.find({
       collection: "applications", limit: 5, sort: "-createdAt", depth: 1,
       pagination: false,
       select: { studentName: true, reference: true, country: true, status: true, createdAt: true },
       populate: { countries: { name: true } },
-      user: req.user ?? undefined, overrideAccess: false,
-    });
+      req, user: req.user ?? undefined, overrideAccess: false,
+    }));
     return docs;
   } catch {
     return [];
@@ -50,7 +52,7 @@ async function recentApplications(req: PayloadRequest) {
 }
 
 export async function loadDashboardData(req: PayloadRequest) {
-  const now = new Date().toISOString();
+  const now = new Date(Math.floor(Date.now() / 30_000) * 30_000).toISOString();
   const closed = ["enrolled", "closed"];
 
   const [totalLeads, totalDocuments, countries, universities, newLeads, needsUpdate, leadsDue, appsDue, byStatus, leads, applications] = await Promise.all([

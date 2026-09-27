@@ -7,7 +7,7 @@ The hosting provider and domain are still undecided. This guide prepares the rel
 Copy `.env.example` into your local environment or the hosting provider's secret manager. Never commit real credentials. Set `NODE_ENV=production` for deployment commands.
 
 - `DATABASE_URL`: PostgreSQL connection string. Use the provider's certificate-verified TLS connection. Use a direct connection for migrations where the provider requires it.
-- `DATABASE_SCHEMA`: must match the schema in the committed migration files. Do not change it independently after generating migrations.
+- `DATABASE_SCHEMA=gap`: required by the committed initial migration. It creates the schema on a fresh database. Do not change this independently after generating migrations.
 - `PAYLOAD_SECRET`: unique random secret, at least 32 characters. Generate one with `node -e "console.log(require('node:crypto').randomBytes(48).toString('hex'))"`. Keep it stable across instances and deployments.
 - `NEXT_PUBLIC_SITE_URL`: the final HTTPS origin, without a path. Set it before building; rebuild when changing the domain.
 - `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS`, `SMTP_PORT`: email transport. Port 465 uses implicit TLS; other ports use Nodemailer's SMTP negotiation.
@@ -18,6 +18,8 @@ Copy `.env.example` into your local environment or the hosting provider's secret
 - `PAYLOAD_PUSH_SCHEMA=false`: always in production.
 
 Run `npm run env:check` to validate production settings without connecting to services. It prints setting names, not credentials. A local localhost URL or placeholder configuration is expected to fail this production check. Successful validation does not prove database or SMTP connectivity.
+
+SMTP transport verification is skipped while loading configuration so builds and migration generation do not wait on an email server. Actual email sends still authenticate with the configured transport; failed notifications are logged. Durable email retries are not implemented yet.
 
 ## Database migrations
 

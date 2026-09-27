@@ -11,7 +11,3 @@ Labels use the installed COBE 2 marker anchors and front/back visibility, with p
 Automatic rotation runs at up to 30fps only while visible, pauses during interaction, and respects reduced motion. No animation dependency or play/pause buttons are added. The visually hidden country links become visible on keyboard focus.
 
 Nearby country labels are staggered with connector lines when their touch targets would overlap. Hover and keyboard focus independently pause rotation.
-
-## Populated QA without database writes
-
-`scripts/fixtures/globe-page.tsx.txt` is a seven-country test page template, outside the production route tree. For local QA, copy it to `app/(frontend)/qa-globe-local/page.tsx`, build, and run `node scripts/qa-ui.mjs --globe-fixture`. Remove the temporary route and rebuild afterwards. Never deploy the fixture route. The check verifies marker alignment, country links, label collisions and page overflow at 320px, 768px and 1440px.

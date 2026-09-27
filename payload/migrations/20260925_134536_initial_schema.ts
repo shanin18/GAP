@@ -1,7 +1,11 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
+  if (payload.db.schemaName !== 'gap') {
+    throw new Error('The initial migration requires DATABASE_SCHEMA=gap.');
+  }
   await db.execute(sql`
+   CREATE SCHEMA IF NOT EXISTS "gap";
    CREATE TYPE "gap"."enum_website_content_entries_kind" AS ENUM('text', 'image', 'link');
   CREATE TYPE "gap"."enum_website_content_key" AS ENUM('home-hero', 'home-about', 'home-guidance', 'home-process', 'home-testimonials', 'home-news', 'home-partners', 'home-cta', 'trust-strip', 'header', 'footer', 'mobile-navigation', 'country-menu', 'enquiry-form', 'application-form', 'university-filters', 'university-card', 'about-page', 'services-page', 'universities-page', 'university-page', 'country-page', 'news-page', 'article-page', 'apply-page');
   CREATE TYPE "gap"."enum_users_role" AS ENUM('admin', 'editor');

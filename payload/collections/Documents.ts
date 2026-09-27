@@ -1,5 +1,6 @@
+import { validateStaffApplication } from '../hooks/staff-ownership';
 import { CollectionConfig } from "payload";
-import { isAdmin, isLoggedIn } from "../access";
+import { isAdmin, isLoggedIn, assignedDocuments } from "../access";
 
 
 export const Documents: CollectionConfig = {
@@ -12,15 +13,16 @@ export const Documents: CollectionConfig = {
   },
   access: {
     create: isLoggedIn,
-    read: isLoggedIn,
-    update: isLoggedIn,
+    read: assignedDocuments,
+    update: assignedDocuments,
     delete: isAdmin,
   },
   hooks: {
+    beforeChange: [validateStaffApplication],
     // "Uploaded by" is filled in automatically from the logged-in user
     beforeValidate: [
       ({ data, operation, req }) => {
-        if (operation === 'create' && data && !data.uploadedBy && req.user) data.uploadedBy = req.user.id;
+        if (operation === 'create' && data && req.user) data.uploadedBy = req.user.id;
         return data;
       },
     ],
@@ -48,7 +50,7 @@ export const Documents: CollectionConfig = {
         { label: 'Other', value: 'other' },
       ],
     },
-    { name: 'uploadedBy', type: 'relationship', relationTo: 'users', required: true, index: true, admin: { readOnly: true, position: 'sidebar' } },
+    { name: 'uploadedBy', type: 'relationship', relationTo: 'users', required: true, index: true, admin: { readOnly: true, position: 'sidebar', description: 'Read-only: recorded automatically from the account that uploads the document.' } },
     { name: 'reviewStatus', type: 'select', defaultValue: 'received', admin: { position: 'sidebar' }, options: ['received', 'approved', 'needs-update'] },
     { name: 'reviewNote', type: 'textarea' },
   ],

@@ -26,9 +26,12 @@ import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93
 import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { AssignmentField as AssignmentField_87afc85f694dedfeb2d9bea91847c5e1 } from '../../../components/admin/WorkflowFields'
+import { VerificationStatus as VerificationStatus_87afc85f694dedfeb2d9bea91847c5e1 } from '../../../components/admin/WorkflowFields'
 import { CollectionLinks as CollectionLinks_afa834a8dfa6703b4d04da29d2900472 } from '../../../components/admin/CollectionLinks'
 import { Icon as Icon_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
 import { Logo as Logo_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
+import { Reminders as Reminders_d51ddb43694e44c5e2ca5de2322888e8 } from '../../../components/admin/Reminders'
 import { WebsiteLink as WebsiteLink_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
 import { LoginIntro as LoginIntro_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
 import { Dashboard as Dashboard_16b88e9b8c48e393fa86591406efd08f } from '../../../components/admin/Dashboard'
@@ -64,9 +67,12 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "/components/admin/WorkflowFields#AssignmentField": AssignmentField_87afc85f694dedfeb2d9bea91847c5e1,
+  "/components/admin/WorkflowFields#VerificationStatus": VerificationStatus_87afc85f694dedfeb2d9bea91847c5e1,
   "/components/admin/CollectionLinks#CollectionLinks": CollectionLinks_afa834a8dfa6703b4d04da29d2900472,
   "/components/admin/_Brand#Icon": Icon_fa4daeaebc4b6b72da366a1851fb0d6d,
   "/components/admin/_Brand#Logo": Logo_fa4daeaebc4b6b72da366a1851fb0d6d,
+  "/components/admin/Reminders#Reminders": Reminders_d51ddb43694e44c5e2ca5de2322888e8,
   "/components/admin/_Brand#WebsiteLink": WebsiteLink_fa4daeaebc4b6b72da366a1851fb0d6d,
   "/components/admin/_Brand#LoginIntro": LoginIntro_fa4daeaebc4b6b72da366a1851fb0d6d,
   "/components/admin/Dashboard#Dashboard": Dashboard_16b88e9b8c48e393fa86591406efd08f,

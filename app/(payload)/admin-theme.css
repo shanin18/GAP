@@ -793,12 +793,25 @@
     border: 1px solid var(--gap-admin-border);
     border-radius: 14px;
     background: var(--theme-input-bg);
-    overflow: hidden;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #648373 transparent;
   }
 
   .gap-admin .table table {
     border-collapse: separate;
     border-spacing: 0;
+  }
+
+  .gap-admin .table::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .gap-admin .table::-webkit-scrollbar-thumb {
+    background: #648373;
+    border-radius: 6px;
   }
 
   .gap-admin .table :is(th, td) {
@@ -1338,4 +1351,50 @@
 .gap-admin .react-select .rs__control {
   min-height: 44px;
   border-radius: 10px;
+}
+/* The reminder panel floats over forms without affecting their layout. */
+.gap-reminders { position: relative; white-space: normal; }
+.gap-reminders summary { cursor: pointer; padding: 8px 10px; display: flex; align-items: center; gap: 8px; list-style: none; min-height: 44px; border-radius: 10px; }
+.gap-reminders summary::-webkit-details-marker { display: none; }
+.gap-reminders summary:hover, .gap-reminders[open] summary { background: var(--theme-elevation-100); }
+.gap-reminders-count { display: grid; place-items: center; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 20px; background: #b8d8bd; color: #14251c; font-size: 12px; font-weight: 700; }
+.gap-reminders-panel {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 100;
+  box-sizing: border-box; width: min(380px, calc(100vw - 24px));
+  padding: 0; border: 1px solid var(--theme-elevation-200);
+  border-radius: 16px; background: var(--theme-elevation-50);
+  box-shadow: 0 16px 48px #0005; white-space: normal; overflow-wrap: anywhere;
+  text-align: left; font-size: 14px; line-height: 1.5;
+}
+.gap-reminders-panel p { margin: 4px 0 0; white-space: normal; font-size: 12px; opacity: .75; }
+.gap-reminders-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; border-bottom: 1px solid var(--theme-elevation-150); }
+.gap-reminders-heading strong { font-size: 16px; }
+.gap-reminders-panel button { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 1px solid var(--theme-elevation-200); border-radius: 10px; background: transparent; color: inherit; cursor: pointer; }
+.gap-reminders-panel button:hover:not(:disabled) { background: var(--theme-elevation-100); }
+.gap-reminders-panel button:disabled { opacity: .35; cursor: default; }
+.gap-reminders :is(summary, button, a):focus-visible { outline: 2px solid #b8d8bd; outline-offset: 3px; }
+.gap-reminders-empty { display: flex; align-items: center; flex-direction: column; padding: 26px 16px; gap: 8px; }
+.gap-reminders-empty svg { color: #b8d8bd; }
+.gap-reminders-empty p { margin: 0; }
+.gap-reminders-list { list-style: none; padding: 6px; margin: 0; }
+.gap-reminders-list li { margin: 0; }
+.gap-reminders-list a { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 10px; border-radius: 10px; color: inherit; text-decoration: none; }
+.gap-reminders-list a:hover { background: var(--theme-elevation-100); }
+.gap-reminders-list a > span { min-width: 0; }
+.gap-reminders-list strong { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 290px; }
+.gap-reminders-list svg { flex-shrink: 0; }
+.gap-reminders-list small { display: block; opacity: .7; margin-top: 3px; font-size: 12px; }
+.gap-reminders-pagination { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; }
+.gap-reminders-pagination span { font-size: 12px; opacity: .75; }
+.gap-reminders-panel .gap-reminders-state { margin: 0; padding: 16px; }
+.gap-reminders-footer { padding: 12px 16px; border-top: 1px solid var(--theme-elevation-150); font-size: 11px; opacity: .7; }
+@media (max-width: 640px) {
+  .gap-reminders-label { display: none; }
+  .gap-reminders-panel { position: fixed; top: 64px; right: 12px; left: 12px; width: auto; }
+  .gap-reminders-list strong { max-width: calc(100vw - 100px); }
+}
+@media (max-height: 500px) {
+  .gap-reminders-heading { padding: 8px 12px; }
+  .gap-reminders-heading p, .gap-reminders-footer { display: none; }
+  .gap-reminders-empty { padding: 16px; }
 }

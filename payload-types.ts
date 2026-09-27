@@ -149,6 +149,9 @@ export interface UserAuthOperations {
  */
 export interface WebsiteContent {
   id: number;
+  /**
+   * Read-only: generated from the selected website section.
+   */
   title?: string | null;
   /**
    * One record per section. Save a new record to load its editable content.
@@ -191,9 +194,15 @@ export interface WebsiteContent {
     | {
         key: string;
         kind?: ('text' | 'image' | 'link') | null;
+        /**
+         * Read-only: identifies which website content this entry controls.
+         */
         label?: string | null;
         value?: string | null;
         image?: (number | null) | Media;
+        /**
+         * Read-only: the original text is kept for reference. Edit Website content above to change the site.
+         */
         original?: string | null;
         id?: string | null;
       }[]
@@ -228,6 +237,9 @@ export interface Media {
  */
 export interface User {
   id: number;
+  /**
+   * Only administrators can change roles. This field is read-only for staff.
+   */
   role: 'admin' | 'editor';
   updatedAt: string;
   createdAt: string;
@@ -445,12 +457,18 @@ export interface Lead {
   phone?: string | null;
   interestedCountry?: string | null;
   message?: string | null;
+  /**
+   * Read-only: captured from the website page where the enquiry was submitted. / means the homepage.
+   */
   sourcePage?: string | null;
   status: 'new' | 'contacted' | 'qualified' | 'application-started' | 'not-proceeding';
   assignedTo?: (number | null) | User;
+  /**
+   * Due follow-ups appear automatically in Reminders while the workspace is open. Reschedule after following up, or close the lead when finished.
+   */
   followUpAt?: string | null;
   /**
-   * Link the application once this lead converts.
+   * Optional: connect this enquiry to the student application. Use + to create one on their behalf, then save this lead. If they already applied through the website, select that application to avoid a duplicate.
    */
   application?: (number | null) | Application;
   staffNotes?: string | null;
@@ -467,7 +485,7 @@ export interface Lead {
 export interface Application {
   id: number;
   /**
-   * Generated automatically.
+   * Read-only: generated automatically when the application is created.
    */
   reference: string;
   studentName: string;
@@ -478,6 +496,9 @@ export interface Application {
   studyLevel: 'Foundation' | 'Undergraduate' | 'Postgraduate' | 'PhD' | 'Other';
   intake?: string | null;
   message?: string | null;
+  /**
+   * Read-only: captured from the website page where the application was submitted. May be blank for applications created by staff.
+   */
   sourcePage?: string | null;
   status:
     | 'submitted'
@@ -504,7 +525,7 @@ export interface Application {
       }[]
     | null;
   /**
-   * Filled in automatically whenever the status changes.
+   * Read-only: recorded automatically whenever the status changes.
    */
   statusHistory?:
     | {
@@ -527,6 +548,9 @@ export interface Document {
   id: number;
   application: number | Application;
   documentType: 'identity' | 'academic' | 'english' | 'financial' | 'other';
+  /**
+   * Read-only: recorded automatically from the account that uploads the document.
+   */
   uploadedBy: number | User;
   reviewStatus?: ('received' | 'approved' | 'needs-update') | null;
   reviewNote?: string | null;
@@ -565,6 +589,9 @@ export interface SiteSetting {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Only administrators can change maintenance mode. This field is read-only for editors.
+   */
   maintenanceMode?: boolean | null;
   maintenanceMessage?: string | null;
   updatedAt: string;

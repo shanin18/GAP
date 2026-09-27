@@ -1,5 +1,6 @@
+import { assignStaffCreator } from '../hooks/staff-ownership';
 import { CollectionConfig } from "payload";
-import { isAdmin, isLoggedIn } from "../access";
+import { isAdmin, isLoggedIn, isAdminField, assignedRecords } from "../access";
 import { randomBytes } from "crypto";
 
 
@@ -17,8 +18,8 @@ export const Applications: CollectionConfig = {
   },
   access: {
     create: isLoggedIn,
-    read: isLoggedIn,
-    update: isLoggedIn,
+    read: assignedRecords,
+    update: assignedRecords,
     delete: isAdmin,
   },
   hooks: {
@@ -29,7 +30,7 @@ export const Applications: CollectionConfig = {
         return data;
       },
     ],
-    beforeChange: [
+    beforeChange: [assignStaffCreator,
       // Writes the status timeline automatically, so nobody has to type it by hand
       ({ data, originalDoc, operation, req }) => {
         const changed = data.status && data.status !== originalDoc?.status;
@@ -48,7 +49,7 @@ export const Applications: CollectionConfig = {
     ],
   },
   fields: [
-    { name: 'reference', type: 'text', required: true, unique: true, index: true, admin: { readOnly: true, description: 'Generated automatically.' } },
+    { name: 'reference', type: 'text', required: true, unique: true, index: true, admin: { readOnly: true, description: 'Read-only: generated automatically when the application is created.' } },
     { name: 'studentName', type: 'text', required: true },
     { name: 'email', type: 'email', required: true, index: true },
     { name: 'phone', type: 'text' },
@@ -57,7 +58,7 @@ export const Applications: CollectionConfig = {
     { name: 'studyLevel', type: 'select', required: true, options: ['Foundation', 'Undergraduate', 'Postgraduate', 'PhD', 'Other'] },
     { name: 'intake', type: 'text' },
     { name: 'message', type: 'textarea' },
-    { name: 'sourcePage', type: 'text' },
+    { name: 'sourcePage', type: 'text', admin: { readOnly: true, description: 'Read-only: captured from the website page where the application was submitted. May be blank for applications created by staff.' } },
     {
       name: 'status',
       type: 'select',
@@ -91,14 +92,14 @@ export const Applications: CollectionConfig = {
     },
     {
       name: 'assignedTo',
+      access: { create: isAdminField, update: isAdminField },
       type: 'relationship',
       relationTo: 'users',
       index: true,
-      admin: { position: 'sidebar' },
-      defaultValue: ({ req }) => req?.user?.id,
+      admin: { position: 'sidebar', components: { Field: '/components/admin/WorkflowFields#AssignmentField' } },
     },
     { name: 'nextAction', type: 'text', admin: { position: 'sidebar' } },
-    { name: 'nextActionAt', type: 'date', index: true, admin: { position: 'sidebar' } },
+    { name: 'nextActionAt', type: 'date', index: true, admin: { date: { pickerAppearance: 'dayAndTime' }, position: 'sidebar' } },
     {
       name: 'documents',
       type: 'array',
@@ -111,7 +112,7 @@ export const Applications: CollectionConfig = {
     {
       name: 'statusHistory',
       type: 'array',
-      admin: { readOnly: true, description: 'Filled in automatically whenever the status changes.' },
+      admin: { readOnly: true, description: 'Read-only: recorded automatically whenever the status changes.' },
       fields: [
         { name: 'status', type: 'text', required: true },
         { name: 'note', type: 'textarea' },

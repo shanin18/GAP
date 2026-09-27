@@ -42,6 +42,7 @@ function Stat({ icon: Icon, label, value, hint, href }: { icon: typeof Inbox; la
 
 export async function Dashboard({ initPageResult }: Props) {
   const { req } = initPageResult;
+  const isAdmin = req.user?.role === 'admin';
   const admin = req.payload.config.routes.admin;
   const { totalLeads, totalDocuments, countries, universities, newLeads, openApps, needsUpdate, leadsDue, appsDue, byStatus, leads, applications } = await loadDashboardData(req);
 
@@ -55,22 +56,22 @@ export async function Dashboard({ initPageResult }: Props) {
         <header className="gap-dash__head">
           <div>
             <span className="gap-admin-eyebrow">Dashboard</span>
-            <h1>Overall overview</h1>
-            <p>Welcome back, {name}. Your students, applications, and website at a glance.</p>
+            <h1>{isAdmin ? 'Overall overview' : 'Your assigned work'}</h1>
+            <p>Welcome back, {name}. Your accessible records at a glance.</p>
           </div>
           <div className="gap-dash__actions">
             <Link href={`${admin}/collections/leads/create`} className="gap-chip"><UserPlus size={16} aria-hidden="true" /> New lead</Link>
             <Link href={`${admin}/collections/applications/create`} className="gap-chip"><Plus size={16} aria-hidden="true" /> New application</Link>
-            <Link href={`${admin}/collections/news/create`} className="gap-chip"><Newspaper size={16} aria-hidden="true" /> New post</Link>
+            {isAdmin && <Link href={`${admin}/collections/news/create`} className="gap-chip"><Newspaper size={16} aria-hidden="true" /> New post</Link>}
             <Link href="/" className="gap-chip"><Globe size={16} aria-hidden="true" /> View website <ArrowUpRight size={14} aria-hidden="true" /></Link>
           </div>
         </header>
 
         <section className="gap-dash__stats" aria-label="Overall totals">
-          <Stat icon={UserPlus} label="Total leads" value={totalLeads} hint="All student enquiries" href={`${admin}/collections/leads`} />
+          <Stat icon={UserPlus} label="Total leads" value={totalLeads} hint={isAdmin ? "All student enquiries" : "Assigned to your account"} href={`${admin}/collections/leads`} />
           <Stat icon={ClipboardList} label="Total applications" value={total} hint={`${byStatus[6]} enrolled`} href={`${admin}/collections/applications`} />
           <Stat icon={FileText} label="Total documents" value={totalDocuments} hint="Student documents" href={`${admin}/collections/documents`} />
-          <Stat icon={Globe} label="Universities" value={universities} hint={`${countries} countries in your directory`} href={`${admin}/collections/universities`} />
+          {isAdmin && <Stat icon={Globe} label="Universities" value={universities} hint={`${countries} countries in your directory`} href={`${admin}/collections/universities`} />}
         </section>
 
         <section className="gap-dash__stats" aria-label="Needs attention">

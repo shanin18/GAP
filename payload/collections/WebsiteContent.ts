@@ -82,7 +82,7 @@ export const WebsiteContent: CollectionConfig = {
     afterChange: [revalidateAfterChange],
   },
   fields: [
-    { name: "title", type: "text", admin: { readOnly: true } },
+    { name: "title", type: "text", admin: { readOnly: true, description: "Read-only: generated from the selected website section." } },
     {
       name: "key",
       label: "Section",
@@ -134,7 +134,7 @@ export const WebsiteContent: CollectionConfig = {
           options: ["text", "image", "link"],
           admin: { hidden: true },
         },
-        { name: "label", type: "text", admin: { readOnly: true } },
+        { name: "label", type: "text", admin: { readOnly: true, description: "Read-only: identifies which website content this entry controls." } },
         { name: "value", label: "Website content", type: "textarea" },
         {
           name: "image",
@@ -147,7 +147,7 @@ export const WebsiteContent: CollectionConfig = {
           name: "original",
           label: "Original content (reference)",
           type: "textarea",
-          admin: { readOnly: true },
+          admin: { readOnly: true, description: "Read-only: the original text is kept for reference. Edit Website content above to change the site." },
         },
       ],
     },

@@ -16,7 +16,7 @@ export default async function StaffDashboard() {
   const user = await getAuthenticatedStaff();
   if (!user) redirect('/admin/login?redirect=/staff');
   let data;
-  try { data = await getAdminOverview(); } catch { redirect('/admin'); }
+  try { data = await getAdminOverview(user); } catch { redirect('/admin'); }
   const cards = [
     ['New leads', data.metrics.newLeads, Users],
     ['Active applications', data.metrics.activeApplications, ClipboardList],
