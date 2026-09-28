@@ -1398,3 +1398,17 @@
   .gap-reminders-heading p, .gap-reminders-footer { display: none; }
   .gap-reminders-empty { padding: 16px; }
 }
+.gap-upload-progress {
+  position: fixed; right: 20px; bottom: 20px; z-index: 10000;
+  width: min(380px, calc(100vw - 32px)); padding: 16px;
+  background: var(--theme-elevation-50); color: var(--theme-text);
+  border: 1px solid var(--theme-elevation-200); border-radius: 14px;
+  box-shadow: 0 12px 36px #0005; white-space: normal;
+}
+.gap-upload-progress__item + .gap-upload-progress__item { margin-top: 14px; }
+.gap-upload-progress strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gap-upload-progress span { display: block; font-size: 12px; margin: 6px 0; }
+.gap-upload-progress progress { display: block; width: 100%; height: 8px; accent-color: #b8d8bd; }
+@media (max-width: 640px) {
+  .gap-upload-progress { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); }
+}

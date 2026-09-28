@@ -34,6 +34,7 @@ import { Logo as Logo_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../componen
 import { Reminders as Reminders_d51ddb43694e44c5e2ca5de2322888e8 } from '../../../components/admin/Reminders'
 import { WebsiteLink as WebsiteLink_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
 import { LoginIntro as LoginIntro_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
+import { UploadProgress as UploadProgress_caff6e112440b4dcb78c02005a0ea302 } from '../../../components/admin/UploadProgress'
 import { Dashboard as Dashboard_16b88e9b8c48e393fa86591406efd08f } from '../../../components/admin/Dashboard'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
@@ -75,6 +76,7 @@ export const importMap = {
   "/components/admin/Reminders#Reminders": Reminders_d51ddb43694e44c5e2ca5de2322888e8,
   "/components/admin/_Brand#WebsiteLink": WebsiteLink_fa4daeaebc4b6b72da366a1851fb0d6d,
   "/components/admin/_Brand#LoginIntro": LoginIntro_fa4daeaebc4b6b72da366a1851fb0d6d,
+  "/components/admin/UploadProgress#UploadProgress": UploadProgress_caff6e112440b4dcb78c02005a0ea302,
   "/components/admin/Dashboard#Dashboard": Dashboard_16b88e9b8c48e393fa86591406efd08f,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

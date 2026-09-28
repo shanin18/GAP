@@ -47,15 +47,24 @@ export function Reminders() {
     if (!user) return;
     const controller = new AbortController();
     let pending = false;
+    let lastAttempt = 0;
+    let retryDelay = 10_000;
+    let lastResult = '';
     async function refresh() {
-      if (document.hidden || pending) return;
+      if (document.hidden || !navigator.onLine || pending || Date.now() - lastAttempt < retryDelay) return;
+      lastAttempt = Date.now();
       pending = true;
       try {
-        const response = await fetch('/api/admin/reminders', { signal: controller.signal, cache: 'no-store' });
+        const response = await fetch('/api/admin/reminders', { signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]), cache: 'no-store' });
         if (!response.ok) throw new Error('Reminders unavailable');
         const next = await response.json();
-        if (!controller.signal.aborted) { setData(next); setFailed(false); }
-      } catch { if (!controller.signal.aborted) setFailed(true); }
+        if (!controller.signal.aborted) {
+          const serialized = JSON.stringify(next);
+          if (serialized !== lastResult) { lastResult = serialized; setData(next); }
+          retryDelay = 10_000;
+          setFailed(false);
+        }
+      } catch { if (!controller.signal.aborted) { setFailed(true); retryDelay = Math.min(120_000, Math.max(30_000, retryDelay * 2)); } }
       finally { pending = false; }
     }
     setData(null);
@@ -77,7 +86,7 @@ export function Reminders() {
         <button type="button" onClick={close} aria-label="Close reminders"><X size={18} /></button>
       </div>
       {failed ? <p className="gap-reminders-state" role="status">Unable to refresh. Retrying automatically.</p> : !data ? <p className="gap-reminders-state">Loading reminders…</p> : data.total === 0 ? <div className="gap-reminders-empty"><CheckCircle2 size={30} aria-hidden="true" /><strong>You’re all caught up</strong><p>No follow-ups due right now.</p></div> : null}
-      {!!data?.items.length && <ul className="gap-reminders-list">{data.items.slice(currentPage * pageSize, (currentPage + 1) * pageSize).map(item => <li key={item.id}><Link href={item.href} onClick={() => { if (panel.current) panel.current.open = false; }}><span><strong>{item.label}</strong><small>{item.id.startsWith('lead-') ? 'Lead' : 'Application'} · {new Date(item.date).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</small></span><ChevronRight size={18} aria-hidden="true" /></Link></li>)}</ul>}
+      {!!data?.items.length && <ul className="gap-reminders-list">{data.items.slice(currentPage * pageSize, (currentPage + 1) * pageSize).map(item => <li key={item.id}><Link prefetch={false} href={item.href} onClick={() => { if (panel.current) panel.current.open = false; }}><span><strong>{item.label}</strong><small>{item.id.startsWith('lead-') ? 'Lead' : 'Application'} · {new Date(item.date).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</small></span><ChevronRight size={18} aria-hidden="true" /></Link></li>)}</ul>}
       {pages > 1 && <nav className="gap-reminders-pagination" aria-label="Reminder pages"><button type="button" disabled={currentPage === 0} onClick={() => setPage(currentPage - 1)} aria-label="Previous reminders"><ChevronLeft size={18} /></button><span aria-live="polite">{currentPage + 1} / {pages}</span><button type="button" disabled={currentPage === pages - 1} onClick={() => setPage(currentPage + 1)} aria-label="Next reminders"><ChevronRight size={18} /></button></nav>}
       {data && data.total > data.items.length && <p className="gap-reminders-state">Showing {data.items.length} of {data.total}. Find more in Leads and Applications.</p>}
       <footer className="gap-reminders-footer">Auto-refreshes every 15 seconds</footer>

@@ -31,7 +31,7 @@ function timeAgo(value?: string | null) {
 
 function Stat({ icon: Icon, label, value, hint, href }: { icon: typeof Inbox; label: string; value: number; hint: string; href: string }) {
   return (
-    <Link href={href} className="gap-stat">
+    <Link prefetch={false} href={href} className="gap-stat">
       <span className="gap-stat__icon" aria-hidden="true"><Icon size={20} /></span>
       <span className="gap-stat__value">{value}</span>
       <span className="gap-stat__label">{label}</span>
@@ -60,10 +60,10 @@ export async function Dashboard({ initPageResult }: Props) {
             <p>Welcome back, {name}. Your accessible records at a glance.</p>
           </div>
           <div className="gap-dash__actions">
-            <Link href={`${admin}/collections/leads/create`} className="gap-chip"><UserPlus size={16} aria-hidden="true" /> New lead</Link>
-            <Link href={`${admin}/collections/applications/create`} className="gap-chip"><Plus size={16} aria-hidden="true" /> New application</Link>
-            {isAdmin && <Link href={`${admin}/collections/news/create`} className="gap-chip"><Newspaper size={16} aria-hidden="true" /> New post</Link>}
-            <Link href="/" className="gap-chip"><Globe size={16} aria-hidden="true" /> View website <ArrowUpRight size={14} aria-hidden="true" /></Link>
+            <Link prefetch={false} href={`${admin}/collections/leads/create`} className="gap-chip"><UserPlus size={16} aria-hidden="true" /> New lead</Link>
+            <Link prefetch={false} href={`${admin}/collections/applications/create`} className="gap-chip"><Plus size={16} aria-hidden="true" /> New application</Link>
+            {isAdmin && <Link prefetch={false} href={`${admin}/collections/news/create`} className="gap-chip"><Newspaper size={16} aria-hidden="true" /> New post</Link>}
+            <Link prefetch={false} href="/" className="gap-chip"><Globe size={16} aria-hidden="true" /> View website <ArrowUpRight size={14} aria-hidden="true" /></Link>
           </div>
         </header>
 
@@ -93,7 +93,7 @@ export async function Dashboard({ initPageResult }: Props) {
               <ul className="gap-pipeline">
                 {APPLICATION_STATUSES.map((s, i) => (
                   <li key={s.value}>
-                    <Link href={`${admin}/collections/applications?where[status][equals]=${s.value}`} className="gap-pipeline__row">
+                    <Link prefetch={false} href={`${admin}/collections/applications?where[status][equals]=${s.value}`} className="gap-pipeline__row">
                       <span className="gap-pipeline__label">{s.label}</span>
                       <span className="gap-pipeline__bar" aria-hidden="true">
                         <span style={{ width: `${(byStatus[i] / max) * 100}%` }} />
@@ -109,7 +109,7 @@ export async function Dashboard({ initPageResult }: Props) {
           <section className="gap-panel" aria-labelledby="gap-recent-leads">
             <div className="gap-panel__head">
               <h2 id="gap-recent-leads">Recent leads</h2>
-              <Link href={`${admin}/collections/leads`} className="gap-panel__link">View all</Link>
+              <Link prefetch={false} href={`${admin}/collections/leads`} className="gap-panel__link">View all</Link>
             </div>
             {leads.length === 0 ? (
               <p className="gap-empty">No leads yet.</p>
@@ -117,7 +117,7 @@ export async function Dashboard({ initPageResult }: Props) {
               <ul className="gap-list">
                 {leads.map((lead) => (
                   <li key={lead.id}>
-                    <Link href={`${admin}/collections/leads/${lead.id}`} className="gap-list__row">
+                    <Link prefetch={false} href={`${admin}/collections/leads/${lead.id}`} className="gap-list__row">
                       <span className="gap-list__main">
                         <strong>{lead.name}</strong>
                         <span>{lead.interestedCountry || lead.email}</span>
@@ -137,7 +137,7 @@ export async function Dashboard({ initPageResult }: Props) {
         <section className="gap-panel" aria-labelledby="gap-recent-apps">
           <div className="gap-panel__head">
             <h2 id="gap-recent-apps">Recent applications</h2>
-            <Link href={`${admin}/collections/applications`} className="gap-panel__link">View all</Link>
+            <Link prefetch={false} href={`${admin}/collections/applications`} className="gap-panel__link">View all</Link>
           </div>
           {applications.length === 0 ? (
             <p className="gap-empty">No applications yet.</p>
@@ -145,7 +145,7 @@ export async function Dashboard({ initPageResult }: Props) {
             <ul className="gap-list">
               {applications.map((app) => (
                 <li key={app.id}>
-                  <Link href={`${admin}/collections/applications/${app.id}`} className="gap-list__row">
+                  <Link prefetch={false} href={`${admin}/collections/applications/${app.id}`} className="gap-list__row">
                     <span className="gap-list__main">
                       <strong>{app.studentName}</strong>
                       <span>
