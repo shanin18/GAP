@@ -9,11 +9,6 @@ const imageHosts = (process.env.IMAGE_HOSTS ?? "")
   .split(",")
   .map((h) => h.trim())
   .filter(Boolean);
-if (!imageHosts.length && process.env.NODE_ENV === "production") {
-  console.warn(
-    "[next.config] IMAGE_HOSTS is not set: remote images are allowed from ANY host.",
-  );
-}
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -41,9 +36,7 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 7,
-    remotePatterns: imageHosts.length
-      ? imageHosts.map((hostname) => ({ protocol: "https", hostname }))
-      : [{ protocol: "https", hostname: "**" }],
+    remotePatterns: imageHosts.map((hostname) => ({ protocol: "https", hostname })),
   },
   async headers() {
     return [

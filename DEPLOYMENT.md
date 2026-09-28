@@ -6,6 +6,8 @@ The hosting provider and domain are still undecided. This guide prepares the rel
 
 Copy `.env.example` into your local environment or the hosting provider's secret manager. Never commit real credentials. Set `NODE_ENV=production` for deployment commands.
 
+- `APP_ENV=production`: set on the hosting account. Local `.env` uses `APP_ENV=local` so `npm run build` can be tested with a localhost origin before the domain is available. Do not deploy the local setting. `npm run env:check` always enforces production requirements.
+
 - `DATABASE_URL`: PostgreSQL connection string. Use the provider's certificate-verified TLS connection. Use a direct connection for migrations where the provider requires it.
 - `DATABASE_SCHEMA=gap`: required by the committed initial migration. It creates the schema on a fresh database. Do not change this independently after generating migrations.
 - `PAYLOAD_SECRET`: unique random secret, at least 32 characters. Generate one with `node -e "console.log(require('node:crypto').randomBytes(48).toString('hex'))"`. Keep it stable across instances and deployments.
@@ -13,7 +15,7 @@ Copy `.env.example` into your local environment or the hosting provider's secret
 - `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS`, `SMTP_PORT`: email transport. Port 465 uses implicit TLS; other ports use Nodemailer's SMTP negotiation.
 - `EMAIL_FROM_ADDRESS`: a sender address authorized by the email provider.
 - `NOTIFY_EMAIL`: comma-separated staff inboxes for enquiries and applications.
-- `IMAGE_HOSTS`: comma-separated explicit external image hostnames used by published content. Local uploaded images do not need an entry. Wildcards and full URLs are rejected.
+- `IMAGE_HOSTS`: comma-separated explicit external image hostnames used by published content. Local uploaded images do not need an entry. Wildcards and full URLs are rejected. An empty local value disables external image optimization; add the specific hosts used by your content to enable those images.
 - `EMAIL_LOGO_URL`: optional publicly accessible logo; preferably PNG.
 - `PAYLOAD_PUSH_SCHEMA=false`: always in production.
 
