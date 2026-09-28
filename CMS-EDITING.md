@@ -50,4 +50,4 @@ Normal development requests no longer inspect or push the PostgreSQL schema. Aft
 
 `npm run cms:verify` exercises all collections in a disposable PostgreSQL schema and removes that schema and its uploaded fixtures afterward. It does not modify existing website records or send email.
 
-For deployment, apply the corresponding Payload database schema changes before starting production. Media uploads use `public/uploads`; provide persistent storage for that directory (or configure a Payload storage adapter) on hosts with ephemeral filesystems. Private application files remain separate in `private-uploads`.
+For deployment, apply the corresponding Payload database schema changes before starting production. With `UPLOAD_STORAGE=local`, Media uses `public/uploads` and Documents uses `private-uploads`. With `UPLOAD_STORAGE=cloudinary`, images are public Cloudinary assets and documents are authenticated assets served through the app's access checks. Vercel requires cloud storage. See [Cloudinary setup and migration](DEPLOYMENT.md#cloudinary-uploads-vercel-and-optional-hostinger-storage); Vercel uploads are limited to 4 MB per file.

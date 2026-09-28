@@ -17,10 +17,19 @@ import { WebsiteContent } from "./collections/WebsiteContent";
 import { Media } from "./collections/Media";
 import { invalidateAdminReads } from "../lib/admin-read-cache";
 import { isAdmin } from './access';
+import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage';
+import { cloudinaryAdapter, publicMediaURL } from '../lib/cloudinary-storage';
 
 const contentCollections = new Set(['website-content', 'media', 'countries', 'universities', 'services', 'testimonials', 'news', 'site-settings']);
 
 export default buildConfig({
+  plugins: [cloudStoragePlugin({
+    enabled: process.env.UPLOAD_STORAGE === 'cloudinary',
+    collections: {
+      media: { adapter: cloudinaryAdapter, generateFileURL: ({ filename }) => publicMediaURL(filename) },
+      documents: { adapter: cloudinaryAdapter },
+    },
+  })],
   admin: {
     theme: "dark",
     user: Users.slug,
@@ -121,6 +130,7 @@ export default buildConfig({
       })
     : undefined,
   graphQL: { disable: true },
-  upload: { limits: { fileSize: 10_000_000 } },
+  // Vercel buffers multipart uploads: stay below its 4.5 MB request limit.
+  upload: { limits: { fileSize: process.env.VERCEL === '1' ? 4_000_000 : 10_000_000 } },
   typescript: { outputFile: "payload-types.ts" },
 });

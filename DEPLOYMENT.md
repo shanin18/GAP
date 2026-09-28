@@ -23,6 +23,35 @@ Run `npm run env:check` to validate production settings without connecting to se
 
 SMTP transport verification is skipped while loading configuration so builds and migration generation do not wait on an email server. Actual email sends still authenticate with the configured transport; failed notifications are logged. Durable email retries are not implemented yet.
 
+## Cloudinary uploads (Vercel and optional Hostinger storage)
+
+Set these server environment variables in Vercel for each environment you deploy:
+
+```dotenv
+APP_ENV=production
+UPLOAD_STORAGE=cloudinary
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+NEXT_PUBLIC_SITE_URL=https://your-deployment-domain
+```
+
+Keep secrets out of source control and never prefix them with `NEXT_PUBLIC_`. The API key needs asset creation/upload and destroy/delete permissions. A successful API ping alone does not prove upload permissions. Redeploy after changing environment variables.
+
+Media images are public Cloudinary image assets. Documents use authenticated raw assets, including PDFs, and are streamed through Payload's existing authorized file endpoint. Signed Cloudinary document URLs are not returned to the browser or stored in records. Staff's assigned-application restrictions still apply to downloads. The app automatically allows `res.cloudinary.com` for image rendering while Cloudinary is enabled; `IMAGE_HOSTS` is optional and is only for additional external domains.
+
+Uploads through Vercel are capped at **4 MB per file** to leave room for multipart data below its 4.5 MB request limit. Local/non-Vercel uploads retain the 10 MB limit. Do not upload larger private files locally if you need to test their delivery on Vercel. See [Vercel's documented limits](https://vercel.com/docs/functions/limitations).
+
+Before switching an existing local project, run `npm run payload -- run scripts/migrate-cloudinary.ts` on the computer that holds `public/uploads` and `private-uploads`. This uploads existing assets to the configured external account, so confirm that account is authorized for those files. It preserves database IDs, existing file endpoints and local originals. It preflights missing local files before uploading; a failure can leave a partial cloud copy, and rerunning overwrites the same deterministic IDs. Do not rerun an old local backup after editing/replacing the corresponding Cloudinary assets.
+
+The current QA-only command is `npm run payload -- run scripts/migrate-cloudinary.ts --demo-only`; it accepts only the four checksum-verified generated placeholder PNGs. After a successful migration, set `UPLOAD_STORAGE=cloudinary` locally, restart the development server and redeploy Vercel with the variables above. Existing hardcoded local `/uploads/` links, if any, must be replaced by Media URLs; `/api/media/file/` links remain supported.
+
+No database schema migration is needed for this adapter. When moving to Hostinger, keep these variables to continue using Cloudinary. Switching back to local storage requires copying every cloud asset back into its collection's upload directory and updating any direct Cloudinary image links before removing the cloud service.
+
+Verification: upload an image as admin; open it publicly; upload a document for an assigned application; confirm the assignee/admin can download it and an unrelated staff account or logged-out visitor cannot. Test replacing and deleting an upload. Automated adapter checks: `node --import tsx scripts/test-cloudinary.mjs`.
+
+After migrating the seeded QA files, run `npm run payload -- run scripts/verify-cloudinary.ts` for a read-only live check of public delivery, private delivery, and Payload's download permissions. It requires the seeded application/document records and Cloudinary credentials; it does not create users or change records.
+
 ## Database migrations
 
 Migrations and their schema snapshots are in `payload/migrations`. Commit both the migration TypeScript and snapshot JSON plus the generated index.

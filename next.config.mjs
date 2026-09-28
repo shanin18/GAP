@@ -9,6 +9,7 @@ const imageHosts = (process.env.IMAGE_HOSTS ?? "")
   .split(",")
   .map((h) => h.trim())
   .filter(Boolean);
+if (process.env.UPLOAD_STORAGE === 'cloudinary') imageHosts.push('res.cloudinary.com');
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },

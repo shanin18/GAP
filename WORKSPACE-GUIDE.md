@@ -77,7 +77,7 @@ Application stages are **Submitted → Profile review → Documents required →
 
 ### Documents
 
-Private supporting files linked to an application: identity/passport, academic, English-language, financial or other evidence. Supported uploads include PDF, JPEG, PNG and WebP, up to 10 MB.
+Private supporting files linked to an application: identity/passport, academic, English-language, financial or other evidence. Supported uploads include PDF, JPEG, PNG and WebP, up to 4 MB on Vercel or 10 MB locally. Cloudinary-backed documents remain accessible through the workspace's permission checks.
 
 1. Choose the application you are working on.
 2. Choose the document type and upload the file.
