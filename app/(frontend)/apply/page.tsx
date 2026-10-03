@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MobileNav } from "@/components/mobile-nav";
 import { ApplicationForm } from "@/components/application-form";
+import { getApplicationOptions } from "@/lib/cms-queries";
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getSectionText("apply-page");
   return {
@@ -14,7 +15,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 export default async function ApplyPage() {
-  const t = await getSectionText("apply-page");
+  const [t, options] = await Promise.all([
+    getSectionText("apply-page"),
+    getApplicationOptions().catch(() => undefined),
+  ]);
   return (
     <>
       <SiteHeader />
@@ -61,7 +65,7 @@ export default async function ApplyPage() {
                 ))}
               </ol>
             </div>
-            <ApplicationForm />
+            <ApplicationForm initialOptions={options} />
           </div>
         </section>
       </main>

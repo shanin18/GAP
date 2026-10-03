@@ -83,7 +83,7 @@ export default async function UniversityPage({
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 lg:justify-end">
-                <ApplyNowDialog triggerClass="rounded-full bg-[var(--primary)] px-6 py-3 font-semibold text-primary-foreground" />
+                <ApplyNowDialog />
                 {university.websiteUrl && (
                   <a
                     href={university.websiteUrl}

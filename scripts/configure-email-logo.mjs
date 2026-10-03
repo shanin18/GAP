@@ -1,0 +1,21 @@
+import nextEnv from '@next/env';
+import sharp from 'sharp';
+import { v2 as cloudinary } from 'cloudinary';
+import { createHash } from 'node:crypto';
+import { readFile, writeFile } from 'node:fs/promises';
+nextEnv.loadEnvConfig(process.cwd());
+cloudinary.config({ cloud_name: process.env.CLOUDINARY_CLOUD_NAME, api_key: process.env.CLOUDINARY_API_KEY, api_secret: process.env.CLOUDINARY_API_SECRET, secure: true });
+const png = await sharp('public/images/gap-logo.webp').resize({ width: 320, withoutEnlargement: true }).png({ compressionLevel: 9, palette: true }).toBuffer();
+await writeFile('public/images/email-logo.png', png);
+const hash = createHash('sha256').update(png).digest('hex').slice(0, 16);
+const result = await new Promise((resolve, reject) => {
+  const stream = cloudinary.uploader.upload_stream({ resource_type: 'image', public_id: `gap/brand/email-logo-${hash}`, format: 'png', overwrite: false }, (error, value) => error ? reject(new Error('Cloudinary logo upload failed.')) : resolve(value));
+  stream.end(png);
+});
+const response = await fetch(result.secure_url);
+if (!response.ok || !response.headers.get('content-type')?.includes('image/png')) throw new Error('Public PNG verification failed.');
+let env = await readFile('.env', 'utf8');
+const line = `EMAIL_LOGO_URL=${result.secure_url}`;
+env = /^EMAIL_LOGO_URL=.*$/m.test(env) ? env.replace(/^EMAIL_LOGO_URL=.*$/m, line) : env + `\n${line}\n`;
+await writeFile('.env', env);
+console.log(`EMAIL_LOGO_URL configured; public PNG verified (${png.length} bytes).`);

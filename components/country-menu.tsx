@@ -20,6 +20,7 @@ export function CountryMenu({ mobile = false }: { mobile?: boolean }) {
 
   const destinations = useDestinations();
   const pathname = usePathname();
+  const featured = destinations.filter(d => ["australia", "canada", "new-zealand", "united-kingdom"].includes(d.slug));
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,7 +29,7 @@ export function CountryMenu({ mobile = false }: { mobile?: boolean }) {
           className={cn(
             "group rounded-xl",
             mobile ? "h-full flex-col gap-1 px-1 py-2 text-[11px]" : "px-3",
-            pathname.startsWith("/country/")
+            (pathname.startsWith("/country/") || pathname === "/countries")
               ? "text-primary"
               : "text-foreground",
           )}
@@ -51,11 +52,11 @@ export function CountryMenu({ mobile = false }: { mobile?: boolean }) {
         side={mobile ? "top" : "bottom"}
         align="start"
       >
-        {destinations.map(({ name, slug }) => (
+        {featured.map(({ name, slug }) => (
           <DropdownMenuItem key={slug} asChild>
             <Link
               href={"/country/" + slug}
-              prefetch={true}
+              prefetch={false}
               aria-current={
                 pathname === "/country/" + slug ? "page" : undefined
               }
@@ -68,6 +69,7 @@ export function CountryMenu({ mobile = false }: { mobile?: boolean }) {
             </Link>
           </DropdownMenuItem>
         ))}
+        <DropdownMenuItem asChild><Link href="/countries" className="text-primary">See all countries →</Link></DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -19,10 +19,12 @@ export async function SiteHeader() {
           <Image
             src={t("/images/gap-logo.webp")}
             alt={t("Global Admission Platform")}
-            width={90}
-            height={64}
+            width={594}
+            height={420}
+            sizes="91px"
             priority
             className="h-14 w-auto rounded-md sm:h-16"
+            style={{ width: "auto" }}
           />
         </Link>
         <nav

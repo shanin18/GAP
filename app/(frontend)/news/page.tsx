@@ -1,3 +1,4 @@
+import { stockImage } from "@/lib/stock-images";
 import { getSectionText } from "@/lib/website-content-server";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,20 +6,23 @@ import { ArrowUpRight, BookOpen } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MobileNav } from "@/components/mobile-nav";
-import { getPublishedNews } from "@/lib/cms-queries";
+import { getNewsPage } from "@/lib/cms-queries";
 import { cardVariants } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ApplyNowDialog } from "@/components/ui/apply-now-dialog";
 import { cn } from "@/lib/utils";
+import { newsLabel } from "@/lib/news-label";
 export const metadata = {
-  title: "GAP Journal",
+  title: "Blogs & Events",
   description:
     "Study-abroad guidance, application advice and destination insights from GAP.",
 };
-export default async function NewsPage() {
+export default async function NewsPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
   const t = await getSectionText("news-page");
 
-  const articles = await getPublishedNews(24);
+  const requestedPage = Number((await searchParams).page || 1);
+  const page = Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+  const { docs: articles, totalPages } = await getNewsPage(page);
   return (
     <>
       <SiteHeader />
@@ -26,7 +30,7 @@ export default async function NewsPage() {
         <section className="border-b border-border">
           <div className="mx-auto max-w-7xl px-5 py-16 md:py-20 lg:px-8 lg:py-24">
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">
-              {t("GAP Journal")}
+              {t("Blogs & events")}
             </p>
             <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight">
               {t("Useful guidance for your ")}
@@ -34,7 +38,7 @@ export default async function NewsPage() {
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
               {t(
-                "Practical articles about destinations, university applications and preparing to study abroad.",
+                "Explore study-abroad blogs, upcoming events and announcements from GAP.",
               )}
             </p>
           </div>
@@ -52,37 +56,21 @@ export default async function NewsPage() {
                     )}
                   >
                     <div className="relative aspect-[16/9] bg-muted">
-                      {article.coverImageUrl ? (
-                        <Image
-                          src={article.coverImageUrl}
-                          alt=""
-                          fill
-                          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                          className="object-cover"
-                        />
-                      ) : (
-                        <div className="grid h-full place-items-center">
-                          <BookOpen
-                            aria-hidden="true"
-                            size={48}
-                            className="text-primary/60"
-                            strokeWidth={1}
-                          />
-                        </div>
-                      )}
+                      <Image src={article.coverImageUrl || stockImage("planning")!} alt="" fill sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" className="object-cover" />
                     </div>
                     <div className="flex flex-1 flex-col p-6">
+                      <p className="mb-2 text-xs font-bold uppercase tracking-widest text-primary">{t(newsLabel(article))}</p>
                       <time
-                        dateTime={article.publishedDate}
+                        dateTime={article.eventDate || article.publishedDate}
                         className="text-xs font-semibold text-muted-foreground"
                       >
-                        {new Date(article.publishedDate).toLocaleDateString(
+                        {new Date(article.eventDate || article.publishedDate).toLocaleDateString(
                           "en",
                           {
                             month: "short",
                             day: "numeric",
                             year: "numeric",
-                            timeZone: "UTC",
+                            timeZone: "Asia/Dhaka",
                           },
                         )}
                       </time>
@@ -96,7 +84,7 @@ export default async function NewsPage() {
                         href={`/news/${article.slug}`}
                         className="mt-auto inline-flex min-h-11 items-center gap-2 rounded-lg pt-6 font-semibold text-primary transition-colors duration-200 hover:text-foreground active:opacity-80"
                       >
-                        {t("Read article ")}
+                        {t(article.entryType === "event" ? "View event " : "Read blog ")}
                         <span className="sr-only">{t(article.title)}</span>
                         <ArrowUpRight aria-hidden="true" size={17} />
                       </Link>
@@ -112,8 +100,15 @@ export default async function NewsPage() {
                   "Our next articles are being prepared. For advice on your own study plans, start a conversation with an adviser.",
                 )}
               >
-                <ApplyNowDialog triggerContent={t("Ask an adviser")} />
+                <ApplyNowDialog />
               </EmptyState>
+            )}
+            {totalPages > 1 && (
+              <nav aria-label="Blogs and events pages" className="mt-10 flex items-center justify-center gap-5">
+                {page > 1 && <Link href={`/news?page=${page - 1}`} className="inline-flex min-h-11 items-center rounded-full border border-border px-5 text-sm font-semibold hover:bg-primary/10">Previous</Link>}
+                <span className="text-sm text-muted-foreground">Page {page} of {totalPages}</span>
+                {page < totalPages && <Link href={`/news?page=${page + 1}`} className="inline-flex min-h-11 items-center rounded-full border border-border px-5 text-sm font-semibold hover:bg-primary/10">Next</Link>}
+              </nav>
             )}
           </div>
         </section>

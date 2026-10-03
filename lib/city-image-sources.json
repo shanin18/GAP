@@ -1,0 +1,51 @@
+[
+  {
+    "city": "vancouver",
+    "source": "https://unsplash.com/photos/ga56QgNmBxU",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/cities/vancouver.webp",
+    "bytes": 49112
+  },
+  {
+    "city": "montreal",
+    "source": "https://unsplash.com/photos/CL9Pl-5fXBU",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/cities/montreal.webp",
+    "bytes": 70232
+  },
+  {
+    "city": "ottawa",
+    "source": "https://unsplash.com/photos/C2keINMOhIE",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/cities/ottawa.webp",
+    "bytes": 15774
+  },
+  {
+    "city": "quebec-city",
+    "source": "https://unsplash.com/photos/djlipMcj3QM",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/cities/quebec-city.webp",
+    "bytes": 36280
+  },
+  {
+    "city": "edmonton",
+    "source": "https://unsplash.com/photos/XfpSr1OBtio",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/cities/edmonton.webp",
+    "bytes": 30230
+  },
+  {
+    "city": "winnipeg",
+    "source": "https://unsplash.com/photos/uzp3jisBY7Y",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/cities/winnipeg.webp",
+    "bytes": 43276
+  },
+  {
+    "city": "calgary",
+    "source": "https://unsplash.com/photos/ymsyHoqD0XE",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/cities/calgary.webp",
+    "bytes": 48746
+  }
+]

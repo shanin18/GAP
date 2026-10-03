@@ -1,3 +1,4 @@
+import { stockImage } from "@/lib/stock-images";
 import { getSectionText } from "@/lib/website-content-server";
 import Image from "next/image";
 import { SectionHeading } from "../section-heading";
@@ -82,8 +83,8 @@ export async function About() {
           {/* Large photo with caption */}
           <div className="relative md:row-span-2">
             <Photo
-              src={t("Main photo URL", "") || undefined}
-              alt={t(PHOTOS.main.alt)}
+              src={t("Main photo URL", "") || stockImage("academic")}
+              alt="A student studying in a library"
               priority={false}
               className="h-full min-h-[22rem]"
             />
@@ -109,8 +110,8 @@ export async function About() {
           {/* Second photo + destinations */}
           <div className="relative">
             <Photo
-              src={t("Campus photo URL", "") || undefined}
-              alt={t(PHOTOS.side.alt)}
+              src={t("Campus photo URL", "") || stockImage("study")}
+              alt="Books and study materials on a desk"
               className="h-full min-h-[13rem]"
             />
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-3 p-6">

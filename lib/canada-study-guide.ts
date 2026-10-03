@@ -1,0 +1,35 @@
+/** Editorial guide data. Sources are shown with the related section; no runtime fetches. */
+export const canadaStudyGuide = {
+  requirements: [
+    ["Academic records", "Prepare certificates and transcripts from your previous studies. Entry grades and qualification recognition depend on the program."],
+    ["Language evidence", "Check accepted English or French tests and course-specific scores. An exemption must be confirmed by the institution."],
+    ["Statement of purpose", "Explain your academic interests, study goals and relevant experience when the course requests a statement."],
+    ["References", "Provide academic or professional recommendations if required by the program."],
+    ["Passport", "Have a valid passport and check the institution’s identity-document requirements."],
+    ["Portfolio or test", "Some courses request a portfolio, interview or additional admissions test. Confirm this before applying."],
+    ["Study permit documents", "After admission, check the official study permit checklist, including any applicable provincial attestation requirement."],
+    ["Financial evidence", "Prepare evidence of tuition and living funds according to current immigration requirements."],
+  ],
+  intakes: [["Fall", "September", "Main start period; availability varies by course"], ["Winter", "January", "Available for selected programs"], ["Summer", "May–August", "Limited or program-specific starts"]],
+  durations: [["Certificate", "Usually 1–2 years", "Focused skills and subject preparation"], ["Diploma", "Usually 2–3 years", "College and applied learning routes"], ["Bachelor’s degree", "Usually 3–4 years", "Undergraduate university study"], ["Master’s degree", "Usually 1–2 years", "Graduate coursework or research"], ["Doctorate", "Usually 3–5 years", "Advanced research study"]],
+  subjects: ["Computing & IT", "Engineering", "Business", "Data science", "Health sciences", "Environmental studies", "Media & communication", "Applied sciences"],
+  costs: [["International undergraduate tuition", "CAD 41,746 / year", "National average, 2025/26"], ["International graduate tuition", "CAD 24,028 / year", "National average, 2025/26"], ["Accommodation & living expenses", "Depends on city and housing", "Budget separately from tuition"], ["Travel, insurance & study materials", "Depends on your circumstances", "Include these in your overall plan"]],
+  cities: [
+    ["Toronto", "Ontario", "Compare a wide range of campuses and urban study settings."],
+    ["Vancouver", "British Columbia", "Explore coastal campuses and plan carefully for housing costs."],
+    ["Montreal", "Quebec", "Compare English- and French-taught options and local language needs."],
+    ["Ottawa", "Ontario", "Explore university and college options in the capital."],
+    ["Quebec City", "Quebec", "Check the language of instruction and provincial requirements."],
+    ["Edmonton", "Alberta", "Compare research and applied study options in Alberta."],
+    ["Winnipeg", "Manitoba", "Review campus location, accommodation and student support."],
+    ["Calgary", "Alberta", "Compare course content and campus settings before shortlisting."],
+  ],
+  sources: {
+    pathways: "https://www.educanada.ca/programs-programmes/pathways-voies.aspx?lang=eng",
+    tuition: "https://www150.statcan.gc.ca/n1/daily-quotidien/250910/dq250910d-eng.htm",
+    dates: "https://vancouver.calendar.ubc.ca/dates-and-deadlines",
+    work: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/work-off-campus.html",
+    pgwp: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/after-graduation/about.html",
+    permit: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/get-documents.html",
+  },
+};

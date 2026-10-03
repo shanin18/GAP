@@ -129,7 +129,7 @@ export function CardCarousel({ children }: { children: ReactNode }) {
               role="group"
               aria-roledescription="slide"
               aria-label={`${index + 1} of ${count}`}
-              className="flex w-full shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)] [&>article]:w-full"
+              className="flex min-w-0 w-full shrink-0 snap-start sm:w-[calc((100%_-_1.5rem)/2)] lg:w-[calc((100%_-_3rem)/3)] [&>article]:w-full [&>figure]:w-full"
             >
               {child}
             </div>

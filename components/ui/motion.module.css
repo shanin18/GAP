@@ -1,6 +1,12 @@
 .overlay { will-change: opacity; }
 .surface { will-change: transform, opacity; }
-.dialog { --surface-enter: 180ms; --surface-exit: 140ms; }
+.dialog {
+  --surface-enter: 180ms;
+  --surface-exit: 140ms;
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+  -webkit-overflow-scrolling: touch;
+}
 .overlay[data-state="open"] { animation: fade-in 180ms cubic-bezier(.2,.7,.2,1) both; }
 .overlay[data-state="closed"] { animation: fade-out 140ms ease-out both; }
 .surface[data-state="open"] { animation: surface-in var(--surface-enter, 140ms) cubic-bezier(.2,.7,.2,1) both; }

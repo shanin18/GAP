@@ -1,4 +1,5 @@
 import { APIError, CollectionConfig } from "payload";
+import { verifyTurnstile } from '../../lib/turnstile';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -17,6 +18,11 @@ export const Users: CollectionConfig = {
     delete: ({ req }) => req.user?.role === 'admin',
   },
   hooks: {
+    beforeOperation: [async ({ operation, req }) => {
+      if (operation === 'login' && !await verifyTurnstile(req.headers.get('x-turnstile-token'), 'login')) {
+        throw new APIError('Security verification failed. Please verify and try again.', 403);
+      }
+    }],
     beforeChange: [
       async ({ data, operation, originalDoc, req }) => {
         // The very first user becomes the admin

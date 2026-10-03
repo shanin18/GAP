@@ -333,6 +333,15 @@ export interface Country {
 export interface News {
   id: number;
   title: string;
+  entryType?: ('blog' | 'event') | null;
+  /**
+   * When the event starts. Publish before this date to announce an upcoming event.
+   */
+  eventDate?: string | null;
+  /**
+   * Venue address or online meeting details.
+   */
+  eventLocation?: string | null;
   /**
    * Filled in from the title. It becomes the page address.
    */
@@ -880,6 +889,9 @@ export interface TestimonialsSelect<T extends boolean = true> {
  */
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
+  entryType?: T;
+  eventDate?: T;
+  eventLocation?: T;
   slug?: T;
   coverImageUrl?: T;
   shortBlurb?: T;

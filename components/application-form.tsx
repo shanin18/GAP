@@ -15,6 +15,7 @@ import { CheckCircle2, Loader2, RefreshCw, Send } from "lucide-react";
 import { Button } from "./ui/button";
 import { Skeleton } from "./ui/skeleton";
 import { Card, cardVariants } from "./ui/card";
+import { Turnstile, turnstileEnabled } from './ui/turnstile';
 
 type Option = { id: string | number; name: string; country?: string | number };
 const initial = {
@@ -27,15 +28,19 @@ const initial = {
   intake: "",
   message: "",
 };
-export function ApplicationForm() {
+export function ApplicationForm({ initialOptions }: {
+  initialOptions?: { countries: Option[]; universities: Option[] };
+}) {
   const t = useWebsiteContent("application-form");
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [verificationReset, setVerificationReset] = useState(0);
 
   const [form, setForm] = useState(initial);
-  const [countries, setCountries] = useState<Option[]>([]);
-  const [universities, setUniversities] = useState<Option[]>([]);
+  const [countries, setCountries] = useState<Option[]>(initialOptions?.countries ?? []);
+  const [universities, setUniversities] = useState<Option[]>(initialOptions?.universities ?? []);
   const [optionsStatus, setOptionsStatus] = useState<
     "loading" | "ready" | "error"
-  >("loading");
+  >(initialOptions ? "ready" : "loading");
   const [retry, setRetry] = useState(0);
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -43,6 +48,7 @@ export function ApplicationForm() {
   const [error, setError] = useState("");
   const [reference, setReference] = useState("");
   useEffect(() => {
+    if (initialOptions && retry === 0) return;
     const controller = new AbortController();
     setOptionsStatus("loading");
     async function load() {
@@ -63,7 +69,7 @@ export function ApplicationForm() {
     }
     void load();
     return () => controller.abort();
-  }, [retry]);
+  }, [retry, initialOptions]);
   const available = useMemo(
     () =>
       universities.filter(
@@ -84,6 +90,7 @@ export function ApplicationForm() {
     event.preventDefault();
     if (optionsStatus !== "ready" || !countries.length || status === "loading")
       return;
+    if (turnstileEnabled && !turnstileToken) { setError('Please complete the security verification.'); return; }
     setStatus("loading");
     setError("");
     try {
@@ -92,6 +99,7 @@ export function ApplicationForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
+          turnstileToken,
           universityId: form.universityId || null,
           sourcePage: location.pathname,
         }),
@@ -109,6 +117,9 @@ export function ApplicationForm() {
           ? cause.message
           : "Unable to submit application.",
       );
+    } finally {
+      setTurnstileToken('');
+      setVerificationReset(value => value + 1);
     }
   }
   if (status === "success")
@@ -308,7 +319,7 @@ export function ApplicationForm() {
             className="rounded-xl bg-muted p-4 text-sm leading-6"
           >
             {t(
-              "Online applications are not available yet. Use Apply Now to speak with an adviser about your destination.",
+              "Online applications are not available yet. Use Book an appointment to speak with an adviser about your destination.",
             )}
           </p>
         )}
@@ -329,12 +340,14 @@ export function ApplicationForm() {
             {error}
           </p>
         )}
+        <Turnstile action="application" onToken={setTurnstileToken} resetKey={verificationReset} />
         <Button
           type="submit"
           disabled={
             status === "loading" ||
             optionsStatus !== "ready" ||
-            !countries.length
+            !countries.length ||
+            (turnstileEnabled && !turnstileToken)
           }
         >
           {status === "loading" ? (

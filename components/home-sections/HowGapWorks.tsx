@@ -19,34 +19,10 @@ const HEAD = "M 333.6 142.3 L 331 152 L 322.8 146.3";
 const HEAD_TIME = 380;
 
 const steps = [
-  {
-    icon: MessageCircle,
-    title: "Consultation",
-    position: "left-1/2 top-0 -translate-x-1/2",
-    description:
-      "Discuss your goals, academic background and preferred destinations with a GAP adviser.",
-  },
-  {
-    icon: Send,
-    title: "Apply",
-    position: "right-0 top-1/2 -translate-y-1/2",
-    description:
-      "Build your shortlist and prepare your application with clear guidance on the documents you need.",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Appointment",
-    position: "bottom-0 left-1/2 -translate-x-1/2",
-    description:
-      "Meet your adviser to review progress, discuss your options and plan the next steps.",
-  },
-  {
-    icon: Plane,
-    title: "Fly",
-    position: "left-0 top-1/2 -translate-y-1/2",
-    description:
-      "Prepare for departure and arrive ready for your new chapter abroad.",
-  },
+  { icon: CalendarCheck, title: "Appointment", position: "left-1/2 top-0 -translate-x-1/2", description: "Book an appointment with a GAP adviser to take the first step towards studying abroad." },
+  { icon: MessageCircle, title: "Consultation", position: "right-0 top-1/2 -translate-y-1/2", description: "Discuss your goals, academic background and preferred destinations with a GAP adviser." },
+  { icon: Send, title: "Apply", position: "bottom-0 left-1/2 -translate-x-1/2", description: "Build your shortlist and prepare your application with clear guidance on the documents you need." },
+  { icon: Plane, title: "Fly", position: "left-0 top-1/2 -translate-y-1/2", description: "Prepare for departure and arrive ready for your new chapter abroad." },
 ];
 
 export function HowGapWorks() {
@@ -201,14 +177,16 @@ export function HowGapWorks() {
             </svg>
 
             {/* Logo */}
-            <div className="absolute left-1/2 top-1/2 z-10 size-28 -translate-x-1/2 -translate-y-1/2 sm:size-52">
-              <div className="relative size-full overflow-hidden rounded-full border border-primary/20 bg-background">
+            <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+              <div className="flex h-28 w-28 items-center justify-center rounded-full border border-primary/20 bg-background p-5 sm:h-52 sm:w-52 sm:p-9">
                 <Image
                   src={t("/images/gap-logo.webp")}
                   alt={t("GAP logo")}
-                  fill
-                  sizes="(min-width: 640px) 208px, 112px"
-                  className="object-contain p-5 sm:p-9"
+                  width={594}
+                  height={420}
+                  sizes="(min-width: 640px) 136px, 72px"
+                  className="block h-auto w-full object-contain"
+                  style={{ height: 'auto' }}
                 />
               </div>
             </div>

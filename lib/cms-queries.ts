@@ -6,7 +6,7 @@ import type { Where } from "payload";
 
 export type CmsService = Service;
 export type CmsCountry = Country;
-export type CmsCountrySummary = Pick<Country, "id" | "name" | "slug">;
+export type CmsCountrySummary = Pick<Country, "id" | "name" | "slug" | "heroImageUrl">;
 export type CmsNews = News;
 export type CmsUniversity = University;
 export type CmsTestimonial = {
@@ -89,11 +89,31 @@ export const getPublishedNews = publicCmsCache(
         sort: "-publishedDate",
         limit,
         depth: 0,
+        select: { content: false, seoTitle: false, seoDescription: false },
       });
       return result.docs as CmsNews[];
     } catch (error) {
       return fail("getPublishedNews", error, []);
     }
+  },
+);
+
+export const getNewsPage = publicCmsCache(
+  "getNewsPage",
+  ["news"],
+  async (page: number = 1) => {
+    const payload = await getCms();
+    const result = await payload.find({
+      overrideAccess: false,
+      collection: "news",
+      where: { status: { equals: "published" } },
+      sort: "-publishedDate",
+      limit: 24,
+      page,
+      depth: 0,
+      select: { content: false, seoTitle: false, seoDescription: false },
+    });
+    return { docs: result.docs, totalPages: result.totalPages };
   },
 );
 
@@ -135,6 +155,7 @@ async function read_getCountryNews(
     where: { id: { in: ids } },
     depth: 0,
     pagination: false,
+    select: { content: false, seoTitle: false, seoDescription: false },
   });
   return ids.flatMap((id) => docs.find((post) => post.id === id) ?? []);
 }
@@ -168,10 +189,11 @@ export const getCountries = publicCmsCache(
       const result = await payload.find({
         overrideAccess: false,
         collection: "countries",
+        where: { slug: { not_equals: "demo-qa-destination" } },
         sort: "name",
         pagination: false,
         depth: 0,
-        select: { name: true, slug: true },
+        select: { name: true, slug: true, heroImageUrl: true },
       });
       return result.docs;
     } catch (error) {
@@ -184,6 +206,7 @@ export const getCountryBySlug = publicCmsCache(
   "getCountryBySlug",
   ["countries", "universities"],
   async (slug: string): Promise<CmsCountry | null> => {
+    if (slug === "demo-qa-destination") return null;
     try {
       const payload = await getCms();
       const result = await payload.find({
@@ -308,6 +331,7 @@ export const getApplicationOptions = publicCmsCache(
     const [countries, universities] = await Promise.all([
       payload.find({
         collection: "countries",
+        where: { slug: { not_equals: "demo-qa-destination" } },
         overrideAccess: false,
         pagination: false,
         depth: 0,

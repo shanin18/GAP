@@ -1,0 +1,42 @@
+﻿import Image from 'next/image';
+import { Clock3, GraduationCap, Languages, MapPin } from 'lucide-react';
+import { AnimatedDisclosure } from './ui/animated-disclosure';
+import { getDestinationGuide, guideRequirements, type DestinationGuide } from '@/lib/destination-study-guides';
+import cityImages from '@/lib/destination-city-images.json';
+
+function Source({ href, label }: { href: string; label: string }) {
+  return <a href={href} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex text-xs text-primary underline underline-offset-4">{label}</a>;
+}
+function Table({ headers, rows, caption }: { headers: string[]; rows: string[][]; caption: string }) {
+  return <div className="mt-6 min-w-0 overflow-x-auto rounded-xl border border-border"><table className="w-full text-left text-sm"><caption className="sr-only">{caption}</caption><thead className="bg-primary/10"><tr>{headers.map(header => <th key={header} scope="col" className="px-4 py-4 font-semibold">{header}</th>)}</tr></thead><tbody className="divide-y divide-border">{rows.map(row => <tr key={row[0]} className="even:bg-surface/50">{row.map((cell, index) => index === 0 ? <th key={index} scope="row" className="px-4 py-4 font-medium">{cell}</th> : <td key={index} className="px-4 py-4 leading-6 text-muted-foreground">{cell}</td>)}</tr>)}</tbody></table></div>;
+}
+export function DestinationFacts({ countryName }: { countryName: string }) {
+  const guide = getDestinationGuide(countryName);
+  if (!guide) return null;
+  const cards = [
+    { title: 'Education', Icon: GraduationCap, rows: [[guide.bachelor, 'Bachelor study'], [guide.master, 'Master study'], [String(guide.starts.length), 'Start periods to check'], ['Course-specific', 'Language and entry requirements']] },
+    { title: 'Country at a glance', Icon: MapPin, rows: [[guide.capital, 'Capital / federal city'], [guide.currency, 'Local currency'], [guide.language, 'Language context'], [String(guide.cities.length), 'Cities in this guide']] },
+    { title: 'Plan for your arrival', Icon: Languages, rows: [['Campus location', 'Compare housing and commute'], ['Seasonal weather', 'Research your region and arrival month'], ['Student support', 'Check orientation and campus services'], ['Entry permission', 'Review official visa or residence rules']] },
+  ];
+  return <section id="key-facts" className="my-9 scroll-mt-48 rounded-2xl bg-surface p-5 sm:p-8"><h2 className="text-center font-display text-2xl sm:text-3xl">Key facts about studying in {guide.name}</h2><div className="mt-7 grid gap-4 md:grid-cols-3">{cards.map(({ title, Icon, rows }) => <div key={title} className="min-w-0 rounded-xl bg-background/70 p-5"><h3 className="flex items-center gap-2 text-sm font-semibold"><Icon size={18} aria-hidden="true" className="text-primary" />{title}</h3><dl className="mt-4 space-y-4">{rows.map(([value, label]) => <div key={label}><dt className="text-xs text-muted-foreground">{label}</dt><dd className="mt-1 text-base font-semibold sm:text-lg">{value}</dd></div>)}</dl></div>)}</div><Source href={guide.education} label="Official study and admission guidance" /></section>;
+}
+function Cities({ guide }: { guide: DestinationGuide }) {
+  return <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{guide.cities.map((city, index) => {
+    const image = cityImages.find(photo => photo.country === guide.name && photo.city === city);
+    return <article key={city} className="group min-w-0 overflow-hidden rounded-xl border border-border bg-surface transition-[border-color,box-shadow] duration-300 hover:border-primary/40 hover:shadow-lg motion-reduce:transition-none">
+      {image && <div className="relative aspect-[3/2] overflow-hidden"><Image src={image.path} alt={`${city}, ${guide.name}`} fill sizes="(min-width: 1024px) 400px, (min-width: 640px) 45vw, 90vw" className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105" /><span className="absolute right-3 top-3 rounded-full bg-background/85 px-2 py-1 text-xs text-primary">{String(index + 1).padStart(2, '0')}</span></div>}
+      <div className="p-4"><h3 className="font-display text-xl">{city}</h3><p className="mt-1 text-xs text-primary">{guide.name}</p><p className="mt-3 text-sm leading-6 text-muted-foreground">Compare courses, campus location, accommodation and transport in {city} before building your shortlist.</p>{image && <p className="mt-3 text-[11px] leading-5 text-muted-foreground"><a href={image.source} target="_blank" rel="noopener noreferrer" className="underline">Photo: {image.artist}</a> · <a href={image.licenseUrl || image.source} target="_blank" rel="noopener noreferrer" className="underline">{image.license}</a> · cropped</p>}</div>
+    </article>;
+  })}</div>;
+}
+export function DestinationGuideSection({ countryName, id }: { countryName: string; id: string }) {
+  const guide = getDestinationGuide(countryName);
+  if (!guide) return null;
+  if (id === 'requirements') return <><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{guideRequirements.map(([title, description]) => <AnimatedDisclosure key={title} title={title}><p>{description}</p></AnimatedDisclosure>)}</div><div className="flex flex-wrap gap-x-5"><Source href={guide.education} label="Official admission guidance" /><Source href={guide.immigration} label="Student visa and residence guidance" /></div></>;
+  if (id === 'intakes') return <><Table headers={['Start period', 'Typical timing', 'Availability']} rows={guide.starts} caption={`Academic start periods to check in ${guide.name}`} /><p className="mt-3 text-xs leading-6 text-muted-foreground">These are planning periods, not guaranteed admission intakes. Confirm exact start dates and deadlines for your chosen programme directly with the institution.</p><Source href={guide.education} label="Find institutions and course information" /></>;
+  if (id === 'programs') return <><Table headers={['Qualification', 'Duration', 'Study focus']} rows={[["Bachelor's degree", guide.bachelor, 'Undergraduate academic or professional study'], ["Master's degree", guide.master, 'Advanced coursework or research'], ['Doctoral study', 'Research and institution-specific', 'An original research project; check supervision and funding'], ['Foundation / preparation', 'Provider-specific, where available', 'Preparation for entry; confirm progression requirements']]} caption={`Study qualifications in ${guide.name}`} /><p className="mt-3 text-xs leading-6 text-muted-foreground">Durations depend on course credits, professional requirements and full-time or part-time study.</p><Source href={guide.education} label="Official qualification and course information" /><h3 className="mt-8 font-display text-2xl">Subjects to explore</h3><ul className="mt-4 flex flex-wrap gap-3">{guide.subjects.map(subject => <li key={subject} className="rounded-full bg-primary/10 px-4 py-2 text-sm">{subject}</li>)}</ul></>;
+  if (id === 'costs') return <><Table headers={['Budget item', 'Amount / planning basis', 'Context']} rows={guide.costs} caption={`Study budget for ${guide.name}`} /><p className="mt-3 text-xs leading-6 text-muted-foreground">Planning guidance reviewed October 2026. Published ranges are estimates, not course quotations or visa financial requirements. Confirm current fees with your institution; exchange rates and personal costs vary.</p><Source href={guide.fees} label="Official fees and funding guidance" /></>;
+  if (id === 'cities') return <Cities guide={guide} />;
+  if (id === 'work') return <div className="mt-6 grid gap-4 md:grid-cols-2">{[['Working during your studies', 'Your nationality, student permission and course can affect whether you may work and what restrictions apply. Check the official conditions before accepting employment; do not base your study budget on finding a job.'], ['Planning after graduation', 'Post-study options depend on the qualification and current immigration rules. Check eligibility, application timing and any employer requirements before planning to remain after your course.']].map(([title, description]) => <article key={title} className="rounded-xl bg-surface p-6"><Clock3 size={22} aria-hidden="true" className="text-primary" /><h3 className="mt-3 font-display text-xl">{title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{description}</p><Source href={guide.immigration} label="Check official student permission rules" /></article>)}</div>;
+  return null;
+}

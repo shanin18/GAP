@@ -1,0 +1,38 @@
+[
+  {
+    "key": "direction",
+    "source": "https://unsplash.com/photos/EP8lBWLFLkg",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/purpose/direction.webp",
+    "width": 1440,
+    "height": 1152,
+    "bytes": 96954
+  },
+  {
+    "key": "choices",
+    "source": "https://unsplash.com/photos/sOENhFWZ-FU",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/purpose/choices.webp",
+    "width": 1440,
+    "height": 1152,
+    "bytes": 183602
+  },
+  {
+    "key": "application",
+    "source": "https://unsplash.com/photos/45u1mboQtQE",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/purpose/application.webp",
+    "width": 1440,
+    "height": 1152,
+    "bytes": 81164
+  },
+  {
+    "key": "departure",
+    "source": "https://unsplash.com/photos/wqd_LnJKjyE",
+    "license": "https://unsplash.com/license",
+    "file": "public/images/purpose/departure.webp",
+    "width": 1440,
+    "height": 1152,
+    "bytes": 85624
+  }
+]

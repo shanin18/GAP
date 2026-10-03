@@ -2,9 +2,9 @@ import { Badge } from "./ui/badge";
 import { getSectionText } from "@/lib/website-content-server";
 
 const items = [
-  "Human-led guidance",
-  "Clear next steps",
-  "Trusted destinations",
+  "Dream",
+  "Apply",
+  "Go Global",
 ];
 
 export async function TrustStrip() {

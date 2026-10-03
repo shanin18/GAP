@@ -95,11 +95,13 @@ export function AcademicGuidance() {
   return (
     <section>
       <div className="mx-auto max-w-7xl px-5 py-16 md:py-20 lg:px-8 lg:py-24">
-        <SectionHeading
-          eyebrow={t("Academic guidance")}
-          title={t("Support at the moments that matter.")}
-          text={t("Three practical stages, connected by one consistent team.")}
-        />
+        <div className="flex justify-center text-center">
+          <SectionHeading
+            eyebrow={t("Academic guidance")}
+            title={t("Support at the moments that matter.")}
+            text={t("Three practical stages, connected by one consistent team.")}
+          />
+        </div>
 
         <ol ref={listRef} className="relative mx-auto mt-14 max-w-5xl">
           {/* Centre line: grey track + mint fill that grows with scroll */}

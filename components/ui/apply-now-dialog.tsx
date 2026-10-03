@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 import { useDestinations } from "../destinations-provider";
 import { useWebsiteContent } from "@/components/website-content-provider";
 
-import { type FormEvent, type ReactNode, useId, useRef, useState } from "react";
+import { type FormEvent, useId, useRef, useState } from "react";
 import { leadSchema } from "@/lib/validations/lead";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { Button } from "./button";
+import { Turnstile, turnstileEnabled } from './turnstile';
 import {
   Dialog,
   DialogContent,
@@ -33,15 +34,19 @@ const initialForm = {
 
 export function ApplyNowDialog({
   triggerClass = "",
-  triggerContent = "Apply Now",
+  inline = false,
+  initialCountry = "",
 }: {
   triggerClass?: string;
-  triggerContent?: ReactNode;
+  inline?: boolean;
+  initialCountry?: string;
 }) {
   const t = useWebsiteContent("enquiry-form");
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [verificationReset, setVerificationReset] = useState(0);
   const destinations = useDestinations();
 
-  const [form, setForm] = useState(initialForm);
+  const [form, setForm] = useState({ ...initialForm, interestedCountry: initialCountry });
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
@@ -66,6 +71,7 @@ export function ApplyNowDialog({
   async function submitLead(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (submitting.current) return;
+    if (turnstileEnabled && !turnstileToken) { setError('Please complete the security verification.'); return; }
     const parsed = leadSchema.safeParse({ ...form, sourcePage: window.location.pathname });
     if (!parsed.success) {
       const errors: typeof fieldErrors = {};
@@ -89,7 +95,7 @@ export function ApplyNowDialog({
       const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsed.data),
+        body: JSON.stringify({ ...parsed.data, turnstileToken }),
       });
       const result = await response.json();
       if (!response.ok || result.ok !== true)
@@ -105,6 +111,8 @@ export function ApplyNowDialog({
       );
     } finally {
       submitting.current = false;
+      setTurnstileToken('');
+      setVerificationReset(value => value + 1);
     }
   }
 
@@ -121,58 +129,38 @@ export function ApplyNowDialog({
     return fieldErrors[field] ? <p id={`${errorPrefix}-${field}`} role="alert" className="text-sm text-red-600">{fieldErrors[field]}</p> : null;
   }
 
-  return (
-    <Dialog onOpenChange={(open) => {
-      if (open && status === "success") {
-        setStatus("idle");
-        setError("");
-        setFieldErrors({});
-      }
-    }}>
-      <DialogTrigger asChild>
-        <Button className={triggerClass}>
-          {typeof triggerContent === "string"
-            ? t(triggerContent)
-            : triggerContent}
-        </Button>
-      </DialogTrigger>
-      <DialogContent
-        onOpenAutoFocus={(event) => {
-          // Announce the dialog before entering the form, without opening the mobile keyboard.
-          event.preventDefault();
-          titleRef.current?.focus({ preventScroll: true });
-        }}
-      >
-        {status === "success" ? (
+  const Heading = inline ? "h3" : DialogTitle;
+  const Description = inline ? "p" : DialogDescription;
+  const content = (status === "success" ? (
           <div className="grid gap-4 py-8 text-center">
             <CheckCircle2 className="mx-auto text-emerald-600" size={48} />
-            <DialogTitle
+            <Heading
               ref={titleRef}
               tabIndex={-1}
-              className="font-display text-4xl tracking-tight focus:outline-none"
+              className={`font-display tracking-tight focus:outline-none ${inline ? "text-2xl" : "text-4xl"}`}
             >
               {t("You’re on your way.")}
-            </DialogTitle>
-            <DialogDescription className="text-muted-foreground">
+            </Heading>
+            <Description className="text-muted-foreground">
               {t("Thanks for reaching out. Our team will contact you shortly.")}
-            </DialogDescription>
+            </Description>
           </div>
         ) : (
           <>
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">
-              {t("Apply now")}
+              {t("Book an appointment")}
             </p>
-            <DialogTitle
+            <Heading
               ref={titleRef}
               tabIndex={-1}
-              className="font-display text-4xl tracking-tight focus:outline-none"
+              className={`font-display tracking-tight focus:outline-none ${inline ? "text-2xl" : "text-4xl"}`}
             >
               {t("Start your journey.")}
-            </DialogTitle>
-            <DialogDescription className="mt-3 text-muted-foreground">
+            </Heading>
+            <Description className="mt-3 text-muted-foreground">
               {t("Tell us a little about your study-abroad plans.")}
-            </DialogDescription>
-            <form noValidate onSubmit={submitLead} className="mt-7 grid gap-4">
+            </Description>
+            <form noValidate onSubmit={submitLead} className="mt-5 grid gap-3">
               <Input
                 {...validationProps("name")}
                 name="name"
@@ -243,7 +231,8 @@ export function ApplyNowDialog({
                   {error}
                 </p>
               )}
-              <Button type="submit" disabled={status === "loading"}>
+              <Turnstile action="lead" onToken={setTurnstileToken} resetKey={verificationReset} />
+              <Button type="submit" disabled={status === "loading" || (turnstileEnabled && !turnstileToken)}>
                 {status === "loading" ? (
                   <Loader2 className="animate-spin" size={17} />
                 ) : (
@@ -253,7 +242,30 @@ export function ApplyNowDialog({
               </Button>
             </form>
           </>
-        )}
+        ));
+  if (inline) return <div>{content}</div>;
+
+  return (
+    <Dialog onOpenChange={(open) => {
+      if (open && status === "success") {
+        setStatus("idle");
+        setError("");
+        setFieldErrors({});
+      }
+    }}>
+      <DialogTrigger asChild>
+        <Button className={triggerClass}>
+          {t("Book an appointment")}
+        </Button>
+      </DialogTrigger>
+      <DialogContent
+        onOpenAutoFocus={(event) => {
+          // Announce the dialog before entering the form, without opening the mobile keyboard.
+          event.preventDefault();
+          titleRef.current?.focus({ preventScroll: true });
+        }}
+      >
+        {content}
       </DialogContent>
     </Dialog>
   );

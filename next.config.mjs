@@ -10,6 +10,13 @@ const imageHosts = (process.env.IMAGE_HOSTS ?? "")
   .map((h) => h.trim())
   .filter(Boolean);
 if (process.env.UPLOAD_STORAGE === 'cloudinary') imageHosts.push('res.cloudinary.com');
+// An existing Australia CMS image uses this Google thumbnail host.
+// Keep the permission scoped to its image endpoint, rather than all Google hosts.
+const legacyCountryImage = {
+  protocol: 'https',
+  hostname: 'encrypted-tbn0.gstatic.com',
+  pathname: '/images',
+};
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -37,7 +44,10 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 7,
-    remotePatterns: imageHosts.map((hostname) => ({ protocol: "https", hostname })),
+    remotePatterns: [
+      ...imageHosts.map((hostname) => ({ protocol: "https", hostname })),
+      legacyCountryImage,
+    ],
   },
   async headers() {
     return [

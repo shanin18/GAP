@@ -7,11 +7,15 @@ import {
   FileCheck2,
   Plane,
   ChevronDown,
+  GraduationCap,
+  BriefcaseBusiness,
 } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MobileNav } from "@/components/mobile-nav";
 import { getServices } from "@/lib/cms-queries";
+import { ApplyNowDialog } from "@/components/ui/apply-now-dialog";
+import { EditorialImage } from "@/components/editorial-image";
 
 const iconMap = { MessageCircle, Search, FileCheck2, Plane };
 
@@ -55,7 +59,7 @@ function Visual({
   image?: string;
 }) {
   return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-border bg-surface">
+    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface">
       {image ? (
         <Image
           src={image}
@@ -100,7 +104,11 @@ export default async function ServicesPage() {
   const t = await getSectionText("services-page");
 
   const cmsServices = await getServices();
-  const services = cmsServices.map(
+  const counselling = [
+    { title: "Academic Counselling", id: "academic-counselling", Icon: GraduationCap, eyebrow: "Plan your education", outcome: "A clear academic direction", fallback: "Explore your strengths, review your qualifications and choose courses that fit your learning goals.", points: ["Review your academic background", "Compare subjects and entry routes", "Build your course shortlist"] },
+    { title: "Career Counselling", id: "career-counselling", Icon: BriefcaseBusiness, eyebrow: "Plan your future", outcome: "A practical career direction", fallback: "Connect your education with your career interests and identify the skills you want to develop.", points: ["Explore career interests and strengths", "Connect courses with career goals", "Plan your skills and professional development"] },
+  ];
+  const services = cmsServices.filter(service => !counselling.some(section => section.title.toLowerCase() === service.title.trim().toLowerCase())).map(
     (service) =>
       [
         service.title,
@@ -155,6 +163,24 @@ export default async function ServicesPage() {
             </nav>
           </div>
         </section>
+
+        {counselling.map(({ title, id, Icon, eyebrow, fallback, points }, index) => {
+          const content = cmsServices.find(service => service.title.trim().toLowerCase() === title.toLowerCase());
+          const items = content?.points?.length ? content.points.map(point => point.text) : points;
+          return <section key={id} id={id} aria-labelledby={`${id}-title`} className={`scroll-mt-24 border-b border-border ${index === 1 ? 'bg-surface/40' : ''}`}>
+            <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 lg:grid-cols-2 lg:gap-20 lg:px-8 lg:py-24">
+              <div>
+                <Icon size={36} aria-hidden="true" className="mb-6 text-primary" />
+                <p className="text-xs font-bold uppercase tracking-widest text-primary">{eyebrow}</p>
+                <h2 id={`${id}-title`} className="mt-3 font-display text-4xl sm:text-5xl">{title}</h2>
+                <p className="mt-6 text-lg leading-8 text-muted-foreground">{content?.introduction || content?.shortDescription || fallback}</p>
+                <ol className="mt-6 divide-y divide-border">{items.map((text, i) => <li key={text} className="flex items-start gap-4 py-4 first:pt-0"><span className="shrink-0 pt-1 text-sm font-semibold text-primary">{String(i + 1).padStart(2, '0')}</span><p className="leading-7 text-muted-foreground">{text}</p></li>)}</ol>
+                <ApplyNowDialog triggerClass="mt-8" />
+              </div>
+              <EditorialImage src={content?.imageUrl} alt={title === "Academic Counselling" ? "Study materials for academic planning" : "Career planning and guidance"} />
+            </div>
+          </section>;
+        })}
 
         {/* Service by service */}
         <section>

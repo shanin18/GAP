@@ -4,6 +4,7 @@ import { applicationSchema } from '@/lib/validations/application';
 import { payloadCollectionRoutes } from '@/lib/payload-collection-routes';
 import { guardPublicPost, isHoneypotFilled } from '@/lib/public-form-guard';
 import { notifyNewApplication } from '@/lib/notify';
+import { verifyTurnstile } from '@/lib/turnstile';
 
 const routes = payloadCollectionRoutes('applications');
 export const { GET, PATCH, DELETE, PUT, OPTIONS } = routes;
@@ -27,6 +28,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true, reference: makeReference() }, { status: 201 });
     }
 
+    const token = guard.body && typeof guard.body === 'object' && 'turnstileToken' in guard.body ? guard.body.turnstileToken : undefined;
+    if (!await verifyTurnstile(token, 'application')) return NextResponse.json({ error: 'Security verification failed. Please verify and try again.' }, { status: 403 });
     const parsed = applicationSchema.safeParse(guard.body);
     if (!parsed.success) {
       return NextResponse.json({ error: parsed.error.issues[0]?.message || 'Invalid application data.' }, { status: 400 });

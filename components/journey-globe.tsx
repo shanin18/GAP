@@ -85,10 +85,14 @@ export function JourneyGlobe({
 
       const size = () => Math.max(1, wrap.offsetWidth);
 
+      if (!canvas.getContext('webgl2') && !canvas.getContext('webgl')) {
+        setUnavailable(true);
+        return;
+      }
       const globe = createGlobe(canvas, {
         devicePixelRatio: dpr,
-        width: size() * dpr,
-        height: size() * dpr,
+        width: size(),
+        height: size(),
         phi: s.phi,
         theta: s.theta,
         dark,
@@ -105,6 +109,13 @@ export function JourneyGlobe({
           size: 0.03,
         })),
       } as any);
+
+      // COBE inserts a canvas holder; explicitly fill the square on Safari too.
+      const canvasHolder = canvas.parentElement;
+      if (canvasHolder && canvasHolder !== wrap) {
+        canvasHolder.style.position = 'absolute';
+        canvasHolder.style.inset = '0';
+      }
 
       let prev = performance.now();
       const tick = (now: number) => {
@@ -131,15 +142,25 @@ export function JourneyGlobe({
 
           globe.update({ phi: s.phi, theta: s.theta } as any);
 
-          // Only labels on the visible side are clickable
-          const visibility = Object.values(labelRefs.current).flatMap((el) =>
-            el
-              ? [{ el, shown: parseFloat(getComputedStyle(el).opacity) > 0.5 }]
-              : [],
-          );
-          for (const { el, shown } of visibility) {
-            el.style.pointerEvents = shown ? "auto" : "none";
+          // Same spherical projection as COBE, without CSS anchor positioning.
+          for (const marker of markers) {
+            const el = labelRefs.current[marker.id];
+            if (!el) continue;
+            const lat = marker.location[0] * Math.PI / 180;
+            const lon = marker.location[1] * Math.PI / 180 - Math.PI;
+            const x = -Math.cos(lat) * Math.cos(lon) * 0.81;
+            const y = Math.sin(lat) * 0.81;
+            const z = Math.cos(lat) * Math.sin(lon) * 0.81;
+            const px = Math.cos(s.phi) * x + Math.sin(s.phi) * z;
+            const py = Math.sin(s.phi) * Math.sin(s.theta) * x + Math.cos(s.theta) * y - Math.cos(s.phi) * Math.sin(s.theta) * z;
+            const depth = -Math.sin(s.phi) * Math.cos(s.theta) * x + Math.sin(s.theta) * y + Math.cos(s.phi) * Math.cos(s.theta) * z;
+            const shown = depth >= 0;
+            el.style.left = ((px + 1) * 50) + '%';
+            el.style.top = ((1 - py) * 50) + '%';
+            el.style.opacity = shown ? '1' : '0';
+            el.style.pointerEvents = shown ? 'auto' : 'none';
             el.tabIndex = shown ? 0 : -1;
+            el.setAttribute('aria-hidden', String(!shown));
           }
         }
         s.raf = requestAnimationFrame(tick);
@@ -178,7 +199,7 @@ export function JourneyGlobe({
         s.dragging = false;
         if (performance.now() - s.lastT > 80) s.vPhi = 0;
         s.vPhi = Math.max(-0.08, Math.min(0.08, s.vPhi));
-        canvas.releasePointerCapture?.(e.pointerId);
+        if (canvas.hasPointerCapture(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
         canvas.style.cursor = "grab";
       };
 
@@ -197,7 +218,7 @@ export function JourneyGlobe({
 
       const ro = new ResizeObserver(() => {
         const w = size();
-        globe.update({ width: w * dpr, height: w * dpr } as any);
+        globe.update({ width: w, height: w } as any);
       });
       ro.observe(wrap);
 
@@ -223,6 +244,8 @@ export function JourneyGlobe({
         wrap.removeEventListener("focusin", onEnter);
         wrap.removeEventListener("focusout", onLeave);
         globe.destroy();
+        const holder = canvas.parentElement;
+        if (holder && holder !== wrap) { wrap.insertBefore(canvas, holder); holder.remove(); }
       };
     };
 
@@ -272,6 +295,9 @@ export function JourneyGlobe({
         aria-label="Interactive globe showing study destinations"
         role="img"
         style={{
+          position: "absolute",
+          inset: 0,
+          display: "block",
           width: "100%",
           height: "100%",
           cursor: "grab",
@@ -295,10 +321,12 @@ export function JourneyGlobe({
         </div>
       )}
 
-      {markers.map((m) => (
+      {!unavailable && markers.map((m) => (
         <Link
           key={m.id}
           href={m.href ?? `/country/${m.id}`}
+          tabIndex={-1}
+          aria-hidden="true"
           ref={(el) => {
             labelRefs.current[m.id] = el;
           }}
@@ -306,12 +334,10 @@ export function JourneyGlobe({
           style={
             {
               pointerEvents: "none", // toggled per frame based on visibility
-              positionAnchor: `--cobe-${m.id}`,
-              bottom: "anchor(top)",
-              left: "anchor(center)",
-              translate: "-50% -8px",
-              opacity: `var(--cobe-visible-${m.id}, 0)`,
-              filter: `blur(calc((1 - var(--cobe-visible-${m.id}, 0)) * 6px))`,
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, calc(-100% - 8px))',
+              opacity: 0,
               transition:
                 "opacity 0.35s ease, filter 0.35s ease, background-color .2s, color .2s, border-color .2s",
             } as React.CSSProperties

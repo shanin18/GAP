@@ -4,6 +4,7 @@ import { leadSchema } from '@/lib/validations/lead';
 import { payloadCollectionRoutes } from '@/lib/payload-collection-routes';
 import { guardPublicPost, isHoneypotFilled } from '@/lib/public-form-guard';
 import { notifyNewLead } from '@/lib/notify';
+import { verifyTurnstile } from '@/lib/turnstile';
 
 const routes = payloadCollectionRoutes('leads');
 export const { GET, PATCH, DELETE, PUT, OPTIONS } = routes;
@@ -19,6 +20,8 @@ export async function POST(request: Request) {
 
     // Bots fill the hidden field: pretend it worked, store nothing
     if (isHoneypotFilled(guard.body)) return NextResponse.json({ ok: true }, { status: 201 });
+    const token = guard.body && typeof guard.body === 'object' && 'turnstileToken' in guard.body ? guard.body.turnstileToken : undefined;
+    if (!await verifyTurnstile(token, 'lead')) return NextResponse.json({ error: 'Security verification failed. Please verify and try again.' }, { status: 403 });
 
     const parsed = leadSchema.safeParse(guard.body);
     if (!parsed.success) {

@@ -58,8 +58,8 @@ export async function loadDashboardData(req: PayloadRequest) {
   const [totalLeads, totalDocuments, countries, universities, newLeads, needsUpdate, leadsDue, appsDue, byStatus, leads, applications] = await Promise.all([
     count(req, "leads"),
     count(req, "documents"),
-    count(req, "countries"),
-    count(req, "universities"),
+    req.user?.role === "admin" ? count(req, "countries") : Promise.resolve(0),
+    req.user?.role === "admin" ? count(req, "universities") : Promise.resolve(0),
     count(req, "leads", { status: { equals: "new" } }),
     count(req, "documents", { reviewStatus: { equals: "needs-update" } }),
     count(req, "leads", { and: [{ followUpAt: { less_than_equal: now } }, { status: { not_in: ["not-proceeding", "application-started"] } }] }),

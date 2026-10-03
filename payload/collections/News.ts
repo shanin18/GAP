@@ -31,7 +31,7 @@ export const News: CollectionConfig = {
   },
   admin: {
     useAsTitle: "title",
-    defaultColumns: ["title", "status", "publishedDate"],
+    defaultColumns: ["title", "entryType", "status", "publishedDate"],
     listSearchableFields: ["title", "slug"],
   },
   hooks: {
@@ -40,6 +40,25 @@ export const News: CollectionConfig = {
   },
   fields: [
     { name: "title", type: "text", required: true },
+    {
+      name: "entryType",
+      label: "Content type",
+      type: "select",
+      defaultValue: "blog",
+      options: [{ label: "Blog", value: "blog" }, { label: "Event", value: "event" }],
+      admin: { position: "sidebar" },
+    },
+    {
+      name: "eventDate",
+      type: "date",
+      admin: { position: "sidebar", condition: (data) => data?.entryType === "event", description: "When the event starts. Publish before this date to announce an upcoming event.", date: { pickerAppearance: "dayAndTime" } },
+      validate: (value, { data }) => (data as { entryType?: string } | undefined)?.entryType === "event" && !value ? "Enter the event start date." : true,
+    },
+    {
+      name: "eventLocation",
+      type: "text",
+      admin: { condition: (data) => data?.entryType === "event", description: "Venue address or online meeting details." },
+    },
     {
       name: "slug",
       type: "text",

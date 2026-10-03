@@ -1,0 +1,392 @@
+[
+  {
+    "country": "Australia",
+    "city": "Brisbane",
+    "path": "/images/destination-cities/australia-brisbane.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Brisbane_CBD_seen_from_Kangaroo_Point%2C_2024%2C_01_(2).jpg",
+    "artist": "Chris Olszewski",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 40410
+  },
+  {
+    "country": "Australia",
+    "city": "Melbourne",
+    "path": "/images/destination-cities/australia-melbourne.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Melbourne_skyline_sor.jpg",
+    "artist": "Melbpal",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 82434
+  },
+  {
+    "country": "Australia",
+    "city": "Sydney",
+    "path": "/images/destination-cities/australia-sydney.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Sydney_Opera_House_and_Harbour_Bridge_Dusk_(2)_2019-06-21.jpg",
+    "artist": "Benh LIEU SONG (Flickr)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 35404
+  },
+  {
+    "country": "Austria",
+    "city": "Graz",
+    "path": "/images/destination-cities/austria-graz.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Graz_(35932179023).jpg",
+    "artist": "Nick Savchenko from Kiev, Ukraine",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "bytes": 93324
+  },
+  {
+    "country": "Austria",
+    "city": "Innsbruck",
+    "path": "/images/destination-cities/austria-innsbruck.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%BCrgerstra%C3%9Fe_26%2B24_(BT0A2830).jpg",
+    "artist": "Simon Legner (User:simon04)",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 60946
+  },
+  {
+    "country": "Austria",
+    "city": "Vienna",
+    "path": "/images/destination-cities/austria-vienna.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Schoenbrunn_philharmoniker_2012.jpg",
+    "artist": "Superbass",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "bytes": 74454
+  },
+  {
+    "country": "Denmark",
+    "city": "Aarhus",
+    "path": "/images/destination-cities/denmark-aarhus.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Drone_photo_of_Dokk1_in_Aarhus%2C_Denmark.jpg",
+    "artist": "SmartDrones Aarhus",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "bytes": 62326
+  },
+  {
+    "country": "Denmark",
+    "city": "Copenhagen",
+    "path": "/images/destination-cities/denmark-copenhagen.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:2018_-_Christiansborg_from_the_Marble_Bridge.jpg",
+    "artist": "Moahim",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 42676
+  },
+  {
+    "country": "Denmark",
+    "city": "Odense",
+    "path": "/images/destination-cities/denmark-odense.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Odense_-_Sankt_Knuds_kirke_2005-07-16.jpeg",
+    "artist": "Wikimedia contributor",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "bytes": 56470
+  },
+  {
+    "country": "Finland",
+    "city": "Helsinki",
+    "path": "/images/destination-cities/finland-helsinki.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Suomenlinna_(cropped).jpg",
+    "artist": "Michal Pise, Michal.Pise",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "bytes": 74654
+  },
+  {
+    "country": "Finland",
+    "city": "Tampere",
+    "path": "/images/destination-cities/finland-tampere.webp",
+    "source": "https://commons.wikimedia.org/wiki/File%3AKeskustori%20bus%20terminals1.jpg",
+    "artist": "Visa580",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "bytes": 49916
+  },
+  {
+    "country": "Finland",
+    "city": "Turku",
+    "path": "/images/destination-cities/finland-turku.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:View_from_Turku_Cathedral_tower.jpg",
+    "artist": "Markus Koljonen (Dilaudid) with thanks to Jontts and Turku Cathedral",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "bytes": 59274
+  },
+  {
+    "country": "Germany",
+    "city": "Berlin",
+    "path": "/images/destination-cities/germany-berlin.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Museumsinsel_Berlin_Juli_2021_1_(cropped)_b.jpg",
+    "artist": "File:Museumsinsel Berlin Juli 2021 1 (cropped).jpg: Kasa Fue derivative work: Georgfotoart",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 101266
+  },
+  {
+    "country": "Germany",
+    "city": "Hamburg",
+    "path": "/images/destination-cities/germany-hamburg.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Hamburg%2C_Landungsbr%C3%BCcken_--_2016_--_3131-7.jpg",
+    "artist": "Dietmar Rabich",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 64060
+  },
+  {
+    "country": "Germany",
+    "city": "Munich",
+    "path": "/images/destination-cities/germany-munich.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Stadtbild_M%C3%BCnchen.jpg",
+    "artist": "Thomas Wolf, www.foto-tw.de",
+    "license": "CC BY-SA 3.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+    "bytes": 81262
+  },
+  {
+    "country": "Lithuania",
+    "city": "Kaunas",
+    "path": "/images/destination-cities/lithuania-kaunas.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Kauno_senamiestis_by_Augustas_Didzgalvis.jpg",
+    "artist": "BigHead",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 111868
+  },
+  {
+    "country": "Lithuania",
+    "city": "Klaipeda",
+    "path": "/images/destination-cities/lithuania-klaipeda.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Quite_summer_evening_in_the_port_city_Klaipeda.jpg",
+    "artist": "Mantas Volungevicius",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "bytes": 60512
+  },
+  {
+    "country": "Lithuania",
+    "city": "Vilnius",
+    "path": "/images/destination-cities/lithuania-vilnius.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Vilnius_old_town_by_Augustas_Didzgalvis.jpg",
+    "artist": "BigHead",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 96606
+  },
+  {
+    "country": "Malta",
+    "city": "Msida",
+    "path": "/images/destination-cities/malta-msida.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Malta_Msida_BW_2011-10-07_15-58-38.JPG",
+    "artist": "Berthold Werner",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "bytes": 49716
+  },
+  {
+    "country": "Malta",
+    "city": "Saint Julian's",
+    "path": "/images/destination-cities/malta-saint-julians.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Malta-stjulians-hotels-207.jpg",
+    "artist": "Thyes",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "bytes": 53564
+  },
+  {
+    "country": "Malta",
+    "city": "Valletta",
+    "path": "/images/destination-cities/malta-valletta.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:St_Sebastian_Curtain_(cropped).jpg",
+    "artist": "Mandyy88",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 63692
+  },
+  {
+    "country": "New Zealand",
+    "city": "Auckland",
+    "path": "/images/destination-cities/new-zealand-auckland.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Auckland_skyline_-_May_2024_(2).jpg",
+    "artist": "elpinto007",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "bytes": 45442
+  },
+  {
+    "country": "New Zealand",
+    "city": "Christchurch",
+    "path": "/images/destination-cities/new-zealand-christchurch.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:The_%22Brill%22_Tram_178.New_Regent_St_Christchurch._(11510530335).jpg",
+    "artist": "Bernard Spragg. NZ from Christchurch, New Zealand",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "bytes": 76830
+  },
+  {
+    "country": "New Zealand",
+    "city": "Wellington",
+    "path": "/images/destination-cities/new-zealand-wellington.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Seddon_Statue_in_Parliament_Grounds.jpg",
+    "artist": "russellstreet",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "bytes": 58876
+  },
+  {
+    "country": "Poland",
+    "city": "Krakow",
+    "path": "/images/destination-cities/poland-krakow.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Krakow_Rynek_Glowny_panorama_2.jpg",
+    "artist": "Andrzej Otrębski",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 48170
+  },
+  {
+    "country": "Poland",
+    "city": "Warsaw",
+    "path": "/images/destination-cities/poland-warsaw.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Aleja_Niepdleglosci_Warsaw_2022_aerial_(cropped).jpg",
+    "artist": "Emptywords",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 55454
+  },
+  {
+    "country": "Poland",
+    "city": "Wroclaw",
+    "path": "/images/destination-cities/poland-wroclaw.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Wroclaw-_Most_Grunwaldzki.jpg",
+    "artist": "Jar.ciurus",
+    "license": "CC BY-SA 3.0 pl",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/pl/deed.en",
+    "bytes": 46070
+  },
+  {
+    "country": "Sweden",
+    "city": "Gothenburg",
+    "path": "/images/destination-cities/sweden-gothenburg.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:G%C3%B6teborg_2503_stitch_(28573994096).jpg",
+    "artist": "Bengt Nyman from Vaxholm, Sweden",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "bytes": 57046
+  },
+  {
+    "country": "Sweden",
+    "city": "Lund",
+    "path": "/images/destination-cities/sweden-lund.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Lunds_domkyrka1.jpeg",
+    "artist": "Kallekn",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "bytes": 104696
+  },
+  {
+    "country": "Sweden",
+    "city": "Stockholm",
+    "path": "/images/destination-cities/sweden-stockholm.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Royal_Dramatic_Theatre_Stockholm.jpg",
+    "artist": "Steven Lek",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 69438
+  },
+  {
+    "country": "Switzerland",
+    "city": "Geneva",
+    "path": "/images/destination-cities/switzerland-geneva.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Geneve_2005_001_Ork.ch.jpg",
+    "artist": "fr:Utilisateur:Stéphane_Pecorini",
+    "license": "CC BY-SA 2.0 fr",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/fr/deed.en",
+    "bytes": 104730
+  },
+  {
+    "country": "Switzerland",
+    "city": "Lausanne",
+    "path": "/images/destination-cities/switzerland-lausanne.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Lausanne_Wiki.jpg",
+    "artist": "File:Musee olympique.jpg: Arnaud Gaillard (arnaud () amarys.com) File:Cathédrale de Lausanne depuis le Champ de l'Air.JPG: Gzzz File:Federal Supreme Court of Switzerland.jpg: Roland Zumbühl. Original uploader was Hagelhans at de.wikipedia File:Lausanne img 0585.jpg: Rama Composition: Noldo18",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "bytes": 87300
+  },
+  {
+    "country": "Switzerland",
+    "city": "Zurich",
+    "path": "/images/destination-cities/switzerland-zurich.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Altstadt_Z%C3%BCrich_2015.jpg",
+    "artist": "Thomas Wolf, www.foto-tw.de",
+    "license": "CC BY-SA 3.0 de",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+    "bytes": 65866
+  },
+  {
+    "country": "United Kingdom",
+    "city": "Edinburgh",
+    "path": "/images/destination-cities/united-kingdom-edinburgh.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Skyline_of_Edinburgh.jpg",
+    "artist": "Andrew Colin",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "bytes": 63246
+  },
+  {
+    "country": "United Kingdom",
+    "city": "London",
+    "path": "/images/destination-cities/united-kingdom-london.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:London_Skyline_(125508655).jpeg",
+    "artist": "Ilya Grigorik",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "bytes": 69912
+  },
+  {
+    "country": "United Kingdom",
+    "city": "Manchester",
+    "path": "/images/destination-cities/united-kingdom-manchester.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Tower_Blocks_over_Knott_Mill%2C_geograph_6866152_by_David_Dixon.jpg",
+    "artist": "David Dixon",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "bytes": 68318
+  },
+  {
+    "country": "United States",
+    "city": "Boston",
+    "path": "/images/destination-cities/united-states-boston.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:ISH_WC_Boston4.jpg",
+    "artist": "Ian Howard",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "bytes": 88608
+  },
+  {
+    "country": "United States",
+    "city": "Chicago",
+    "path": "/images/destination-cities/united-states-chicago.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Chicago_River_ferry_b.jpg",
+    "artist": "File:Chicago River ferry.jpg: John Picken derivative work: Georgfotoart",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "bytes": 97880
+  },
+  {
+    "country": "United States",
+    "city": "New York City",
+    "path": "/images/destination-cities/united-states-new-york-city.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_(cropped).jpg",
+    "artist": "Dllu",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bytes": 51730
+  }
+]

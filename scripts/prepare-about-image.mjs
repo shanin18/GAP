@@ -1,0 +1,17 @@
+import fs from 'node:fs/promises';
+import sharp from 'sharp';
+const source = 'https://unsplash.com/photos/dPQBwZ6d-NU';
+const page = await fetch(source);
+if (!page.ok) throw new Error(`Source HTTP ${page.status}`);
+const match = (await page.text()).match(/<meta property="og:image" content="([^"]+)"/);
+if (!match) throw new Error('Missing photo');
+const url = new URL(match[1].replaceAll('&amp;', '&'));
+if (url.hostname !== 'images.unsplash.com') throw new Error('Unexpected source host');
+url.search = '?w=1400&fit=max&q=85';
+const response = await fetch(url);
+if (!response.ok) throw new Error(`Image HTTP ${response.status}`);
+const input = Buffer.from(await response.arrayBuffer());
+const data = await sharp(input).rotate().resize(900, 1100, { fit: 'cover', position: 'attention' }).webp({ quality: 78, effort: 6 }).toBuffer();
+await fs.writeFile('public/images/about-student.webp', data);
+await fs.writeFile('lib/about-image-source.json', JSON.stringify({ source, license: 'https://unsplash.com/license', file: '/images/about-student.webp', bytes: data.length }, null, 2) + '\n');
+console.log(`About student photo: ${Math.round(data.length / 1024)} KB`);

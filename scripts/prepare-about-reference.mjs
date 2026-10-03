@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';
+import sharp from 'sharp';
+const source = 'https://cdn.prod.website-files.com/66c7162ff69c4a34dabec261/66d47e085ab030c0c4e2b189_home-about-visual.avif';
+const response = await fetch(source);
+if (!response.ok) throw new Error(String(response.status));
+const input = Buffer.from(await response.arrayBuffer());
+const meta = await sharp(input).metadata();
+const output = await sharp(input).resize({ width: 1000, withoutEnlargement: true }).webp({ quality: 82, alphaQuality: 95, effort: 6 }).toBuffer();
+await fs.writeFile('public/images/about-reference-student.webp', output);
+await fs.writeFile('lib/about-reference-image-source.json', JSON.stringify({ source, reference: 'https://www.csbbd.com/', bytes: output.length }, null, 2));
+console.log(JSON.stringify({ width: meta.width, height: meta.height, hasAlpha: meta.hasAlpha, bytes: output.length }));

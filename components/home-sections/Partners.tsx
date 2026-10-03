@@ -1,6 +1,7 @@
 import { getSectionText } from "@/lib/website-content-server";
 import Image from "next/image";
 
+
 type Partner = { id: number; name: string; logoUrl?: string | null };
 
 /** Each card is w-56 (224px) + gap-4 (16px). */
@@ -9,6 +10,12 @@ const CARD = 240;
 const SPEED = 55;
 /** Each half of the track must be at least this wide so the loop never shows a gap. */
 const MIN_HALF = 2400;
+const previewPartners = [
+  { id: -1, name: "Northbridge University", logoUrl: "/images/partners/northbridge.svg" },
+  { id: -2, name: "Westhaven Institute", logoUrl: "/images/partners/westhaven.svg" },
+  { id: -3, name: "Global Heights College", logoUrl: "/images/partners/global-heights.svg" },
+  { id: -4, name: "Oakfield Academy", logoUrl: "/images/partners/oakfield.svg" },
+];
 
 export async function Partners({
   items: incoming = [],
@@ -17,7 +24,8 @@ export async function Partners({
 }) {
   const t = await getSectionText("home-partners");
 
-  const items = incoming;
+  const preview = incoming.length === 0;
+  const items: Partner[] = preview ? previewPartners : incoming.filter(partner => partner.logoUrl);
 
   // Repeat the list inside each half until it is wide enough for any screen
   const repeats = items.length
@@ -29,7 +37,7 @@ export async function Partners({
   const duration = Math.round((half.length * CARD) / SPEED);
 
   return (
-    <section aria-labelledby="partners-heading">
+    <section aria-labelledby="partners-heading" aria-label={preview ? "Sample partner logos for layout preview; fictional institutions" : undefined}>
       <style>{`
         @keyframes partners-loop {
           from { transform: translateX(0) }
@@ -56,7 +64,7 @@ export async function Partners({
             role="region"
             aria-label={t("Partner institutions")}
             tabIndex={0}
-            className="partners-wrap mt-10 overflow-hidden rounded-2xl outline-offset-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] motion-reduce:overflow-x-auto motion-reduce:[mask-image:none]"
+            className="partners-wrap mt-10 overflow-hidden rounded-2xl outline-offset-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] motion-reduce:overflow-x-auto motion-reduce:[mask-image:none] motion-reduce:[-webkit-mask-image:none]"
           >
             <div
               className="partners-track flex w-max"
@@ -75,20 +83,17 @@ export async function Partners({
                     <li
                       key={`${partner.id}-${i}`}
                       aria-hidden={dup ? true : undefined}
-                      className="flex h-28 w-56 flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-background px-4"
+                      className="flex h-24 w-56 items-center justify-center px-4"
                     >
                       {partner.logoUrl && (
                         <Image
                           src={partner.logoUrl}
-                          alt=""
+                          alt={partner.name}
                           width={160}
                           height={56}
-                          className="h-14 w-40 object-contain"
+                          className="h-14 w-40 object-contain" unoptimized={partner.logoUrl.endsWith(".svg")}
                         />
                       )}
-                      <span className="text-center text-sm font-semibold text-primary">
-                        {partner.name}
-                      </span>
                     </li>
                   ))}
                 </ul>

@@ -105,7 +105,13 @@ export function SectionReveals() {
       else scan();
     }
     // Includes streamed CMS sections and client-side route content.
-    const mutations = new MutationObserver(scheduleScan);
+    const mutations = new MutationObserver((records) => {
+      // Text changes and interactive controls don't add page sections.
+      if (records.some(record => Array.from(record.addedNodes).some(node =>
+        node instanceof Element && (node.matches("main, section, header") ||
+          node.querySelector("main, section, header")),
+      ))) scheduleScan();
+    });
     mutations.observe(document.body, { childList: true, subtree: true });
     scheduleScan();
     document.addEventListener("focusin", showFocused);

@@ -1,8 +1,9 @@
 .carousel {
   min-width: 0;
   width: 100%;
+  overflow: hidden;
   overflow: clip;
-  contain: inline-size layout paint;
+  contain: layout paint;
 }
 
 .track {

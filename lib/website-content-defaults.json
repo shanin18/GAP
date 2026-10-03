@@ -5,34 +5,22 @@
     "sortOrder": 0,
     "entries": [
       {
-        "key": "copy_1v1upt9",
+        "key": "copy_14sf7ul",
         "kind": "text",
-        "label": "Global education, human guidance",
-        "value": "Global education, human guidance"
+        "label": "Start Here,",
+        "value": "Start Here, "
       },
       {
-        "key": "copy_1c8teba",
+        "key": "copy_1f4805d",
         "kind": "text",
-        "label": "Your next chapter,",
-        "value": "Your next chapter, "
+        "label": "Go Global!",
+        "value": "Go Global!"
       },
       {
-        "key": "copy_1a7s896",
+        "key": "copy_vpx87j",
         "kind": "text",
-        "label": "without borders.",
-        "value": "without borders."
-      },
-      {
-        "key": "copy_ic7edn",
-        "kind": "text",
-        "label": "Personal guidance, trusted university choices, and practical admission support for student",
-        "value": "Personal guidance, trusted university choices, and practical admission support for students planning to study abroad."
-      },
-      {
-        "key": "copy_1lrzbkg",
-        "kind": "text",
-        "label": "How it works",
-        "value": "How it works"
+        "label": "Start your journey to world-class education with the right first step.",
+        "value": "Start your journey to world-class education with the right first step."
       },
       {
         "key": "copy_1p47jcv",
@@ -191,7 +179,7 @@
   {
     "key": "home-process",
     "title": "Home / How GAP works",
-    "sortOrder": 30,
+    "sortOrder": 10,
     "entries": [
       {
         "key": "copy_1xb0x0k",
@@ -224,10 +212,10 @@
         "value": "Appointment"
       },
       {
-        "key": "copy_1e7tm8r",
+        "key": "copy_360gu6",
         "kind": "text",
-        "label": "Meet your adviser to review progress, discuss your options and plan the next steps.",
-        "value": "Meet your adviser to review progress, discuss your options and plan the next steps."
+        "label": "Book an appointment with a GAP adviser to take the first step towards studying abroad.",
+        "value": "Book an appointment with a GAP adviser to take the first step towards studying abroad."
       },
       {
         "key": "copy_9kgcci",
@@ -493,22 +481,22 @@
     "sortOrder": 80,
     "entries": [
       {
-        "key": "copy_ldchls",
+        "key": "copy_niea0s",
         "kind": "text",
-        "label": "Human-led guidance",
-        "value": "Human-led guidance"
+        "label": "Dream",
+        "value": "Dream"
       },
       {
-        "key": "copy_1x6dvpk",
+        "key": "copy_1k6e5zv",
         "kind": "text",
-        "label": "Clear next steps",
-        "value": "Clear next steps"
+        "label": "Apply",
+        "value": "Apply"
       },
       {
-        "key": "copy_49721h",
+        "key": "copy_mw0h6i",
         "kind": "text",
-        "label": "Trusted destinations",
-        "value": "Trusted destinations"
+        "label": "Go Global",
+        "value": "Go Global"
       }
     ]
   },
@@ -732,10 +720,10 @@
         "value": "Thanks for reaching out. Our team will contact you shortly."
       },
       {
-        "key": "copy_17y4a1f",
+        "key": "copy_1wecin6",
         "kind": "text",
-        "label": "Apply now",
-        "value": "Apply now"
+        "label": "Book an appointment",
+        "value": "Book an appointment"
       },
       {
         "key": "copy_1oltow8",
@@ -790,12 +778,6 @@
         "kind": "text",
         "label": "Submit interest",
         "value": "Submit interest"
-      },
-      {
-        "key": "copy_glte7n",
-        "label": "Default button label",
-        "kind": "text",
-        "value": "Apply Now"
       }
     ]
   },

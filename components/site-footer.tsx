@@ -3,9 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { getSiteSettings } from "@/lib/cms-queries";
-
-import { getGlobeDestinations } from "@/lib/globe-destinations";
+import { getCountries, getSiteSettings } from "@/lib/cms-queries";
 
 /**
  * Brand icons drawn inline (newer lucide-react versions no longer ship them).
@@ -93,27 +91,20 @@ function safeUrl(value?: string | null) {
 
 function ContactRow({
   icon,
-  label,
   children,
 }: {
   icon: ReactNode;
-  label: string;
   children: ReactNode;
 }) {
   return (
-    <div className="flex gap-3">
+    <div className="flex items-center gap-3">
       <span
         aria-hidden="true"
         className="grid size-9 shrink-0 place-items-center rounded-full bg-[color-mix(in_oklch,var(--primary)_14%,var(--surface))] text-primary"
       >
         {icon}
       </span>
-      <div className="min-w-0">
-        <p className="text-xs font-semibold uppercase tracking-widest text-foreground/70">
-          {label}
-        </p>
-        {children}
-      </div>
+      <div className="min-w-0">{children}</div>
     </div>
   );
 }
@@ -121,10 +112,15 @@ function ContactRow({
 export async function SiteFooter() {
   const t = await getSectionText("footer");
 
-  const [settings, destinations] = await Promise.all([
+  const [settings, countries] = await Promise.all([
     getSiteSettings(),
-    getGlobeDestinations(),
+    getCountries(),
   ]);
+  const featured = countries.filter((country) =>
+    ["australia", "canada", "new-zealand", "united-kingdom"].includes(
+      country.slug,
+    ),
+  );
   const hasContact = settings?.address || settings?.phone || settings?.email;
 
   // Managed in Payload: Site settings > Social links
@@ -148,9 +144,11 @@ export async function SiteFooter() {
             <Image
               src={t("/images/gap-logo.webp")}
               alt={t("Global Admission Platform")}
-              width={140}
-              height={99}
-              className="rounded-lg"
+              width={594}
+              height={420}
+              sizes="140px"
+              className="h-auto w-[140px] rounded-lg"
+              style={{ height: "auto" }}
             />
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-6 text-muted-foreground">
@@ -185,15 +183,22 @@ export async function SiteFooter() {
         <div>
           <h2 className="font-bold">{t("Destinations")}</h2>
           <div className="mt-3 grid text-sm text-muted-foreground">
-            {destinations.map(({ slug, name }) => (
+            {featured.map((country) => (
               <Link
-                className="inline-flex min-h-11 items-center transition-colors duration-200 ease-out hover:text-primary"
-                key={slug}
-                href={"/country/" + slug}
+                key={country.slug}
+                href={`/country/${country.slug}`}
+                prefetch={false}
+                className="inline-flex min-h-11 items-center hover:text-primary"
               >
-                {name}
+                {country.name}
               </Link>
             ))}
+            <Link
+              href="/countries"
+              className="mt-2 inline-flex min-h-11 items-center font-semibold text-primary hover:underline"
+            >
+              See all countries →
+            </Link>
           </div>
         </div>
         <div>
@@ -201,42 +206,65 @@ export async function SiteFooter() {
           {hasContact ? (
             <address className="mt-4 space-y-4 text-sm not-italic leading-6 text-muted-foreground">
               {settings?.address && (
-                <ContactRow icon={<MapPin size={16} />} label={t("Visit us")}>
-                  <p className="mt-1 whitespace-pre-line">{settings.address}</p>
+                <ContactRow icon={<MapPin size={16} />}>
+                  <p className="mt-1 whitespace-pre-line">
+                    {settings.address.replace(
+                      "\nFull address to be confirmed.",
+                      "",
+                    )}
+                  </p>
                 </ContactRow>
               )}
               {settings?.phone && (
-                <ContactRow icon={<Phone size={16} />} label={t("Call us")}>
-                  <a
-                    className="mt-1 inline-flex min-h-8 items-center transition-colors duration-200 ease-out hover:text-primary"
-                    href={"tel:" + settings.phone.replace(/[^+0-9]/g, "")}
-                  >
-                    {settings.phone}
-                  </a>
+                <ContactRow icon={<Phone size={16} />}>
+                  {/\d{5}/.test(settings.phone.replace(/\D/g, "")) ? (
+                    <a
+                      className="mt-1 inline-flex min-h-8 items-center transition-colors duration-200 ease-out hover:text-primary"
+                      href={"tel:" + settings.phone.replace(/[^+0-9]/g, "")}
+                    >
+                      {settings.phone}
+                    </a>
+                  ) : (
+                    <p className="mt-1">{settings.phone}</p>
+                  )}
                 </ContactRow>
               )}
               {settings?.email && (
-                <ContactRow icon={<Mail size={16} />} label={t("Email us")}>
-                  <a
-                    className="mt-1 inline-flex min-h-8 items-center break-all transition-colors duration-200 ease-out hover:text-primary"
-                    href={"mailto:" + settings.email}
-                  >
-                    {settings.email}
-                  </a>
+                <ContactRow icon={<Mail size={16} />}>
+                  {settings.email === "hello@example.com" ? (
+                    <p className="mt-1">{settings.email}</p>
+                  ) : (
+                    <a
+                      className="mt-1 inline-flex min-h-8 items-center break-all transition-colors duration-200 ease-out hover:text-primary"
+                      href={"mailto:" + settings.email}
+                    >
+                      {settings.email}
+                    </a>
+                  )}
                 </ContactRow>
               )}
             </address>
-          ) : (
-            <p className="mt-4 text-sm leading-6 text-muted-foreground">
-              {t("Start a conversation with our team about your study plans.")}
-            </p>
-          )}
+          ) : null}
 
+          {socials.length === 0 && (
+            <div className="mt-6">
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {Object.values(SOCIAL_ICONS).map(({ label, Icon }) => (
+                  <li key={label}>
+                    <span
+                      title={`${label} — link coming soon`}
+                      aria-label={`${label} — link coming soon`}
+                      className="grid size-11 place-items-center rounded-full border border-border text-muted-foreground"
+                    >
+                      <Icon aria-hidden="true" size={18} />
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {socials.length > 0 && (
             <div className="mt-6">
-              <p className="text-xs font-semibold uppercase tracking-widest text-foreground/70">
-                {t("Follow us")}
-              </p>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {socials.map(({ label, Icon, href }) => (
                   <li key={label}>
@@ -245,7 +273,7 @@ export async function SiteFooter() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`GAP on ${label} (opens in a new tab)`}
-                      className="grid size-11 place-items-center rounded-full border border-border text-muted-foreground transition-colors duration-200 ease-out hover:border-primary hover:bg-primary hover:text-primary-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                      className="grid size-11 place-items-center rounded-full border border-border text-muted-foreground transition-colors duration-200 ease-out hover:border-primary hover:bg-primary hover:text-primary-foreground focus-visible:outline focus-visible:outline-primary"
                     >
                       <Icon aria-hidden="true" size={18} />
                     </a>

@@ -55,7 +55,7 @@ export default async function UniversitiesPage() {
                   "Our university directory is being prepared. An adviser can help you explore destinations and build a shortlist that fits your goals.",
                 )}
               >
-                <ApplyNowDialog triggerContent={t("Get university guidance")} />
+                <ApplyNowDialog />
               </EmptyState>
             )}
           </div>

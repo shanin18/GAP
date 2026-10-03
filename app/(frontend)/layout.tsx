@@ -54,6 +54,14 @@ export default async function RootLayout({
     getWebsiteContent(),
     getSiteSettings(),
   ]);
+  // Server-rendered sections don't need to travel in the client context.
+  const clientSections = new Set([
+    "mobile-navigation", "country-menu", "home-process", "university-filters",
+    "enquiry-form", "application-form", "home-guidance", "university-card",
+  ]);
+  const clientContent = Object.fromEntries(
+    Object.entries(content).filter(([key]) => clientSections.has(key)),
+  );
   return (
     <html lang="en" data-scroll-behavior="smooth" data-theme="dark">
       <body
@@ -62,7 +70,7 @@ export default async function RootLayout({
         className={`${fraunces.variable} ${manrope.variable} pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0`}
       >
         <DestinationsProvider destinations={destinations}>
-          <WebsiteContentProvider content={content}>
+          <WebsiteContentProvider content={clientContent}>
             {settings?.maintenanceMode ? (
               <main className="mx-auto max-w-2xl px-5 py-24 text-center">
                 <h1 className="font-display text-4xl">{settings.siteName}</h1>

@@ -98,6 +98,18 @@ Keep the previous application release available. Roll back the application only 
 
 ## Decisions waiting for hosting
 
+### Performance and Cloudflare CDN
+
+Vercel already serves static assets and eligible public pages through its CDN. Adding Cloudflare requires a custom domain with Cloudflare proxying enabled; it cannot be attached to a `vercel.app` hostname. No live Cloudflare configuration has been applied by this repository.
+
+Start with Cloudflare's normal static-file caching and respect origin Cache-Control headers. Do not enable a site-wide Cache Everything rule. Explicitly bypass `/admin`, `/admin/*`, `/api/*`, authenticated requests (including the `payload-token` cookie), non-GET/HEAD requests, and Next.js RSC requests. Preserve query strings, including `_rsc`, and leave `/_next/image` to the application's image cache. Never cache login, student document downloads, or Turnstile verification responses.
+
+Public pages and CMS queries already use five-minute ISR/Data Cache with CMS save invalidation. An additional HTML edge cache needs coordinated purging when editors save; otherwise content can remain stale after an origin invalidation. Keep HTML caching with Vercel/Next until that purge integration is configured.
+
+Place the application server close to the Neon database region. Database wake-up and server cold starts affect the first login/admin request; a CDN cannot remove that cost from private routes. For a Hostinger VPS, run a persistent production Node process behind the HTTPS reverse proxy rather than `next dev`. Use `npm ci --omit=dev` in the runtime release after building, and keep development/image preparation scripts out of the runtime deployment artifact.
+
+Measure production response times separately from browser rendering and network latency. A warm localhost response is not a guarantee of a 50 ms page load for remote users.
+
 - Persistent volume versus object storage, including private-document permissions.
 - Shared rate limiting for serverless or multiple instances; the current limiter is per-process memory.
 - Database backup scheduling, retention, and recovery objectives.
@@ -105,3 +117,5 @@ Keep the previous application release available. Roll back the application only 
 - SMTP provider, sender verification, final domain, and DNS.
 
 No infrastructure has been provisioned and no live database migration has been applied by this preparation.
+
+Cloudflare Turnstile protects admin/staff login and public appointment/application submissions when both `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` are configured. Create a Managed widget in Cloudflare and allow `localhost` plus your deployment hostname. Set `TURNSTILE_ALLOWED_HOSTNAMES` to the same comma-separated hostnames (no protocol or path); otherwise the server uses the hostname from `NEXT_PUBLIC_SITE_URL`. Add both keys to Vercel environment variables and redeploy, because the public key is bundled at build time. Never expose the secret. Authenticated CRM record creation does not need another challenge. Missing or invalid verification is rejected when configured; account creation remains admin-only. Test a successful login, a wrong-password retry, a public form submission and a direct login request without a token (must return 403). Removing both keys disables Turnstile; configuring only one key fails environment validation. Run `node --experimental-strip-types scripts/test-turnstile.mjs` for the server validation checks.

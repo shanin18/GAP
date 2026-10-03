@@ -41,7 +41,7 @@ export default buildConfig({
         Logo: "/components/admin/_Brand#Logo",
         Icon: "/components/admin/_Brand#Icon",
       },
-      beforeLogin: ["/components/admin/_Brand#LoginIntro"],
+      beforeLogin: ["/components/admin/_Brand#LoginIntro", "/components/admin/LoginVerification#LoginVerification"],
       views: {
         dashboard: { Component: "/components/admin/Dashboard#Dashboard" },
       },

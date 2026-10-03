@@ -6,3 +6,4 @@ private-uploads/
 public/uploads/
 *.tsbuildinfo
 *.log
+.image-work/

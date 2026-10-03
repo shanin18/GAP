@@ -15,7 +15,7 @@ Open `/admin`. **Website Content** contains 25 section records, grouped by page 
 | Universities | Profiles, country, city, logos, website links, highlights, SEO and publication status; featured published universities appear as homepage partners |
 | Services | Titles, icons, summaries, detailed introductions, checklists, images and ordering |
 | Testimonials | Real student stories, photos, ratings, country/university relationships and publishing |
-| News | Articles, rich text formatting, cover images, summaries, SEO and scheduling; only published articles whose publication time has arrived are public |
+| News | Blogs and events, rich text, cover images, summaries, SEO and scheduling; only published entries whose publication time has arrived are public |
 | Site Settings | Site name, default SEO, favicon, contact details, social links and maintenance mode/message |
 | Media | Public website images; copy their URLs into country/service/university/article image fields |
 | Leads / Applications / Documents | Enquiries, student workflow and private application documents |
@@ -51,3 +51,5 @@ Normal development requests no longer inspect or push the PostgreSQL schema. Aft
 `npm run cms:verify` exercises all collections in a disposable PostgreSQL schema and removes that schema and its uploaded fixtures afterward. It does not modify existing website records or send email.
 
 For deployment, apply the corresponding Payload database schema changes before starting production. With `UPLOAD_STORAGE=local`, Media uses `public/uploads` and Documents uses `private-uploads`. With `UPLOAD_STORAGE=cloudinary`, images are public Cloudinary assets and documents are authenticated assets served through the app's access checks. Vercel requires cloud storage. See [Cloudinary setup and migration](DEPLOYMENT.md#cloudinary-uploads-vercel-and-optional-hostinger-storage); Vercel uploads are limited to 4 MB per file.
+
+To publish a blog or event, open **News ? Create New** and choose **Content type**. Add a title, cover image, summary and the full text in **Content**. For an event, also enter **Event date** and **Event location** (venue or online details). **Published date** controls when the announcement becomes visible; set it before the event starts. Change **Status** to **published** and save. The homepage displays the latest six entries; **See more** opens the paginated blogs and events page. **Read blog** or **View event** opens the entry's full detail page. Existing entries default to blogs.

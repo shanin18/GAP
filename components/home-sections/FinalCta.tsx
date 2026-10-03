@@ -6,13 +6,13 @@ import { ApplyNowDialog } from "../ui/apply-now-dialog";
 
 export async function FinalCta() {
   const t = await getSectionText("home-cta");
-  const destinations = (await getGlobeDestinations()).map((d) => ({
+  const destinations = (await getGlobeDestinations()).slice(0, 3).map((d) => ({
     name: d.name,
     href: `/country/${d.slug}`,
   }));
 
   return (
-    <section className="px-5 pb-20 lg:px-8 lg:pb-28">
+    <section className="mx-auto max-w-7xl px-5 pt-6 pb-12 lg:px-8 lg:pt-8 lg:pb-16">
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-[color-mix(in_oklch,var(--primary)_14%,var(--background))] via-background to-background p-8 sm:p-12 lg:p-16">
         {/* Decorative globe with a slow orbiting dot (hidden from assistive tech) */}
         <div
@@ -69,6 +69,7 @@ export async function FinalCta() {
                       : ""}
                 </span>
               ))}
+              {" · "}<Link href="/countries" className="whitespace-nowrap font-semibold text-primary underline-offset-4 hover:underline">See more +</Link>
             </p>
           </div>
         </div>
