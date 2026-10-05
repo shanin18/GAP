@@ -5,7 +5,7 @@ const caches = new WeakMap<Payload, Map<string, Entry>>();
 const TTL = 30_000;
 
 // Private, bounded, per-user server memory. Never caches authentication or edits.
-export function adminRead<T>(payload: Payload, user: TypedUser | null | undefined, key: string, read: () => Promise<T>): Promise<T> {
+export function adminRead<T>(payload: Payload, user: TypedUser | null | undefined, key: string, read: () => Promise<T>, ttlMs = TTL): Promise<T> {
   if (!user) return read();
   let cache = caches.get(payload);
   if (!cache) { cache = new Map(); caches.set(payload, cache); }
@@ -16,7 +16,7 @@ export function adminRead<T>(payload: Payload, user: TypedUser | null | undefine
   for (const [entryKey, entry] of cache) if (entry.expires <= now) cache.delete(entryKey);
   if (cache.size >= 512) cache.delete(cache.keys().next().value!);
   const value = read();
-  const entry = { expires: now + TTL, value };
+  const entry = { expires: now + ttlMs, value };
   cache.set(scopedKey, entry);
   void value.catch(() => { if (cache.get(scopedKey) === entry) cache.delete(scopedKey); });
   return value;

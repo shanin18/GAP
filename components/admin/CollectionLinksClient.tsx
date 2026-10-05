@@ -53,6 +53,21 @@ export function CollectionLinksClient({
   const router = useRouter();
   const { config } = useConfig();
   const sidebar = useRef<HTMLElement>(null);
+  const prefetchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prefetched = useRef(new Map<string, number>());
+  function cancelPrefetch() {
+    if (prefetchTimer.current) clearTimeout(prefetchTimer.current);
+  }
+  function prepareRoute(href: string) {
+    cancelPrefetch();
+    if (href === pathname || Date.now() - (prefetched.current.get(href) ?? 0) < 30_000) return;
+    // Ignore pointer flybys; only prepare a route after deliberate hover/focus.
+    prefetchTimer.current = setTimeout(() => {
+      prefetched.current.set(href, Date.now());
+      router.prefetch(href);
+    }, 200);
+  }
+  useEffect(() => cancelPrefetch, []);
   const { navOpen, navRef, hydrated, shouldAnimate, setNavOpen } = useNav();
 
   useEffect(() => {
@@ -134,8 +149,10 @@ export function CollectionLinksClient({
             <Link
               href={dashboardHref}
               prefetch={false}
-              onMouseEnter={() => router.prefetch(dashboardHref)}
-              onFocus={() => router.prefetch(dashboardHref)}
+              onMouseEnter={() => prepareRoute(dashboardHref)}
+              onFocus={() => prepareRoute(dashboardHref)}
+              onMouseLeave={cancelPrefetch}
+              onBlur={cancelPrefetch}
               className="nav__link gap-nav__link"
               aria-current={pathname === dashboardHref ? "page" : undefined}
             >
@@ -154,8 +171,10 @@ export function CollectionLinksClient({
                       id={`nav-${slug}`}
                       href={href}
                       prefetch={false}
-                      onMouseEnter={() => router.prefetch(href)}
-                      onFocus={() => router.prefetch(href)}
+                      onMouseEnter={() => prepareRoute(href)}
+                      onFocus={() => prepareRoute(href)}
+                      onMouseLeave={cancelPrefetch}
+                      onBlur={cancelPrefetch}
                       className="nav__link gap-nav__link"
                       aria-current={isActive(href) ? "page" : undefined}
                     >

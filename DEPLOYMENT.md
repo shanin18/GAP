@@ -106,6 +106,10 @@ For `siteverify-rejected`, inspect the logged Cloudflare error codes. Check that
 
 ### Performance and Cloudflare CDN
 
+Admin navigation intentionally rechecks authentication and reads current list/edit data through Payload. Its native lists already select visible columns at depth zero; record locking, permissions and drafts also require current server state. Dashboard/navigation summaries use a bounded per-user 30-second memory cache, invalidated on writes. Reminders share a stable per-user 15-second cache and are limited to 60 requests/minute per user per process. This is not a distributed Vercel rate limit or cross-instance cache; deploy a shared store before relying on it for fleet-wide enforcement. Avoid caching private HTML or replacing current edit/lock data with stale query results.
+
+Run `npm run payload -- run scripts/profile-admin.ts` for a read-only initialization/dashboard timing diagnostic. It reports timings without printing account or student details. Run `node --experimental-strip-types scripts/test-admin-cache.mjs` to check cache isolation and expiration. These measurements exclude browser rendering, password hashing, and actual login requests.
+
 Vercel already serves static assets and eligible public pages through its CDN. Adding Cloudflare requires a custom domain with Cloudflare proxying enabled; it cannot be attached to a `vercel.app` hostname. No live Cloudflare configuration has been applied by this repository.
 
 Start with Cloudflare's normal static-file caching and respect origin Cache-Control headers. Do not enable a site-wide Cache Everything rule. Explicitly bypass `/admin`, `/admin/*`, `/api/*`, authenticated requests (including the `payload-token` cookie), non-GET/HEAD requests, and Next.js RSC requests. Preserve query strings, including `_rsc`, and leave `/_next/image` to the application's image cache. Never cache login, student document downloads, or Turnstile verification responses.
