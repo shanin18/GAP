@@ -98,6 +98,12 @@ Keep the previous application release available. Roll back the application only 
 
 ## Decisions waiting for hosting
 
+### Turnstile succeeds in the widget but fails on submission
+
+Check Vercel function logs for `[Turnstile] Verification rejected`. For `hostname-mismatch`, set `NEXT_PUBLIC_SITE_URL` to the live HTTPS origin and leave `TURNSTILE_ALLOWED_HOSTNAMES` blank to use that origin's hostname, or explicitly list all intended hostnames separated by commas (no protocol/path). Do not use `localhost` as the only production entry. Allow the same hostnames in Cloudflare's widget settings.
+
+For `siteverify-rejected`, inspect the logged Cloudflare error codes. Check that the deployed public and secret keys belong to the same widget for invalid-key/response failures; refresh the challenge for `timeout-or-duplicate`. Configure the variables for the correct Vercel environment (Production or Preview), then redeploy. Public keys and the site URL are used at build time. Keep hostname/action validation enabled.
+
 ### Performance and Cloudflare CDN
 
 Vercel already serves static assets and eligible public pages through its CDN. Adding Cloudflare requires a custom domain with Cloudflare proxying enabled; it cannot be attached to a `vercel.app` hostname. No live Cloudflare configuration has been applied by this repository.

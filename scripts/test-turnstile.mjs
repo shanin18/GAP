@@ -24,6 +24,12 @@ try {
   assert.equal(calls, 0);
   assert.equal(await verifyTurnstile('token', 'login'), true);
   assert.equal(await verifyTurnstile('token', 'lead'), false);
+  process.env.TURNSTILE_ALLOWED_HOSTNAMES = '';
+  process.env.NEXT_PUBLIC_SITE_URL = 'https://example.com';
+  assert.equal(await verifyTurnstile('token', 'login'), true);
+  process.env.TURNSTILE_ALLOWED_HOSTNAMES = 'localhost';
+  assert.equal(await verifyTurnstile('token', 'login'), false);
+  process.env.TURNSTILE_ALLOWED_HOSTNAMES = 'localhost,example.com';
   globalThis.fetch = async () => Response.json({ success: true, action: 'login', hostname: 'attacker.example' });
   assert.equal(await verifyTurnstile('token', 'login'), false);
   globalThis.fetch = async () => Response.json({ success: false, 'error-codes': ['timeout-or-duplicate'] });
