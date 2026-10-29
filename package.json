@@ -17,14 +17,15 @@
     "cms:verify": "payload run scripts/verify-cms.ts",
     "payload": "payload",
     "typecheck": "tsc --noEmit",
-    "verify": "npm run generate:types && npm run typecheck && npm run build"
+    "verify": "npm run generate:types && npm run typecheck && npm test && npm run build",
+    "test": "tsx scripts/test-staff-access.mjs && tsx scripts/test-admin-cache.mjs && tsx scripts/test-cloudinary.mjs && tsx scripts/test-turnstile.mjs"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "3.89.0",
-    "@payloadcms/email-nodemailer": "3.89.0",
-    "@payloadcms/next": "3.89.0",
-    "@payloadcms/plugin-cloud-storage": "3.89.0",
-    "@payloadcms/richtext-lexical": "3.89.0",
+    "@payloadcms/db-postgres": "3.91.0",
+    "@payloadcms/email-nodemailer": "3.91.0",
+    "@payloadcms/next": "3.91.0",
+    "@payloadcms/plugin-cloud-storage": "3.91.0",
+    "@payloadcms/richtext-lexical": "3.91.0",
     "@radix-ui/react-dialog": "1.1.23",
     "@radix-ui/react-dropdown-menu": "^2.1.24",
     "@radix-ui/react-select": "^2.3.7",
@@ -33,16 +34,17 @@
     "cloudinary": "2.11.0",
     "clsx": "2.1.1",
     "cobe": "^2.0.1",
+    "country-flag-icons": "1.6.20",
     "lucide-react": "1.46.0",
-    "next": "16.3.5",
-    "nodemailer": "10.0.10",
-    "payload": "3.89.0",
+    "next": "16.4.3",
+    "nodemailer": "10.3.1",
+    "payload": "3.91.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-hook-form": "7.88.0",
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "tailwind-merge": "3.7.0",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.3",
@@ -52,6 +54,7 @@
     "autoprefixer": "10.6.1",
     "postcss": "8.5.28",
     "tailwindcss": "4.3.3",
+    "tsx": "4.23.15",
     "typescript": "7.0.2"
   }
 }

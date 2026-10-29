@@ -8,7 +8,7 @@ There are **two login roles**. There is no separate manager, counsellor, student
 
 - **Admin:** manages the team, assigns cases, oversees every lead/application/document, and manages website content and settings.
 - **Staff:** handles assigned student cases, updates progress, uploads/reviews their application documents, and manages their own account. The database value for this role remains `editor` for compatibility with existing accounts; its displayed label is Staff.
-- **Visitors/students:** can browse the website and send public enquiry/application forms. These actions do not give them a staff login or access to private records.
+- **Visitors/students:** can browse the website and send the public enquiry form (Book an appointment). These actions do not give them a staff login or access to private records.
 
 | Capability | Admin | Staff |
 | --- | --- | --- |
@@ -46,34 +46,34 @@ A lead is an enquiry from someone interested in studying abroad, not yet necessa
 | Source Page | Website path where the enquiry was submitted; `/` means homepage. Read-only in the admin form. |
 | Status | Current enquiry stage; staff update it as work progresses. |
 | Assigned To | Person responsible. Admin selects them; staff see their email, read-only. |
-| Follow Up At | Date and time of the next contact. Set/reschedule it and save. |
-| Application | Optional connection to the student's application. See the conversion workflow below. |
+| Follow Up On | Date and time of the next contact. Set/reschedule it and save. |
+| Convert to application | Button in the sidebar of a saved lead: creates the student's application and links it. See the conversion workflow below. |
+| Application | The linked application. Filled in by Convert to application, or select an existing one by hand. |
 | Staff Notes | Internal conversation notes, decisions and next steps. Do not put passwords here. |
 | Email verification status | System status only. Verification is not enabled; neither role manually checks a box to verify a mailbox. |
 
 Lead statuses:
 
 1. **New:** not contacted yet.
-2. **Contacted:** first contact has been made.
-3. **Qualified:** the enquiry is suitable to proceed.
-4. **Application started:** the student is moving through an application; track subsequent actions on that application.
-5. **Not proceeding:** no further action is planned.
+2. **Contacted:** you are in conversation with the student.
+3. **Converted:** the student has an application; track everything else there. Set automatically when an application is linked.
+4. **Not interested:** no further action is planned.
 
 ### Applications
 
-The formal student case, including destination, institution, study level, intake, progress and documents. A student can submit the website application form directly, or staff can create a case on their behalf.
+The formal student case, including destination, institution, study level, intake, progress and documents. Applications are created by staff, usually with **Convert to application** on the student's lead.
 
 - **Reference:** generated automatically when saved; use it to identify the application.
 - **Student/contact/study fields:** record the student's details and intended programme.
 - **Status:** reflects the actual stage, not simply the latest conversation.
 - **Priority:** Low, Normal, High or Urgent, based on the case's needs.
 - **Assigned To:** responsible account. Only admins can change it.
-- **Next Action / Next Action At:** describe what must happen and when; the date feeds Reminders.
-- **Documents:** checklist entries with labels, statuses and links to private document records.
+- **Next Step / Follow Up On:** describe what must happen and when; the date feeds Reminders.
+- **Documents:** checklist entries with labels, statuses and links to private document records. Every new application starts with passport, academic and English-language entries.
 - **Status History:** recorded automatically when the status changes; read-only.
 - **Internal Notes:** working notes for the team.
 
-Application stages are **Submitted → Profile review → Documents required → Ready to apply → Submitted to university → Offer received → Enrolled**. Use **Closed** when a case ends without further work. Choose the stage matching reality; the app does not submit anything to a university when a status changes.
+Application stages are **Documents → Applied to university → Offer → Enrolled**. Every new application starts at Documents. Use **Closed** when a case ends without further work. Choose the stage matching reality; the app does not submit anything to a university when a status changes.
 
 ### Documents
 
@@ -157,30 +157,24 @@ New manual leads/applications created by staff are assigned to that staff accoun
 
 ## 5. Enquiry versus application, without duplicates
 
-**Path A: enquiry first**
+Every student starts as a lead: the website's only student form is **Book an appointment**.
 
-The student sends the enquiry form → a Lead is created → admin assigns it → staff contacts the student → staff opens the lead's Application **+** action, enters application details and saves the new application → staff saves the lead with that application selected → staff changes the lead status to Application started and tracks future tasks on the application.
+The student sends the enquiry form → a Lead is created → admin assigns it → staff contacts the student → staff clicks **Convert to application** in the lead's sidebar → the application opens, already linked, and the lead is marked Converted → track future tasks on the application.
 
-Creating an application does not automatically copy every lead field. Check and enter the student's details. Always confirm the selected reference and save the lead after closing the creation dialog.
+Conversion copies the name, email, phone, message and destination. Add the study level, university and intake on the application. The lead's country of interest must match one of the destinations; if it doesn't, correct it, save, and convert again. Save any edits to the lead before converting.
 
-**Path B: student applies directly**
-
-The student sends the public application form → an Application is created → admin assigns it → staff handles the case. A lead is not required.
-
-**Path C: the student has both**
-
-If the same student previously enquired and later applied, link the lead to their existing application. This connection is a shortcut between the records, not a second submission. Ask an admin to assign both records to you if necessary. Never create a duplicate merely because an application is not visible to your account.
+**The student already has an application** (for example, a colleague created one for them): don't convert, which would make a second one. Select their existing application in the lead's **Application** field and save; the lead is marked Converted. Ask an admin to assign both records to you if necessary. Never create a duplicate merely because an application is not visible to your account.
 
 An empty application selector means there are no accessible matching applications. For staff it only lists assigned applications. It loads options from the server so permissions and available records are respected.
 
 ## 6. Follow-up reminders
 
 - Find **Reminders** in the admin header. Each item links to its lead/application and shows the due date/time.
-- Updates occur every **15 seconds while the tab is visible**, and when you return to it. This is near-real-time polling, not instant push messaging.
+- Updates occur **once a minute while the tab is visible**, and immediately when you return to it. This is near-real-time polling, not instant push messaging.
 - Admin sees team reminders. Staff sees only reminders for their assigned records.
-- Leads use Follow Up At; applications use Next Action At. Pick both date and time, then save.
+- Leads and applications both use **Follow Up On**. Pick both date and time, then save.
 - Dates at or before the current time are due, including overdue items.
-- Leads marked Not proceeding or Application started are excluded. Applications marked Enrolled or Closed are excluded.
+- Leads marked Not interested or Converted are excluded. Applications marked Enrolled or Closed are excluded.
 - After acting, set the next date, clear the date, or choose the appropriate final status. Merely opening the panel does not dismiss a task.
 - The panel lists up to the earliest 20 leads and 20 applications; its total includes all due matches.
 - If loading fails, the panel reports it and retries. Do not interpret an unavailable panel as zero tasks.

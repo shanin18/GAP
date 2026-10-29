@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { CmsImage as Image } from '@/components/ui/cms-image';
 import { useEffect, useRef, useState } from 'react';
 
 export type PurposeSlide = { title: string; text: string; detail: string; image: string; alt: string };

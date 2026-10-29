@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/ui/cms-image";
 import { ArrowRight, Globe2, Search } from "lucide-react";
 
 export function CountryExplorer({ countries }: { countries: { name: string; slug: string; heroImageUrl?: string | null }[] }) {

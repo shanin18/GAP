@@ -1,7 +1,7 @@
 "use client";
 import { useWebsiteContent } from "@/components/website-content-provider";
 
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/ui/cms-image";
 import { useEffect, useId, useRef, useState } from "react";
 import { CalendarCheck, MessageCircle, Plane, Send } from "lucide-react";
 import { cn } from "@/lib/utils";

@@ -31,7 +31,5 @@ Admin dashboard summaries and navigation badges use a bounded, per-user, 30-seco
 - [Editing content and managing student records](CMS-EDITING.md)
 - [Admin/staff roles, daily workflows and every sidebar item](WORKSPACE-GUIDE.md)
 - [Production deployment, configuration, and recovery](DEPLOYMENT.md)
-- [Image sources and replacement notes](documentation/visual-assets.md)
-- [Globe destinations and coordinate attribution](documentation/globe-destinations.md)
 
 Keep `.env`, private documents, and database backups out of Git. Uploaded files require durable storage in production.

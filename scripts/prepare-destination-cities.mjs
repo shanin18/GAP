@@ -1,4 +1,4 @@
-﻿import { destinationGuides } from '../lib/destination-study-guides.ts';
+import { destinationGuides } from '../lib/destination-study-guides.ts';
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import sharp from 'sharp';
 const headers = { 'User-Agent': 'GAPWebsiteAssets/1.0 (educational destination guide)' };

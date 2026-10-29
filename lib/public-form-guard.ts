@@ -3,7 +3,7 @@ import { rateLimit } from './rate-limit';
 
 const MAX_BODY_BYTES = 20_000;
 
-export function clientIp(request: Request) {
+export function clientIp(request: { headers: Headers }) {
   // Only trustworthy behind a proxy or host that sets this header (Vercel, nginx, Cloudflare...)
   const forwarded = request.headers.get('x-forwarded-for');
   return forwarded?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';

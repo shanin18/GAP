@@ -86,6 +86,8 @@ export default buildConfig({
       ...(contentCollections.has(collection.slug) ? { hidden: ({ user }: { user: ClientUser }) => user?.role !== 'admin' } : {}),
       components: {
         ...collection.admin?.components,
+        // One selected row + Edit opens the full form instead of the bulk-edit field picker
+        beforeListTable: [...(collection.admin?.components?.beforeListTable ?? []), "/components/admin/SingleRecordEdit#SingleRecordEdit"],
         edit: {
           ...collection.admin?.components?.edit,
           SaveButton: "/components/admin/FormActions#BottomSaveButton",

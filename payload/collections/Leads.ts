@@ -1,6 +1,15 @@
 import { assignStaffCreator, validateStaffApplication } from '../hooks/staff-ownership';
-import { CollectionConfig } from "payload";
+import { CollectionConfig, type CollectionBeforeChangeHook } from "payload";
 import { isAdmin, isLoggedIn, isAdminField, assignedRecords } from "../access";
+import { convertLead } from '../endpoints/convert-lead';
+
+/** Linking an application by hand also marks an open lead Converted. */
+const markConverted: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
+  const linkedNow = data.application && !originalDoc?.application;
+  const open = ['new', 'contacted'].includes(data.status ?? originalDoc?.status ?? 'new');
+  if (linkedNow && open) data.status = 'application-started';
+  return data;
+};
 
 
 export const Leads: CollectionConfig = {
@@ -17,7 +26,8 @@ export const Leads: CollectionConfig = {
     update: assignedRecords,
     delete: isAdmin,
   },
-  hooks: { beforeChange: [assignStaffCreator, validateStaffApplication] },
+  hooks: { beforeChange: [assignStaffCreator, validateStaffApplication, markConverted] },
+  endpoints: [convertLead],
   fields: [
     { name: 'name', type: 'text', required: true },
     { name: 'email', type: 'email', required: true, index: true },
@@ -31,22 +41,22 @@ export const Leads: CollectionConfig = {
       required: true,
       defaultValue: 'new',
       index: true,
-      admin: { position: 'sidebar' },
+      admin: { position: 'sidebar', description: 'New → Contacted → Converted. Use Not interested if they stop.' },
       options: [
         { label: 'New', value: 'new' },
         { label: 'Contacted', value: 'contacted' },
-        { label: 'Qualified', value: 'qualified' },
-        { label: 'Application started', value: 'application-started' },
-        { label: 'Not proceeding', value: 'not-proceeding' },
+        { label: 'Converted', value: 'application-started' },
+        { label: 'Not interested', value: 'not-proceeding' },
       ],
     },
+    { name: 'convertToApplication', type: 'ui', admin: { position: 'sidebar', components: { Field: '/components/admin/ConvertLead#ConvertLead' } } },
     { name: 'assignedTo', type: 'relationship', relationTo: 'users', index: true, access: { create: isAdminField, update: isAdminField }, admin: { position: 'sidebar', components: { Field: '/components/admin/WorkflowFields#AssignmentField' } } },
-    { name: 'followUpAt', type: 'date', index: true, admin: { date: { pickerAppearance: 'dayAndTime' }, position: 'sidebar', description: 'Due follow-ups appear automatically in Reminders while the workspace is open. Reschedule after following up, or close the lead when finished.' } },
+    { name: 'followUpAt', label: 'Follow up on', type: 'date', index: true, admin: { date: { pickerAppearance: 'dayAndTime' }, position: 'sidebar', description: 'Shows in Reminders when due. Reschedule after following up, or close the lead when finished.' } },
     {
       name: 'application',
       type: 'relationship',
       relationTo: 'applications',
-      admin: { position: 'sidebar', description: 'Optional: connect this enquiry to the student application. Use + to create one on their behalf, then save this lead. If they already applied through the website, select that application to avoid a duplicate.' },
+      admin: { position: 'sidebar', description: 'Filled in by Convert to application. If the student already applied through the website, select that application here instead to avoid a duplicate.' },
     },
     { name: 'staffNotes', type: 'textarea' },
     { name: 'emailVerified', type: 'checkbox', defaultValue: false, access: { create: () => false, update: () => false }, admin: { readOnly: true, position: 'sidebar', components: { Field: '/components/admin/WorkflowFields#VerificationStatus' } } },

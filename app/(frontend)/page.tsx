@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { MobileNav } from "@/components/mobile-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { Hero } from "@/components/home-sections/Hero";
+import { DestinationFlags } from "@/components/home-sections/DestinationFlags";
 import { AcademicGuidance } from "@/components/home-sections/AcademicGuidance";
 import { HowGapWorks } from "@/components/home-sections/HowGapWorks";
 import { Testimonials } from "@/components/home-sections/Testimonials";
@@ -26,6 +27,7 @@ export default async function HomePage() {
   const content = await getWebsiteContent();
   const sections = [
     { key: "home-hero", element: <Hero /> },
+    { key: "home-destination-flags", element: <DestinationFlags /> },
     { key: "home-process", element: <HowGapWorks /> },
     { key: "home-guidance", element: <AcademicGuidance /> },
 
@@ -51,9 +53,12 @@ export default async function HomePage() {
   ]
     .map((section, index) => ({
       ...section,
-      order: section.key === 'home-faq' ? (content['home-cta']?.sortOrder ?? 80) - 1 : content[section.key]?.sortOrder ?? index * 10,
+      order: section.key === 'home-faq' ? (content['home-cta']?.sortOrder ?? 80) - 1
+        // Not a CMS section: always directly below the hero, and hidden with it
+        : section.key === 'home-destination-flags' ? (content['home-hero']?.sortOrder ?? 0) + 0.5
+        : content[section.key]?.sortOrder ?? index * 10,
     }))
-    .filter((section) => content[section.key]?.enabled !== false)
+    .filter((section) => content[section.key === 'home-destination-flags' ? 'home-hero' : section.key]?.enabled !== false)
     .sort((a, b) => a.order - b.order);
   return (
     <>

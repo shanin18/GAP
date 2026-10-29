@@ -15,7 +15,8 @@ export const viewport: Viewport = {
 
 // Production pages use ISR; public CMS reads also have a shared Data Cache.
 // Both expire after five minutes, and CMS save hooks invalidate them sooner.
-export const revalidate = 300;
+// Fallback only: CMS saves refresh pages immediately (payload/hooks/revalidate.ts)
+export const revalidate = 3600;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 export async function generateMetadata(): Promise<Metadata> {
@@ -57,7 +58,7 @@ export default async function RootLayout({
   // Server-rendered sections don't need to travel in the client context.
   const clientSections = new Set([
     "mobile-navigation", "country-menu", "home-process", "university-filters",
-    "enquiry-form", "application-form", "home-guidance", "university-card",
+    "enquiry-form", "home-guidance", "university-card",
   ]);
   const clientContent = Object.fromEntries(
     Object.entries(content).filter(([key]) => clientSections.has(key)),

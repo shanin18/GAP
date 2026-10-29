@@ -345,7 +345,7 @@ try {
     collection: "applications",
     data: {
       reference: "",
-      status: "submitted",
+      status: "documents-required",
       studentName: "QA Student",
       email: "student@example.invalid",
       country: country.id,
@@ -358,7 +358,7 @@ try {
   const progressed = await payload.update({
     collection: "applications",
     id: application.id,
-    data: { status: "profile-review" },
+    data: { status: "university-submitted" },
     ...staff,
   });
   assert.equal(progressed.statusHistory?.length, 2);

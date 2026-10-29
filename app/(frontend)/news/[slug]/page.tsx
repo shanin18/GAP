@@ -1,5 +1,5 @@
 import { FinalCta } from "@/components/home-sections/FinalCta";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/ui/cms-image";
 import { stockImage } from "@/lib/stock-images";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 

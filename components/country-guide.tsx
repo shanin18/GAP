@@ -1,4 +1,4 @@
-﻿import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import { AnimatedDisclosure } from "@/components/ui/animated-disclosure";
 import { CanadaFacts, CanadaGuideSection } from "@/components/canada-guide-sections";

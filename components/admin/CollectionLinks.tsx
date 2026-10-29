@@ -75,7 +75,7 @@ export async function CollectionLinks({
       href: `${payload.config.routes.admin}/collections/${slug}`,
     }));
 
-  // Small counters on the two inboxes that need daily attention
+  // Small counters on the two inboxes that need daily attention: new leads, and applications waiting on documents
   const [newLeads, newApplications] = await Promise.all([
     visible.some((c) => c.slug === "leads")
       ? countOf(payload, "leads", { status: { equals: "new" } }, user)
@@ -84,7 +84,7 @@ export async function CollectionLinks({
       ? countOf(
           payload,
           "applications",
-          { status: { equals: "submitted" } },
+          { status: { equals: "documents-required" } },
           user,
         )
       : 0,

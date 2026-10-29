@@ -1,5 +1,6 @@
 import { ContentRowLabel as ContentRowLabel_29e1c3d7b6cd24eee07c76805164eab3 } from '../../../components/admin/ContentRowLabel'
 import { FormActions as FormActions_97867db1f35691a3a75230c0de9d4069 } from '../../../components/admin/FormActions'
+import { SingleRecordEdit as SingleRecordEdit_bb615a87e52f695481d0e263141b4b97 } from '../../../components/admin/SingleRecordEdit'
 import { BottomPublishButton as BottomPublishButton_97867db1f35691a3a75230c0de9d4069 } from '../../../components/admin/FormActions'
 import { BottomSaveButton as BottomSaveButton_97867db1f35691a3a75230c0de9d4069 } from '../../../components/admin/FormActions'
 import { BottomSaveDraftButton as BottomSaveDraftButton_97867db1f35691a3a75230c0de9d4069 } from '../../../components/admin/FormActions'
@@ -26,6 +27,7 @@ import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93
 import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { ConvertLead as ConvertLead_f525741014b80ccc93f468676ace6316 } from '../../../components/admin/ConvertLead'
 import { AssignmentField as AssignmentField_87afc85f694dedfeb2d9bea91847c5e1 } from '../../../components/admin/WorkflowFields'
 import { VerificationStatus as VerificationStatus_87afc85f694dedfeb2d9bea91847c5e1 } from '../../../components/admin/WorkflowFields'
 import { CollectionLinks as CollectionLinks_afa834a8dfa6703b4d04da29d2900472 } from '../../../components/admin/CollectionLinks'
@@ -43,6 +45,7 @@ import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } f
 export const importMap = {
   "/components/admin/ContentRowLabel#ContentRowLabel": ContentRowLabel_29e1c3d7b6cd24eee07c76805164eab3,
   "/components/admin/FormActions#FormActions": FormActions_97867db1f35691a3a75230c0de9d4069,
+  "/components/admin/SingleRecordEdit#SingleRecordEdit": SingleRecordEdit_bb615a87e52f695481d0e263141b4b97,
   "/components/admin/FormActions#BottomPublishButton": BottomPublishButton_97867db1f35691a3a75230c0de9d4069,
   "/components/admin/FormActions#BottomSaveButton": BottomSaveButton_97867db1f35691a3a75230c0de9d4069,
   "/components/admin/FormActions#BottomSaveDraftButton": BottomSaveDraftButton_97867db1f35691a3a75230c0de9d4069,
@@ -69,6 +72,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "/components/admin/ConvertLead#ConvertLead": ConvertLead_f525741014b80ccc93f468676ace6316,
   "/components/admin/WorkflowFields#AssignmentField": AssignmentField_87afc85f694dedfeb2d9bea91847c5e1,
   "/components/admin/WorkflowFields#VerificationStatus": VerificationStatus_87afc85f694dedfeb2d9bea91847c5e1,
   "/components/admin/CollectionLinks#CollectionLinks": CollectionLinks_afa834a8dfa6703b4d04da29d2900472,

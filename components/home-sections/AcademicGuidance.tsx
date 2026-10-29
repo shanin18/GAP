@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const guidance = [
   {
     icon: MessageCircle,
-    title: "Counselling",
+    title: "Student Counselling",
     text: "Understand your goals, profile and options with practical one-to-one guidance.",
   },
   {

@@ -1,5 +1,7 @@
 import { APIError, CollectionConfig } from "payload";
 import { verifyTurnstile } from '../../lib/turnstile';
+import { rateLimit } from '../../lib/rate-limit';
+import { clientIp } from '../../lib/public-form-guard';
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -8,6 +10,8 @@ export const Users: CollectionConfig = {
     maxLoginAttempts: 5, // lock the account after 5 wrong passwords...
     lockTime: 10 * 60 * 1000, // ...for 10 minutes
     cookies: { secure: process.env.NODE_ENV === 'production', sameSite: 'Lax' },
+    // At most one reset email per account every 5 minutes, enforced in the database
+    forgotPassword: { minRequestInterval: 5 * 60 * 1000 },
   },
   admin: { useAsTitle: 'email', defaultColumns: ['email', 'role', 'updatedAt'], hidden: ({ user }) => user?.role !== 'admin' },
   access: {
@@ -21,6 +25,10 @@ export const Users: CollectionConfig = {
     beforeOperation: [async ({ operation, req }) => {
       if (operation === 'login' && !await verifyTurnstile(req.headers.get('x-turnstile-token'), 'login')) {
         throw new APIError('Security verification failed. Please verify and try again.', 403);
+      }
+      // Stops one visitor from sending reset emails to many addresses
+      if (operation === 'forgotPassword' && !rateLimit(`forgot-password:${clientIp(req)}`, 5, 15 * 60_000).ok) {
+        throw new APIError('Too many password reset requests. Please try again later.', 429);
       }
     }],
     beforeChange: [

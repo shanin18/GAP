@@ -4,7 +4,8 @@ import {
   getPublishedNews,
   getUniversities,
 } from "@/lib/cms-queries";
-export const dynamic = "force-dynamic";
+// Rebuilt hourly, and immediately when CMS content changes (see payload/hooks/revalidate.ts)
+export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const [countries, news, universities] = await Promise.all([
@@ -19,7 +20,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/countries",
     "/universities",
     "/news",
-    "/apply",
   ].map((path) => ({ url: `${base}${path}`, lastModified: new Date() }));
   return [
     ...fixed,

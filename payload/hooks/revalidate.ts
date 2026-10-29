@@ -7,7 +7,7 @@ import { cmsTag } from "../../lib/cms-cache-tags";
 
 /**
  * Rebuild the public pages right after an editor saves, so changes show up
- * immediately instead of after the 5-minute revalidate window.
+ * immediately instead of after the hourly revalidate window.
  * try/catch keeps seed scripts and `payload run` from crashing outside Next.js.
  */
 function refreshSite(collection: string) {
@@ -25,16 +25,17 @@ function refreshSite(collection: string) {
       if (collection === "universities") {
         revalidatePath("/universities");
         revalidatePath("/universities/[slug]", "page");
-        revalidatePath("/apply");
       }
       if (collection === "news") {
         revalidatePath("/news");
         revalidatePath("/news/[slug]", "page");
+        revalidatePath("/news/page/[page]", "page");
       }
       if (["universities", "news", "testimonials"].includes(collection))
         revalidatePath("/country/[slug]", "page");
-      revalidatePath("/sitemap.xml");
     }
+    // The sitemap sits outside the site layout, so refresh it for every content change
+    revalidatePath("/sitemap.xml");
   } catch {
     /* not running inside Next.js */
   }

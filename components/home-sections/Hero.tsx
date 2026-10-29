@@ -32,22 +32,10 @@ export async function Hero() {
           <div className="mt-7">
             <TrustStrip />
           </div>
-          <div className="mt-10 flex gap-8 text-sm">
-            <div>
-              <strong className="font-display text-2xl">
-                {destinations.length}
-              </strong>
-              <span className="ml-2 text-muted-foreground">
-                {t("launch destinations")}
-              </span>
-            </div>
-            <div>
-              <strong className="font-display text-2xl">{t("1:1")}</strong>
-              <span className="ml-2 text-muted-foreground">
-                {t("guidance")}
-              </span>
-            </div>
-          </div>
+          <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-display text-xl">
+            <li>{t("Top destinations")}</li>
+            <li>{t("One-to-one expert consultation")}</li>
+          </ul>
         </div>
         <div className="min-w-0">
           <JourneyGlobe

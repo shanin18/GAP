@@ -23,22 +23,28 @@
         "value": "Start your journey to world-class education with the right first step."
       },
       {
-        "key": "copy_1p47jcv",
+        "key": "copy_xy5t05",
         "kind": "text",
-        "label": "launch destinations",
-        "value": "launch destinations"
+        "label": "Top destinations",
+        "value": "Top destinations"
       },
       {
-        "key": "copy_x8ee3b",
+        "key": "copy_1gv6oej",
         "kind": "text",
-        "label": "guidance",
-        "value": "guidance"
+        "label": "One-to-one expert consultation",
+        "value": "One-to-one expert consultation"
       },
       {
-        "key": "copy_rsb1p5",
-        "label": "1:1",
+        "key": "copy_1xf09x0",
         "kind": "text",
-        "value": "1:1"
+        "label": "Where would you like to study?",
+        "value": "Where would you like to study?"
+      },
+      {
+        "key": "copy_4zt6sk",
+        "kind": "text",
+        "label": "Compare all destinations",
+        "value": "Compare all destinations"
       }
     ]
   },
@@ -121,10 +127,10 @@
     "sortOrder": 20,
     "entries": [
       {
-        "key": "copy_1a41fo4",
+        "key": "copy_1iwfks7",
         "kind": "text",
-        "label": "Counselling",
-        "value": "Counselling"
+        "label": "Student Counselling",
+        "value": "Student Counselling"
       },
       {
         "key": "copy_g4tl5a",
@@ -782,181 +788,6 @@
     ]
   },
   {
-    "key": "application-form",
-    "title": "Forms / Application",
-    "sortOrder": 140,
-    "entries": [
-      {
-        "key": "copy_1tos2t6",
-        "kind": "text",
-        "label": "Application received.",
-        "value": "Application received."
-      },
-      {
-        "key": "copy_s91rtv",
-        "kind": "text",
-        "label": "Keep this reference for your records.",
-        "value": "Keep this reference for your records."
-      },
-      {
-        "key": "copy_17cf8ws",
-        "kind": "text",
-        "label": "A GAP adviser will review your profile and contact you about the next steps.",
-        "value": "A GAP adviser will review your profile and contact you about the next steps."
-      },
-      {
-        "key": "copy_1817glj",
-        "kind": "text",
-        "label": "Your study plans",
-        "value": "Your study plans"
-      },
-      {
-        "key": "copy_13z0t9r",
-        "kind": "text",
-        "label": "Full name",
-        "value": "Full name "
-      },
-      {
-        "key": "copy_1cdit03",
-        "kind": "text",
-        "label": "Email address",
-        "value": "Email address "
-      },
-      {
-        "key": "copy_137tc7z",
-        "kind": "text",
-        "label": "Phone number (optional)",
-        "value": "Phone number (optional) "
-      },
-      {
-        "key": "copy_11c7r6w",
-        "kind": "text",
-        "label": "Study level",
-        "value": "Study level"
-      },
-      {
-        "key": "copy_bilagn",
-        "kind": "text",
-        "label": "Choose study level",
-        "value": "Choose study level"
-      },
-      {
-        "key": "copy_1mr0jd0",
-        "kind": "text",
-        "label": "Foundation",
-        "value": "Foundation"
-      },
-      {
-        "key": "copy_67sm04",
-        "kind": "text",
-        "label": "Undergraduate",
-        "value": "Undergraduate"
-      },
-      {
-        "key": "copy_1aj2lme",
-        "kind": "text",
-        "label": "Postgraduate",
-        "value": "Postgraduate"
-      },
-      {
-        "key": "copy_1koktv7",
-        "kind": "text",
-        "label": "PhD",
-        "value": "PhD"
-      },
-      {
-        "key": "copy_ukzedx",
-        "kind": "text",
-        "label": "Other",
-        "value": "Other"
-      },
-      {
-        "key": "copy_gfzm1r",
-        "kind": "text",
-        "label": "Destination",
-        "value": "Destination"
-      },
-      {
-        "key": "copy_yeusw0",
-        "kind": "text",
-        "label": "Choose destination",
-        "value": "Choose destination"
-      },
-      {
-        "key": "copy_19g1q04",
-        "kind": "text",
-        "label": "University (optional)",
-        "value": "University (optional)"
-      },
-      {
-        "key": "copy_zejb3h",
-        "kind": "text",
-        "label": "Help me choose",
-        "value": "Help me choose"
-      },
-      {
-        "key": "copy_1p88ymt",
-        "kind": "text",
-        "label": "Preferred intake (optional)",
-        "value": "Preferred intake (optional)"
-      },
-      {
-        "key": "copy_1yxwzk",
-        "kind": "text",
-        "label": "e.g. February 2027",
-        "value": "e.g. February 2027"
-      },
-      {
-        "key": "copy_i7c2hv",
-        "kind": "text",
-        "label": "Loading study destinations…",
-        "value": "Loading study destinations…"
-      },
-      {
-        "key": "copy_3w0575",
-        "kind": "text",
-        "label": "We couldn't load the study destinations. Your details are still here.",
-        "value": "We couldn't load the study destinations. Your details are still here."
-      },
-      {
-        "key": "copy_982hh6",
-        "kind": "text",
-        "label": "Try again",
-        "value": "Try again"
-      },
-      {
-        "key": "copy_1yjarrk",
-        "kind": "text",
-        "label": "Online applications are not available yet. Use Apply Now to speak with an adviser about yo",
-        "value": "Online applications are not available yet. Use Apply Now to speak with an adviser about your destination."
-      },
-      {
-        "key": "copy_vgb8hi",
-        "kind": "text",
-        "label": "Your study goals (optional)",
-        "value": "Your study goals (optional)"
-      },
-      {
-        "key": "copy_167jt0e",
-        "kind": "text",
-        "label": "After submission, an adviser will explain how to provide any required documents securely.",
-        "value": "After submission, an adviser will explain how to provide any required documents securely."
-      },
-      {
-        "key": "copy_ruylux",
-        "kind": "text",
-        "label": "Submitting…",
-        "value": "Submitting…"
-      },
-      {
-        "key": "copy_tzqxj",
-        "kind": "text",
-        "label": "Submit application",
-        "value": "Submit application"
-      }
-    ]
-  },
-  {
     "key": "university-filters",
     "title": "Universities / Search and filters",
     "sortOrder": 150,
@@ -1166,6 +997,30 @@
         "kind": "text",
         "label": "Explore services",
         "value": "Explore services "
+      },
+      {
+        "key": "copy_xy5t05",
+        "kind": "text",
+        "label": "Top destinations",
+        "value": "Top destinations"
+      },
+      {
+        "key": "copy_1cbwifw",
+        "kind": "text",
+        "label": "Stages in your journey",
+        "value": "Stages in your journey"
+      },
+      {
+        "key": "copy_19q501m",
+        "kind": "text",
+        "label": "One-to-one",
+        "value": "One-to-one"
+      },
+      {
+        "key": "copy_1mn21uq",
+        "kind": "text",
+        "label": "Expert consultation",
+        "value": "Expert consultation"
       }
     ]
   },
@@ -1205,10 +1060,10 @@
         "value": "What does GAP help with?"
       },
       {
-        "key": "copy_5rwu8t",
+        "key": "copy_oqjxiq",
         "kind": "text",
-        "label": "Counselling, university and program selection, admission and enrollment support, and guida",
-        "value": "Counselling, university and program selection, admission and enrollment support, and guidance to prepare you for departure."
+        "label": "Student counselling, university and program selection, admission and enrollment support, a",
+        "value": "Student counselling, university and program selection, admission and enrollment support, and guidance to prepare you for departure."
       },
       {
         "key": "copy_19bip53",
@@ -1700,91 +1555,6 @@
         "kind": "text",
         "label": "Turn your research into a clear application plan.",
         "value": "Turn your research into a clear application plan."
-      }
-    ]
-  },
-  {
-    "key": "apply-page",
-    "title": "Apply / Introduction",
-    "sortOrder": 240,
-    "entries": [
-      {
-        "key": "copy_j0ttqg",
-        "kind": "text",
-        "label": "Start an Application | GAP",
-        "value": "Start an Application | GAP"
-      },
-      {
-        "key": "copy_1y03vl0",
-        "kind": "text",
-        "label": "Start your study-abroad application with Global Admission Platform.",
-        "value": "Start your study-abroad application with Global Admission Platform."
-      },
-      {
-        "key": "copy_1n7wqha",
-        "kind": "text",
-        "label": "Student application",
-        "value": "Student application"
-      },
-      {
-        "key": "copy_jo30t",
-        "kind": "text",
-        "label": "Turn your plan into an",
-        "value": "Turn your plan into an "
-      },
-      {
-        "key": "copy_1ats229",
-        "kind": "text",
-        "label": "application.",
-        "value": "application."
-      },
-      {
-        "key": "copy_zg8c9r",
-        "kind": "text",
-        "label": "Share your destination, study level, and preferred university. GAP can then review the pro",
-        "value": "Share your destination, study level, and preferred university. GAP can then review the profile and guide the next steps."
-      },
-      {
-        "key": "copy_1ab3u47",
-        "kind": "text",
-        "label": "What happens next",
-        "value": "What happens next"
-      },
-      {
-        "key": "copy_1bn37p2",
-        "kind": "text",
-        "label": "A visible application journey.",
-        "value": "A visible application journey."
-      },
-      {
-        "key": "copy_qypsm8",
-        "kind": "text",
-        "label": "Application submitted",
-        "value": "Application submitted"
-      },
-      {
-        "key": "copy_fsa0gs",
-        "kind": "text",
-        "label": "Profile reviewed by GAP",
-        "value": "Profile reviewed by GAP"
-      },
-      {
-        "key": "copy_1fqyqje",
-        "kind": "text",
-        "label": "Documents prepared",
-        "value": "Documents prepared"
-      },
-      {
-        "key": "copy_1l2vi4a",
-        "kind": "text",
-        "label": "Application sent to university",
-        "value": "Application sent to university"
-      },
-      {
-        "key": "copy_193saz7",
-        "kind": "text",
-        "label": "Offer and enrollment progress",
-        "value": "Offer and enrollment progress"
       }
     ]
   }

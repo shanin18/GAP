@@ -1,5 +1,5 @@
 import { getSectionText } from "@/lib/website-content-server";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/ui/cms-image";
 import { stockImage } from "@/lib/stock-images";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";

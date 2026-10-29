@@ -35,7 +35,7 @@ function isAdminPanelRequest(request: Request) {
 
 // Explicit public POST routes otherwise shadow Payload's collection endpoints.
 // Delegate other methods to Payload so authentication, access and query parsing stay intact.
-export function payloadCollectionRoutes(collection: 'leads' | 'applications') {
+export function payloadCollectionRoutes(collection: 'leads') {
   const context = { params: Promise.resolve({ slug: [collection] }) };
   return {
     GET: (request: Request) => handlers.get(request, context),

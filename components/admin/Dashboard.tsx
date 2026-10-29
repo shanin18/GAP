@@ -11,9 +11,8 @@ const statusLabel = (value?: string | null) =>
 const LEAD_STATUS: Record<string, string> = {
   new: "New",
   contacted: "Contacted",
-  qualified: "Qualified",
-  "application-started": "Application started",
-  "not-proceeding": "Not proceeding",
+  "application-started": "Converted",
+  "not-proceeding": "Not interested",
 };
 
 function timeAgo(value?: string | null) {

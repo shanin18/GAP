@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/ui/cms-image";
 
 /** Shared photo layout for the About and counselling sections. */
 export function EditorialImage({ src, alt = "", eager = false }: {

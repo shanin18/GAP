@@ -50,7 +50,7 @@ try {
     studentName: 'DEMO QA Student Review', university: university.id, country: country.id,
     quote: 'DEMO ONLY: this is a fictional review for testing the CMS. Do not publish as a real testimonial.', rating: 4, published: false, photoUrl: media.url,
   });
-  const statuses = ['submitted', 'profile-review', 'documents-required', 'ready-to-apply', 'university-submitted', 'offer-received', 'enrolled', 'closed'] as const;
+  const statuses = ['documents-required', 'documents-required', 'documents-required', 'university-submitted', 'university-submitted', 'offer-received', 'enrolled', 'closed'] as const;
   for (const [index, status] of statuses.entries()) {
     const owner = index === 7 ? admin : staff[index % staff.length];
     const reference = `DEMO-QA-${String(index + 1).padStart(3, '0')}`;
@@ -74,7 +74,7 @@ try {
     if (index < 5) await ensure('leads', { email: { equals: `demo.qa.lead${index + 1}@example.invalid` } }, {
       name: `DEMO QA Enquiry ${index + 1}`, email: `demo.qa.lead${index + 1}@example.invalid`, interestedCountry: country.name,
       message: 'Fictional enquiry for flow testing.', sourcePage: '/demo-qa',
-      status: ['new', 'contacted', 'qualified', 'application-started', 'not-proceeding'][index], assignedTo: owner.id,
+      status: ['new', 'contacted', 'contacted', 'application-started', 'not-proceeding'][index], assignedTo: owner.id,
       followUpAt: new Date(Date.now() + (index < 2 ? -1 : 2) * 86400000).toISOString(),
       ...(index === 3 ? { application: app.id } : {}), staffNotes: 'DEMO QA. Practice follow-up, rescheduling and conversion.',
     });

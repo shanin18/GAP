@@ -8,7 +8,7 @@ const payload = await getPayload({ config });
 try {
   const { docs } = await payload.find({ collection: 'website-content', pagination: false, depth: 0 });
   for (const doc of docs) {
-    if (!['home-hero', 'home-about', 'home-process', 'trust-strip', 'enquiry-form', 'application-form'].includes(doc.key)
+    if (!['home-hero', 'home-about', 'home-process', 'trust-strip', 'enquiry-form'].includes(doc.key)
       && !doc.entries?.some(entry => entry.original === 'Apply Now' || entry.original === 'Apply now')) continue;
     const section = catalog.find(item => item.key === doc.key);
     if (!section) continue;

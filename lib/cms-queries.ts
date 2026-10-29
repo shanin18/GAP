@@ -102,18 +102,22 @@ export const getNewsPage = publicCmsCache(
   "getNewsPage",
   ["news"],
   async (page: number = 1) => {
-    const payload = await getCms();
-    const result = await payload.find({
-      overrideAccess: false,
-      collection: "news",
-      where: { status: { equals: "published" } },
-      sort: "-publishedDate",
-      limit: 24,
-      page,
-      depth: 0,
-      select: { content: false, seoTitle: false, seoDescription: false },
-    });
-    return { docs: result.docs, totalPages: result.totalPages };
+    try {
+      const payload = await getCms();
+      const result = await payload.find({
+        overrideAccess: false,
+        collection: "news",
+        where: { status: { equals: "published" } },
+        sort: "-publishedDate",
+        limit: 24,
+        page,
+        depth: 0,
+        select: { content: false, seoTitle: false, seoDescription: false },
+      });
+      return { docs: result.docs, totalPages: result.totalPages };
+    } catch (error) {
+      return fail("getNewsPage", error, { docs: [], totalPages: 0 });
+    }
   },
 );
 
@@ -148,16 +152,20 @@ async function read_getCountryNews(
   const ids =
     related?.map((post) => (typeof post === "object" ? post.id : post)) ?? [];
   if (!ids.length) return [];
-  const payload = await getCms();
-  const { docs } = await payload.find({
-    collection: "news",
-    overrideAccess: false,
-    where: { id: { in: ids } },
-    depth: 0,
-    pagination: false,
-    select: { content: false, seoTitle: false, seoDescription: false },
-  });
-  return ids.flatMap((id) => docs.find((post) => post.id === id) ?? []);
+  try {
+    const payload = await getCms();
+    const { docs } = await payload.find({
+      collection: "news",
+      overrideAccess: false,
+      where: { id: { in: ids } },
+      depth: 0,
+      pagination: false,
+      select: { content: false, seoTitle: false, seoDescription: false },
+    });
+    return ids.flatMap((id) => docs.find((post) => post.id === id) ?? []);
+  } catch (error) {
+    return fail("getCountryNews", error, []);
+  }
 }
 
 export const getServices = publicCmsCache(
@@ -262,18 +270,22 @@ async function read_getCountryUniversities(
     ) ?? [];
   if (!ids.length)
     return getUniversities({ countrySlug: country.slug, limit: 6 });
-  const payload = await getCms();
-  const { docs } = await payload.find({
-    collection: "universities",
-    overrideAccess: false,
-    where: { id: { in: ids } },
-    pagination: false,
-    depth: 1,
-    populate: { countries: { name: true, slug: true } },
-  });
-  return ids.flatMap(
-    (id) => docs.find((university) => university.id === id) ?? [],
-  );
+  try {
+    const payload = await getCms();
+    const { docs } = await payload.find({
+      collection: "universities",
+      overrideAccess: false,
+      where: { id: { in: ids } },
+      pagination: false,
+      depth: 1,
+      populate: { countries: { name: true, slug: true } },
+    });
+    return ids.flatMap(
+      (id) => docs.find((university) => university.id === id) ?? [],
+    );
+  } catch (error) {
+    return fail("getCountryUniversities", error, []);
+  }
 }
 
 export const getUniversityBySlug = publicCmsCache(
@@ -319,47 +331,6 @@ export const getSiteSettings = publicCmsCache(
     } catch (error) {
       return fail("getSiteSettings", error, null);
     }
-  },
-);
-
-/** Light-weight lists for the application form: only ids and names, no related documents. */
-export const getApplicationOptions = publicCmsCache(
-  "getApplicationOptions",
-  ["countries", "universities"],
-  async () => {
-    const payload = await getCms();
-    const [countries, universities] = await Promise.all([
-      payload.find({
-        collection: "countries",
-        where: { slug: { not_equals: "demo-qa-destination" } },
-        overrideAccess: false,
-        pagination: false,
-        depth: 0,
-        sort: "name",
-        select: { name: true, slug: true },
-      }),
-      payload.find({
-        collection: "universities",
-        overrideAccess: false,
-        pagination: false,
-        depth: 0,
-        sort: "name",
-        where: { status: { equals: "published" } },
-        select: { name: true, country: true },
-      }),
-    ]);
-    return {
-      countries: countries.docs.map((c) => ({
-        id: c.id,
-        name: c.name,
-        slug: c.slug,
-      })),
-      universities: universities.docs.map((u) => ({
-        id: u.id,
-        name: u.name,
-        country: typeof u.country === "object" ? u.country?.id : u.country,
-      })),
-    };
   },
 );
 

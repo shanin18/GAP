@@ -16,7 +16,7 @@ export function publicCmsCache<Args extends unknown[], Result>(
   key: string,
   collections: string[],
   read: (...args: Args) => Promise<Result>,
-  seconds = 300,
+  seconds = 3600,
 ) {
   // This app uses route-segment ISR rather than Cache Components. The supported
   // Data Cache API preserves that model and also caches database reads in dev.

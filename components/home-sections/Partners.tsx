@@ -1,5 +1,5 @@
 import { getSectionText } from "@/lib/website-content-server";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/ui/cms-image";
 
 
 type Partner = { id: number; name: string; logoUrl?: string | null };

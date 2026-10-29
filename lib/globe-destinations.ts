@@ -1,5 +1,8 @@
 import "server-only";
 import { cache } from "react";
+// Approximate country centres from Google's DSPL canonical countries dataset:
+// https://github.com/google/dspl/blob/master/samples/google/canonical/countries.csv
+// Historical data, not a source of current borders; `aliases` below covers renamed countries.
 import coordinates from "./country-coordinates.json";
 import { getCountries } from "./cms-queries";
 import type { Destination } from "./destinations";
@@ -42,6 +45,7 @@ export const getGlobeDestinations = cache(async (): Promise<Destination[]> => {
     return {
       name,
       slug,
+      code: point?.code ?? null,
       location: point ? [point.location[0], point.location[1]] : null,
     };
   });

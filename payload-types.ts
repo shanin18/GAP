@@ -171,7 +171,6 @@ export interface WebsiteContent {
     | 'mobile-navigation'
     | 'country-menu'
     | 'enquiry-form'
-    | 'application-form'
     | 'university-filters'
     | 'university-card'
     | 'about-page'
@@ -180,8 +179,7 @@ export interface WebsiteContent {
     | 'university-page'
     | 'country-page'
     | 'news-page'
-    | 'article-page'
-    | 'apply-page';
+    | 'article-page';
   /**
    * Hide this homepage section without deleting its content.
    */
@@ -219,6 +217,7 @@ export interface WebsiteContent {
 export interface Media {
   id: number;
   alt: string;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -248,6 +247,7 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -470,14 +470,17 @@ export interface Lead {
    * Read-only: captured from the website page where the enquiry was submitted. / means the homepage.
    */
   sourcePage?: string | null;
-  status: 'new' | 'contacted' | 'qualified' | 'application-started' | 'not-proceeding';
+  /**
+   * New → Contacted → Converted. Use Not interested if they stop.
+   */
+  status: 'new' | 'contacted' | 'application-started' | 'not-proceeding';
   assignedTo?: (number | null) | User;
   /**
-   * Due follow-ups appear automatically in Reminders while the workspace is open. Reschedule after following up, or close the lead when finished.
+   * Shows in Reminders when due. Reschedule after following up, or close the lead when finished.
    */
   followUpAt?: string | null;
   /**
-   * Optional: connect this enquiry to the student application. Use + to create one on their behalf, then save this lead. If they already applied through the website, select that application to avoid a duplicate.
+   * Filled in by Convert to application. If the student already applied through the website, select that application here instead to avoid a duplicate.
    */
   application?: (number | null) | Application;
   staffNotes?: string | null;
@@ -502,32 +505,42 @@ export interface Application {
   phone?: string | null;
   country: number | Country;
   university?: (number | null) | University;
-  studyLevel: 'Foundation' | 'Undergraduate' | 'Postgraduate' | 'PhD' | 'Other';
+  studyLevel?: ('Foundation' | 'Undergraduate' | 'Postgraduate' | 'PhD' | 'Other') | null;
+  /**
+   * When the student wants to start, written as month and year, for example "September 2027".
+   */
   intake?: string | null;
   message?: string | null;
   /**
-   * Read-only: captured from the website page where the application was submitted. May be blank for applications created by staff.
+   * Read-only: the website page the student’s enquiry came from, copied when a lead is converted. Blank for applications staff create directly.
    */
   sourcePage?: string | null;
-  status:
-    | 'submitted'
-    | 'profile-review'
-    | 'documents-required'
-    | 'ready-to-apply'
-    | 'university-submitted'
-    | 'offer-received'
-    | 'enrolled'
-    | 'closed';
+  /**
+   * Documents → Applied to university → Offer → Enrolled. Use Closed if the student stops.
+   */
+  status: 'documents-required' | 'university-submitted' | 'offer-received' | 'enrolled' | 'closed';
   priority?: ('low' | 'normal' | 'high' | 'urgent') | null;
   assignedTo?: (number | null) | User;
   nextAction?: string | null;
+  /**
+   * Shows in Reminders when due.
+   */
   nextActionAt?: string | null;
+  /**
+   * What this student needs to provide. Update each item as the file arrives and is checked.
+   */
   documents?:
     | {
+        /**
+         * What is needed, for example "Passport".
+         */
         label: string;
+        /**
+         * Progress of this checklist item. Set it yourself; it does not change when the file's own Review status changes.
+         */
         status?: ('required' | 'received' | 'approved' | 'needs-update') | null;
         /**
-         * Private staff-authenticated document record.
+         * Create new: upload the file now (in the form that opens, select this application again). Choose from existing: attach a file already uploaded in Documents for this student. Files are private: only admins and the assigned staff member can open them.
          */
         file?: (number | null) | Document;
         id?: string | null;
@@ -563,6 +576,7 @@ export interface Document {
   uploadedBy: number | User;
   reviewStatus?: ('received' | 'approved' | 'needs-update') | null;
   reviewNote?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -749,6 +763,7 @@ export interface WebsiteContentSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -774,6 +789,7 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -976,6 +992,7 @@ export interface DocumentsSelect<T extends boolean = true> {
   uploadedBy?: T;
   reviewStatus?: T;
   reviewNote?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

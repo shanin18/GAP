@@ -21,7 +21,7 @@ Open `/admin`. **Website Content** contains 25 section records, grouped by page 
 | Leads / Applications / Documents | Enquiries, student workflow and private application documents |
 | Users | Staff accounts and roles |
 
-Header, footer and journey-diagram logos can be edited in their respective Website Content records. Navigation destinations come from Countries. The enquiry form uses that same list.
+Header, footer and journey-diagram logos can be edited in their respective Website Content records. Navigation destinations come from Countries. The enquiry form uses that same list. To appear on the globe and in the homepage flags, a country needs a standard name (Germany, United Kingdom) or ISO code; common short forms such as UK, USA and UAE also work. An unrecognised name still appears in navigation but gets no globe marker or flag.
 
 An empty selection of related universities uses the destination's published universities. Country articles use **Related news**; draft and scheduled articles stay hidden. Unpublished testimonials and universities stay hidden. There are no fictional review or partner fallbacks.
 
@@ -35,14 +35,14 @@ See [README.md](README.md) for local setup and [DEPLOYMENT.md](DEPLOYMENT.md) fo
 
 Use `/admin` to manage student records. `/staff` is an additional authenticated overview with the same record permissions. See [the detailed workspace guide](WORKSPACE-GUIDE.md) for roles, all sidebar items, assignments, conversion, documents and reminders.
 
-- Leads: admins assign staff; staff update their assigned records, set follow-up dates and record notes. Link an application when an enquiry converts.
+- Leads: admins assign staff; staff update their assigned records, set follow-up dates and record notes. Use **Convert to application** when an enquiry is ready to apply.
 - Applications: manage priority, assigned staff, next actions, required documents, and progress. Status history is recorded automatically.
 - Documents: upload private files and mark them received, approved, or needing updates. Staff access and downloads are limited to documents of their assigned applications; admins have access to all.
 - Users: administrators manage staff accounts and roles.
 
 ## Development schema and content
 
-Public CMS reads are cached across requests for five minutes and invalidated when their collection changes. Admin, student records, authentication and submissions are never placed in this shared cache. A refreshed browser page sees saved content; an already-open tab can retain prefetched content until refreshed.
+Public CMS reads are cached across requests for up to an hour and invalidated as soon as their collection changes in the admin. Changes made by scripts outside the admin appear within the hour, or after a redeploy. Admin, student records, authentication and submissions are never placed in this shared cache. A refreshed browser page sees saved content; an already-open tab can retain prefetched content until refreshed.
 
 Normal development requests no longer inspect or push the PostgreSQL schema. After changing collection fields, run `npm run cms:sync` once, then restart the development server. `cms:initialize` also syncs the development schema. You can explicitly opt into automatic development sync with `PAYLOAD_PUSH_SCHEMA=true`.
 

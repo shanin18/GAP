@@ -1,7 +1,7 @@
-﻿import { stockImage } from "@/lib/stock-images";
+import { stockImage } from "@/lib/stock-images";
 import { FinalCta } from "@/components/home-sections/FinalCta";
 import { getSectionText } from "@/lib/website-content-server";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/ui/cms-image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CountryGuide } from "@/components/country-guide";
@@ -187,7 +187,7 @@ export default async function CountryPage({
                       className="text-primary/40"
                     />
                     <blockquote className="mt-4 flex-1 font-display text-xl leading-snug">
-                      â€œ{t(r.quote)}â€
+                      “{t(r.quote)}”
                     </blockquote>
                     <p className="mt-6 font-semibold">{r.name}</p>
                     <p className="text-sm text-muted-foreground">{r.detail}</p>

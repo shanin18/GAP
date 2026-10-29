@@ -2,12 +2,9 @@ import type { CollectionSlug, PayloadRequest, Where } from "payload";
 import { adminRead } from "./admin-read-cache";
 
 export const APPLICATION_STATUSES = [
-  { value: "submitted", label: "Submitted" },
-  { value: "profile-review", label: "Profile review" },
-  { value: "documents-required", label: "Documents required" },
-  { value: "ready-to-apply", label: "Ready to apply" },
-  { value: "university-submitted", label: "Submitted to university" },
-  { value: "offer-received", label: "Offer received" },
+  { value: "documents-required", label: "Documents" },
+  { value: "university-submitted", label: "Applied to university" },
+  { value: "offer-received", label: "Offer" },
   { value: "enrolled", label: "Enrolled" },
   { value: "closed", label: "Closed" },
 ];

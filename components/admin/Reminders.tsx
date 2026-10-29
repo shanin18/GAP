@@ -7,6 +7,15 @@ import { Bell, CheckCircle2, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 type ReminderData = { total: number; items: { id: string; label: string; date: string; href: string }[] };
 
+/** Aborts on either the caller's signal or a timeout. AbortSignal.any needs Safari 17.4+. */
+function withTimeout(signal: AbortSignal, ms: number): AbortSignal {
+  if (typeof AbortSignal.any === 'function') return AbortSignal.any([signal, AbortSignal.timeout(ms)]);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(new DOMException('Request timed out', 'TimeoutError')), ms);
+  signal.addEventListener('abort', () => { clearTimeout(timer); controller.abort(signal.reason); }, { once: true });
+  return controller.signal;
+}
+
 export function Reminders() {
   const { user } = useAuth();
   const [data, setData] = useState<ReminderData | null>(null);
@@ -55,7 +64,7 @@ export function Reminders() {
       lastAttempt = Date.now();
       pending = true;
       try {
-        const response = await fetch('/api/admin/reminders', { signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]), cache: 'no-store' });
+        const response = await fetch('/api/admin/reminders', { signal: withTimeout(controller.signal, 15_000), cache: 'no-store' });
         if (!response.ok) throw new Error('Reminders unavailable');
         const next = await response.json();
         if (!controller.signal.aborted) {
@@ -69,7 +78,8 @@ export function Reminders() {
     }
     setData(null);
     void refresh();
-    const timer = setInterval(refresh, 15_000);
+    // Follow-ups are scheduled to the minute; focus and visibility changes refresh sooner
+    const timer = setInterval(refresh, 60_000);
     document.addEventListener('visibilitychange', refresh);
     window.addEventListener('focus', refresh);
     return () => { controller.abort(); clearInterval(timer); document.removeEventListener('visibilitychange', refresh); window.removeEventListener('focus', refresh); };

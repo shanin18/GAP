@@ -15,7 +15,8 @@ Copy `.env.example` into your local environment or the hosting provider's secret
 - `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS`, `SMTP_PORT`: email transport. Port 465 uses implicit TLS; other ports use Nodemailer's SMTP negotiation.
 - `EMAIL_FROM_ADDRESS`: a sender address authorized by the email provider.
 - `NOTIFY_EMAIL`: comma-separated staff inboxes for enquiries and applications.
-- `IMAGE_HOSTS`: comma-separated explicit external image hostnames used by published content. Local uploaded images do not need an entry. Wildcards and full URLs are rejected. An empty local value disables external image optimization; add the specific hosts used by your content to enable those images.
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`: required in production. Cloudflare Turnstile protects the public forms and staff login. Password-reset emails are limited to one per account every 5 minutes. The built-in rate limits are kept in each server instance's memory, so on Vercel they are only a backstop.
+- `IMAGE_HOSTS`: comma-separated explicit external image hostnames used by published content. Local uploaded images do not need an entry. Wildcards and full URLs are rejected. Images from other hosts still display, but are served as-is without optimization; add the specific hosts used by your content to optimize them.
 - `EMAIL_LOGO_URL`: optional publicly accessible logo; preferably PNG.
 - `PAYLOAD_PUSH_SCHEMA=false`: always in production.
 

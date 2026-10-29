@@ -1,22 +1,12 @@
 import { withPayload } from "@payloadcms/next/withPayload";
 import { validateEnvironment } from "./lib/validate-environment.mjs";
+import { remoteImageHosts, remoteImagePatterns } from "./lib/image-hosts.mjs";
 
 validateEnvironment(process.env);
 
 // Comma-separated list of hosts your editors paste image links from, e.g.
 // IMAGE_HOSTS=images.unsplash.com,cdn.example.com
-const imageHosts = (process.env.IMAGE_HOSTS ?? "")
-  .split(",")
-  .map((h) => h.trim())
-  .filter(Boolean);
-if (process.env.UPLOAD_STORAGE === 'cloudinary') imageHosts.push('res.cloudinary.com');
-// An existing Australia CMS image uses this Google thumbnail host.
-// Keep the permission scoped to its image endpoint, rather than all Google hosts.
-const legacyCountryImage = {
-  protocol: 'https',
-  hostname: 'encrypted-tbn0.gstatic.com',
-  pathname: '/images',
-};
+const imageHosts = remoteImageHosts(process.env);
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -41,13 +31,25 @@ const securityHeaders = [
 const nextConfig = {
   distDir: process.env.NEXT_DIST_DIR || ".next",
   poweredByHeader: false,
+  // Lets <CmsImage> skip the optimizer for links outside the allowed hosts
+  env: { GAP_REMOTE_IMAGE_HOSTS: imageHosts.join(",") },
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 7,
-    remotePatterns: [
-      ...imageHosts.map((hostname) => ({ protocol: "https", hostname })),
-      legacyCountryImage,
-    ],
+    remotePatterns: remoteImagePatterns(imageHosts),
+  },
+  async redirects() {
+    return [
+      // The application form was removed; students start with "Book an appointment" on the homepage
+      { source: "/apply", destination: "/", permanent: true },
+      {
+        // News pagination moved from ?page=N to /news/page/N so listings can be prerendered
+        source: "/news",
+        has: [{ type: "query", key: "page", value: "(?<page>[1-9]\\d*)" }],
+        destination: "/news/page/:page",
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [

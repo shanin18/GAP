@@ -72,7 +72,15 @@ export function CardCarousel({ children }: { children: ReactNode }) {
       setDragging(false);
     };
     measure();
-    element.addEventListener("scrollend", settle);
+    // Safari before 26.2 has no scrollend: treat 150ms without scroll events as the end
+    const nativeScrollEnd = "onscrollend" in window;
+    let settleTimer = 0;
+    const scrolled = () => {
+      clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(settle, 150);
+    };
+    if (nativeScrollEnd) element.addEventListener("scrollend", settle);
+    else element.addEventListener("scroll", scrolled, { passive: true });
     const release = () => setDragging(false);
     window.addEventListener("pointerup", release);
     window.addEventListener("pointercancel", release);
@@ -83,6 +91,8 @@ export function CardCarousel({ children }: { children: ReactNode }) {
       observer.disconnect();
       resize.disconnect();
       element.removeEventListener("scrollend", settle);
+      element.removeEventListener("scroll", scrolled);
+      clearTimeout(settleTimer);
       window.removeEventListener("pointerup", release);
       window.removeEventListener("pointercancel", release);
     };

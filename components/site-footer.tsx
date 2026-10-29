@@ -1,6 +1,6 @@
 import { getSectionText } from "@/lib/website-content-server";
 import Link from "next/link";
-import Image from "next/image";
+import { CmsImage as Image } from "@/components/ui/cms-image";
 import type { ReactNode } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { getCountries, getSiteSettings } from "@/lib/cms-queries";
