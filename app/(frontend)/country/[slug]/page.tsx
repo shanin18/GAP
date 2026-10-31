@@ -99,7 +99,7 @@ export default async function CountryPage({
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">
               {t("Study destination")}
             </p>
-            <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.5rem,5.5vw,4.75rem)] leading-[1.02] tracking-tight">
+            <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-tight">
               {t("Study in ")}
               <em>{country.name}.</em>
             </h1>
@@ -125,8 +125,8 @@ export default async function CountryPage({
         </section>
 
         {country.body && <CountryGuide body={country.body} countryName={country.name}
-          universities={universities.length ? <div className="mt-6 grid gap-5 sm:grid-cols-2">{universities.map(university => <UniversityCard key={university.id} university={university} />)}</div> : <Link href="/universities" className="mt-4 inline-flex text-sm font-semibold text-primary hover:underline">Explore university options →</Link>}
-          articles={posts.length ? <ul className="mt-6 grid gap-5 sm:grid-cols-2">{posts.map(post => <li key={post.href}><Link href={post.href} className="group block">{post.imageUrl && <Image src={post.imageUrl} alt="" width={640} height={400} sizes="(min-width: 1024px) 400px, 90vw" className="aspect-[16/10] w-full rounded-xl object-cover" />}<h3 className="mt-3 font-display text-xl group-hover:text-primary">{post.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{post.excerpt}</p></Link></li>)}</ul> : <Link href="/news" className="mt-4 inline-flex text-sm font-semibold text-primary hover:underline">Explore GAP articles →</Link>}
+          universities={universities.length ? <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{universities.map(university => <UniversityCard key={university.id} university={university} />)}</div> : <Link href="/universities" className="mt-4 inline-flex text-sm font-semibold text-primary hover:underline">Explore university options →</Link>}
+          articles={posts.length ? <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{posts.map(post => <li key={post.href}><Link href={post.href} className="group block">{post.imageUrl && <Image src={post.imageUrl} alt="" width={640} height={400} sizes="(min-width: 1024px) 400px, 90vw" className="aspect-[16/10] w-full rounded-xl object-cover" />}<h3 className="mt-3 font-display text-xl group-hover:text-primary">{post.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{post.excerpt}</p></Link></li>)}</ul> : <Link href="/news" className="mt-4 inline-flex text-sm font-semibold text-primary hover:underline">Explore GAP articles →</Link>}
         />}
         {/* Photo mosaic */}
         {photos.length > 0 && <section className="border-t border-[var(--border)]">

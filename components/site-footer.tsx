@@ -178,6 +178,12 @@ export async function SiteFooter() {
             >
               {t("About")}
             </Link>
+            <Link
+              className="inline-flex min-h-11 items-center transition-colors duration-200 ease-out hover:text-primary"
+              href="/news"
+            >
+              {t("Blogs & events")}
+            </Link>
           </div>
         </div>
         <div>

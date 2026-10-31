@@ -609,6 +609,12 @@
         "value": "About"
       },
       {
+        "key": "copy_1dpoj1",
+        "kind": "text",
+        "label": "Blogs & events",
+        "value": "Blogs & events"
+      },
+      {
         "key": "copy_xboev8",
         "kind": "text",
         "label": "Destinations",

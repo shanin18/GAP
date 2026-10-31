@@ -4,7 +4,8 @@ import { CmsImage as Image } from "@/components/ui/cms-image";
 
 type Partner = { id: number; name: string; logoUrl?: string | null };
 
-/** Each card is w-56 (224px) + gap-4 (16px). */
+/** Each card is w-56 (224px) + gap-4 (16px). Phones use narrower w-40 cards: the loop is a little
+ *  shorter and slower there, but each half stays far wider than the screen, so it never shows a gap. */
 const CARD = 240;
 /** Scroll speed in px per second. */
 const SPEED = 55;
@@ -51,7 +52,7 @@ export async function Partners({
         }
       `}</style>
 
-      <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:py-16 lg:px-8 lg:py-20">
         <h2
           id="partners-heading"
           className="text-center text-xs font-extrabold uppercase tracking-[0.16em] text-primary"
@@ -64,7 +65,7 @@ export async function Partners({
             role="region"
             aria-label={t("Partner institutions")}
             tabIndex={0}
-            className="partners-wrap mt-10 overflow-hidden rounded-2xl outline-offset-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] motion-reduce:overflow-x-auto motion-reduce:[mask-image:none] motion-reduce:[-webkit-mask-image:none]"
+            className="partners-wrap mt-6 overflow-hidden sm:mt-10 rounded-2xl outline-offset-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] motion-reduce:overflow-x-auto motion-reduce:[mask-image:none] motion-reduce:[-webkit-mask-image:none]"
           >
             <div
               className="partners-track flex w-max"
@@ -83,7 +84,7 @@ export async function Partners({
                     <li
                       key={`${partner.id}-${i}`}
                       aria-hidden={dup ? true : undefined}
-                      className="flex h-24 w-56 items-center justify-center px-4"
+                      className="flex h-20 w-40 items-center justify-center px-2 sm:h-24 sm:w-56 sm:px-4"
                     >
                       {partner.logoUrl && (
                         <Image
@@ -91,7 +92,7 @@ export async function Partners({
                           alt={partner.name}
                           width={160}
                           height={56}
-                          className="h-14 w-40 object-contain" unoptimized={partner.logoUrl.endsWith(".svg")}
+                          className="h-12 w-32 object-contain sm:h-14 sm:w-40" unoptimized={partner.logoUrl.endsWith(".svg")}
                         />
                       )}
                     </li>

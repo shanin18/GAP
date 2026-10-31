@@ -3,6 +3,15 @@ import { stockImage } from "@/lib/stock-images";
 import { AnimatedDisclosure } from "@/components/ui/animated-disclosure";
 import { GraduationCap, MapPin, Languages, Clock3 } from "lucide-react";
 import { canadaStudyGuide as guide } from "@/lib/canada-study-guide";
+import citySources from "@/lib/city-image-sources.json";
+import stockSources from "@/lib/stock-image-sources.json";
+
+// Where each city photo came from, for the credit line every destination's city cards show
+const citySlug = (city: string) => city.toLowerCase().replaceAll(" ", "-");
+const cityPhotoSource = (city: string) =>
+  city === "Toronto"
+    ? stockSources.find((image) => image.key === "canada")
+    : citySources.find((image) => image.city === citySlug(city));
 
 function Source({ href, children }: { href: string; children: string }) {
   return (
@@ -26,7 +35,7 @@ function GuideTable({
   caption: string;
 }) {
   return (
-    <div className="mt-6 overflow-x-auto rounded-xl border border-border">
+    <div className="mt-6 min-w-0 overflow-x-auto rounded-xl border border-border">
       <table className="w-full text-left text-sm">
         <caption className="sr-only">{caption}</caption>
         <thead className="bg-primary/10">
@@ -105,7 +114,7 @@ export function CanadaFacts() {
       </h2>
       <div className="mt-7 grid gap-4 md:grid-cols-3">
         {cards.map(({ title, Icon, rows }) => (
-          <div key={title} className="rounded-xl bg-background/70 p-5">
+          <div key={title} className="min-w-0 rounded-xl bg-background/70 p-5">
             <h3 className="flex items-center gap-2 text-sm font-semibold">
               <Icon size={18} aria-hidden="true" className="text-primary" />
               {title}
@@ -114,7 +123,7 @@ export function CanadaFacts() {
               {rows.map(([value, label]) => (
                 <div key={label}>
                   <dt className="text-xs text-muted-foreground">{label}</dt>
-                  <dd className="mt-1 text-lg font-semibold">{value}</dd>
+                  <dd className="mt-1 text-base font-semibold sm:text-lg">{value}</dd>
                 </div>
               ))}
             </dl>
@@ -174,7 +183,7 @@ export function CanadaGuideSection({ id }: { id: string }) {
           Qualification pathways: EduCanada
         </Source>
         <h3 className="mt-8 font-display text-2xl">
-          Popular subjects to explore
+          Subjects to explore
         </h3>
         <ul className="mt-4 flex flex-wrap gap-3">
           {guide.subjects.map((subject) => (
@@ -208,7 +217,7 @@ export function CanadaGuideSection({ id }: { id: string }) {
     );
   if (id === "cities")
     return (
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {guide.cities.map(([city, province, description], i) => (
           <article
             key={city}
@@ -219,11 +228,11 @@ export function CanadaGuideSection({ id }: { id: string }) {
                 src={
                   city === "Toronto"
                     ? stockImage("canada")!
-                    : `/images/cities/${city.toLowerCase().replaceAll(" ", "-")}.webp`
+                    : `/images/cities/${citySlug(city)}.webp`
                 }
                 alt={`${city}, ${province}, Canada`}
                 fill
-                sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 90vw"
+                sizes="(min-width: 1024px) 400px, (min-width: 640px) 45vw, 90vw"
                 className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105 motion-reduce:transition-none"
               />
               <span className="absolute right-3 top-3 rounded-full bg-background/85 px-2 py-1 text-xs text-primary">
@@ -236,6 +245,18 @@ export function CanadaGuideSection({ id }: { id: string }) {
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
                 {description}
               </p>
+              {cityPhotoSource(city) && (
+                <p className="mt-3 text-[11px] leading-5 text-muted-foreground">
+                  <a href={cityPhotoSource(city)!.source} target="_blank" rel="noopener noreferrer" className="underline">
+                    Photo: Unsplash
+                  </a>{" "}
+                  ·{" "}
+                  <a href={cityPhotoSource(city)!.license} target="_blank" rel="noopener noreferrer" className="underline">
+                    Unsplash License
+                  </a>{" "}
+                  · cropped
+                </p>
+              )}
             </div>
           </article>
         ))}

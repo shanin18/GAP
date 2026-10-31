@@ -30,7 +30,7 @@ export async function NewsListing({ page }: { page: number }) {
             <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary">
               {t("Blogs & events")}
             </p>
-            <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.1] tracking-tight">
+            <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-tight">
               {t("Useful guidance for your ")}
               <em>{t("next move.")}</em>
             </h1>

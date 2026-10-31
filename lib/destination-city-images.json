@@ -331,6 +331,26 @@
   },
   {
     "country": "United Kingdom",
+    "city": "Birmingham",
+    "path": "/images/destination-cities/united-kingdom-birmingham.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Birmingham_Skyline_from_the_West.jpg",
+    "artist": "Stephen JG",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "bytes": 83910
+  },
+  {
+    "country": "United Kingdom",
+    "city": "Cardiff",
+    "path": "/images/destination-cities/united-kingdom-cardiff.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Cardiff_Bay_WMC.jpg",
+    "artist": "grahamwell (Flickr)",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "bytes": 33808
+  },
+  {
+    "country": "United Kingdom",
     "city": "Edinburgh",
     "path": "/images/destination-cities/united-kingdom-edinburgh.webp",
     "source": "https://commons.wikimedia.org/wiki/File:Skyline_of_Edinburgh.jpg",
@@ -378,6 +398,26 @@
     "license": "CC BY 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
     "bytes": 97880
+  },
+  {
+    "country": "United States",
+    "city": "Houston",
+    "path": "/images/destination-cities/united-states-houston.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Texas_medical_center.jpg",
+    "artist": "Katie Haugland Brown",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "bytes": 35492
+  },
+  {
+    "country": "United States",
+    "city": "Los Angeles",
+    "path": "/images/destination-cities/united-states-los-angeles.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Hollywood_sign_(8485145044).jpg",
+    "artist": "Gnaphron",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "bytes": 32408
   },
   {
     "country": "United States",

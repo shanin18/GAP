@@ -23,7 +23,7 @@ function sectionId(title: string) {
   if (/question|answer/i.test(title)) return "faq";
   return "overview";
 }
-const labels: Record<string, string> = { overview: "Overview", requirements: "Admission requirements", intakes: "Intakes", programs: "Programs", universities: "Universities", costs: "Costs", cities: "Cities", work: "Work opportunities", articles: "Articles", faq: "Questions & answers" };
+const labels: Record<string, string> = { overview: "Overview", requirements: "Admission requirements", intakes: "Intakes", programs: "Programs", universities: "Universities", costs: "Costs", cities: "Student cities", work: "Work opportunities", articles: "Articles", faq: "Questions & answers" };
 
 export function CountryGuide({ body, countryName, universities, articles }: { body: Body; countryName: string; universities: ReactNode; articles: ReactNode }) {
   const hasGuide = countryName === 'Canada' || Boolean(getDestinationGuide(countryName));

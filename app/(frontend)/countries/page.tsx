@@ -11,7 +11,7 @@ export default async function CountriesPage() {
   const countries = await getCountries();
   return <><SiteHeader /><main className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
     <p className="text-xs font-extrabold uppercase tracking-widest text-primary">Study destinations</p>
-    <h1 className="mt-4 font-display text-5xl tracking-tight sm:text-6xl">Find your next chapter.</h1>
+    <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.05] tracking-tight">Find your next chapter.</h1>
     <p className="mb-10 mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Explore all countries, compare your options and discover where your study journey could take you.</p>
     <CountryExplorer countries={countries.map(({ name, slug, heroImageUrl }) => ({ name, slug, heroImageUrl }))} />
   </main><SiteFooter /><MobileNav /></>;

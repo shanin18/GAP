@@ -12,7 +12,7 @@ export const canadaStudyGuide = {
   ],
   intakes: [["Fall", "September", "Main start period; availability varies by course"], ["Winter", "January", "Available for selected programs"], ["Summer", "May–August", "Limited or program-specific starts"]],
   durations: [["Certificate", "Usually 1–2 years", "Focused skills and subject preparation"], ["Diploma", "Usually 2–3 years", "College and applied learning routes"], ["Bachelor’s degree", "Usually 3–4 years", "Undergraduate university study"], ["Master’s degree", "Usually 1–2 years", "Graduate coursework or research"], ["Doctorate", "Usually 3–5 years", "Advanced research study"]],
-  subjects: ["Computing & IT", "Engineering", "Business", "Data science", "Health sciences", "Environmental studies", "Media & communication", "Applied sciences"],
+  subjects: ["Computing & IT", "Engineering", "Business", "Data science", "Health sciences", "Environmental studies", "Media & communication", "Applied sciences", "Hospitality", "Tourism", "Healthcare"],
   costs: [["International undergraduate tuition", "CAD 41,746 / year", "National average, 2025/26"], ["International graduate tuition", "CAD 24,028 / year", "National average, 2025/26"], ["Accommodation & living expenses", "Depends on city and housing", "Budget separately from tuition"], ["Travel, insurance & study materials", "Depends on your circumstances", "Include these in your overall plan"]],
   cities: [
     ["Toronto", "Ontario", "Compare a wide range of campuses and urban study settings."],
