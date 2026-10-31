@@ -1,3 +1,5 @@
+import { EditThisPage } from "@/components/edit-this-page";
+import { recordLink, pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { FinalCta } from "@/components/home-sections/FinalCta";
 import { CmsImage as Image } from "@/components/ui/cms-image";
 import { stockImage } from "@/lib/stock-images";
@@ -109,6 +111,7 @@ export default async function ArticlePage({
       </main>
       <SiteFooter />
       <MobileNav />
+      <EditThisPage links={[recordLink("This article", "news", article.id), await pageTextLink("Article page text (all articles)", "article-page"), ...sharedLinks]} />
     </>
   );
 }

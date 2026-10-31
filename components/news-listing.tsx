@@ -1,3 +1,5 @@
+import { EditThisPage } from "@/components/edit-this-page";
+import { listLink, pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { stockImage } from "@/lib/stock-images";
 import { getSectionText } from "@/lib/website-content-server";
 import { CmsImage as Image } from "@/components/ui/cms-image";
@@ -113,6 +115,7 @@ export async function NewsListing({ page }: { page: number }) {
       </main>
       <SiteFooter />
       <MobileNav />
+      <EditThisPage links={[listLink("Blogs & events", "news"), await pageTextLink("Blogs & events page text", "news-page"), ...sharedLinks]} />
     </>
   );
 }

@@ -1,3 +1,5 @@
+import { EditThisPage } from "@/components/edit-this-page";
+import { pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { AboutPurpose } from "@/components/about-purpose";
 
 import { AnimatedCounter } from "@/components/animated-counter";
@@ -336,6 +338,7 @@ export default async function AboutPage() {
       </main>
       <SiteFooter />
       <MobileNav />
+      <EditThisPage links={[await pageTextLink("About page text", "about-page"), ...sharedLinks]} />
     </>
   );
 }

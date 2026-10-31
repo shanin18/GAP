@@ -1,3 +1,5 @@
+import { EditThisPage } from "@/components/edit-this-page";
+import { listLink, pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { getSectionText } from "@/lib/website-content-server";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
@@ -63,6 +65,7 @@ export default async function UniversitiesPage() {
       </main>
       <SiteFooter />
       <MobileNav />
+      <EditThisPage links={[listLink("Universities", "universities"), await pageTextLink("Universities page text", "universities-page"), ...sharedLinks]} />
     </>
   );
 }

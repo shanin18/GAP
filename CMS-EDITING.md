@@ -1,6 +1,8 @@
 # Editing the GAP website
 
-Open `/admin`. **Website Content** contains 25 section records, grouped by page in their titles.
+Open `/admin`. **Website Content** contains 23 section records, grouped by page in their titles.
+
+**Quickest way to find something:** log in to `/admin` as an admin, then browse the website in the same browser. Every page shows an **Edit this page** button (bottom right) listing the exact admin screens for that page, such as "This country" or "Services page text". Links open in a new tab: edit, save, then refresh the website tab. The button appears only for admins and disappears when you log out.
 
 - Expand a content row and edit **Website content**. The original text remains underneath as a reference. Save to update the website. Empty text intentionally clears a phrase.
 - For images, paste a URL or choose an upload from **Media**. An uploaded image takes priority over the URL. Clear the upload to use the URL again.

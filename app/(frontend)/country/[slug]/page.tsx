@@ -1,3 +1,5 @@
+import { EditThisPage } from "@/components/edit-this-page";
+import { recordLink, pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { stockImage } from "@/lib/stock-images";
 import { FinalCta } from "@/components/home-sections/FinalCta";
 import { getSectionText } from "@/lib/website-content-server";
@@ -225,6 +227,7 @@ export default async function CountryPage({
       </main>
       <SiteFooter />
       <MobileNav />
+      <EditThisPage links={[recordLink("This country", "countries", country.id), await pageTextLink("Country page text (all countries)", "country-page"), ...sharedLinks]} />
     </>
   );
 }

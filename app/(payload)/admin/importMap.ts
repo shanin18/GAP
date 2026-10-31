@@ -38,6 +38,7 @@ import { WebsiteLink as WebsiteLink_fa4daeaebc4b6b72da366a1851fb0d6d } from '../
 import { LoginIntro as LoginIntro_fa4daeaebc4b6b72da366a1851fb0d6d } from '../../../components/admin/_Brand'
 import { LoginVerification as LoginVerification_620093312f61cdd87258788635c71efe } from '../../../components/admin/LoginVerification'
 import { UploadProgress as UploadProgress_caff6e112440b4dcb78c02005a0ea302 } from '../../../components/admin/UploadProgress'
+import { AdminMarker as AdminMarker_fec08e627002d1996af25f12653c964d } from '../../../components/admin/AdminMarker'
 import { Dashboard as Dashboard_16b88e9b8c48e393fa86591406efd08f } from '../../../components/admin/Dashboard'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
@@ -83,6 +84,7 @@ export const importMap = {
   "/components/admin/_Brand#LoginIntro": LoginIntro_fa4daeaebc4b6b72da366a1851fb0d6d,
   "/components/admin/LoginVerification#LoginVerification": LoginVerification_620093312f61cdd87258788635c71efe,
   "/components/admin/UploadProgress#UploadProgress": UploadProgress_caff6e112440b4dcb78c02005a0ea302,
+  "/components/admin/AdminMarker#AdminMarker": AdminMarker_fec08e627002d1996af25f12653c964d,
   "/components/admin/Dashboard#Dashboard": Dashboard_16b88e9b8c48e393fa86591406efd08f,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

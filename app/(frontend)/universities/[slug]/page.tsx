@@ -1,3 +1,5 @@
+import { EditThisPage } from "@/components/edit-this-page";
+import { recordLink, pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { getSectionText } from "@/lib/website-content-server";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -150,6 +152,7 @@ export default async function UniversityPage({
       </main>
       <SiteFooter />
       <MobileNav />
+      <EditThisPage links={[recordLink("This university", "universities", university.id), await pageTextLink("University page text (all universities)", "university-page"), ...sharedLinks]} />
     </>
   );
 }

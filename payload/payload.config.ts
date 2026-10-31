@@ -36,7 +36,7 @@ export default buildConfig({
     importMap: { importMapFile: "app/(payload)/admin/importMap.ts" },
     meta: { titleSuffix: " | GAP Workspace" },
     components: {
-      providers: ['/components/admin/UploadProgress#UploadProgress'],
+      providers: ['/components/admin/UploadProgress#UploadProgress', '/components/admin/AdminMarker#AdminMarker'],
       graphics: {
         Logo: "/components/admin/_Brand#Logo",
         Icon: "/components/admin/_Brand#Icon",

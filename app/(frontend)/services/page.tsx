@@ -1,3 +1,5 @@
+import { EditThisPage } from "@/components/edit-this-page";
+import { listLink, pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { getSectionText } from "@/lib/website-content-server";
 import { CmsImage as Image } from "@/components/ui/cms-image";
 import {
@@ -365,6 +367,7 @@ export default async function ServicesPage() {
       </main>
       <SiteFooter />
       <MobileNav />
+      <EditThisPage links={[await pageTextLink("Services page text and questions", "services-page"), listLink("Services", "services"), ...sharedLinks]} />
     </>
   );
 }

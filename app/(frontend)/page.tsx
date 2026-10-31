@@ -1,3 +1,5 @@
+import { EditThisPage } from "@/components/edit-this-page";
+import { listLink } from "@/lib/admin-edit-links";
 import { SiteHeader } from "@/components/site-header";
 import { Fragment } from "react";
 import { MobileNav } from "@/components/mobile-nav";
@@ -70,6 +72,7 @@ export default async function HomePage() {
       </main>
       <SiteFooter />
       <MobileNav />
+      <EditThisPage links={[listLink("Homepage text, sections and order", "website-content"), listLink("Testimonials", "testimonials"), listLink("Blogs & events", "news"), listLink("Partner universities", "universities")]} />
     </>
   );
 }

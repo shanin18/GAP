@@ -1,5 +1,6 @@
 export type ContentEntry = { key: string; value?: string | null };
 export type ContentSection = {
+  id?: number | string;
   key: string;
   enabled?: boolean | null;
   sortOrder?: number | null;
