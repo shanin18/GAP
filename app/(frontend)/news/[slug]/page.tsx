@@ -7,6 +7,8 @@ import { RichText } from "@payloadcms/richtext-lexical/react";
 
 import { getSectionText } from "@/lib/website-content-server";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd, articleJsonLd, breadcrumbJsonLd } from "@/components/json-ld";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -28,10 +30,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = await getNewsBySlug(slug);
   if (!article) return {};
-  return {
-    title: article.seoTitle || `${article.title} | GAP Journal`,
+  return pageMetadata({
+    title: article.seoTitle || article.title,
     description: article.seoDescription || article.shortBlurb,
-  };
+    path: `/news/${article.slug}`,
+    image: article.coverImageUrl || stockImage("planning"),
+    type: "article",
+    publishedTime: article.publishedDate,
+  });
 }
 
 export default async function ArticlePage({
@@ -46,6 +52,10 @@ export default async function ArticlePage({
   if (!article) notFound();
   return (
     <>
+      <JsonLd data={[
+        articleJsonLd(article, article.coverImageUrl || stockImage("planning")!),
+        breadcrumbJsonLd([{ name: "Blogs & Events", path: "/news" }, { name: article.title, path: `/news/${article.slug}` }]),
+      ]} />
       <SiteHeader />
       <main>
         <article>

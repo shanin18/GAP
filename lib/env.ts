@@ -1,4 +1,4 @@
-import { normalizeDatabaseUrl } from "./database-url";
+import { databaseSsl, normalizeDatabaseUrl } from "./database-url";
 import { validateEnvironment } from "./validate-environment.mjs";
 validateEnvironment(process.env);
 const production = process.env.NODE_ENV === "production";
@@ -11,6 +11,7 @@ export const env = {
   databaseUrl: normalizeDatabaseUrl(
     required("DATABASE_URL", process.env.DATABASE_URL),
   ),
+  databaseSsl: databaseSsl(process.env.DATABASE_URL ?? ""),
   databaseSchema: process.env.DATABASE_SCHEMA || "public",
   payloadSecret:
     required("PAYLOAD_SECRET", process.env.PAYLOAD_SECRET) ||

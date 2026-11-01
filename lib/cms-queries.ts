@@ -6,7 +6,7 @@ import type { Where } from "payload";
 
 export type CmsService = Service;
 export type CmsCountry = Country;
-export type CmsCountrySummary = Pick<Country, "id" | "name" | "slug" | "heroImageUrl">;
+export type CmsCountrySummary = Pick<Country, "id" | "name" | "slug" | "heroImageUrl" | "updatedAt">;
 export type CmsNews = News;
 export type CmsUniversity = University;
 export type CmsTestimonial = {
@@ -201,7 +201,7 @@ export const getCountries = publicCmsCache(
         sort: "name",
         pagination: false,
         depth: 0,
-        select: { name: true, slug: true, heroImageUrl: true },
+        select: { name: true, slug: true, heroImageUrl: true, updatedAt: true },
       });
       return result.docs;
     } catch (error) {

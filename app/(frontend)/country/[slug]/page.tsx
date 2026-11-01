@@ -5,6 +5,8 @@ import { FinalCta } from "@/components/home-sections/FinalCta";
 import { getSectionText } from "@/lib/website-content-server";
 import { CmsImage as Image } from "@/components/ui/cms-image";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd, breadcrumbJsonLd } from "@/components/json-ld";
 import Link from "next/link";
 import { CountryGuide } from "@/components/country-guide";
 import { notFound } from "next/navigation";
@@ -34,11 +36,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const country = await getCountryBySlug((await params).slug);
   return country
-    ? {
+    ? pageMetadata({
         title: country.seoTitle || `Study in ${country.name}`,
-        description:
-          country.seoDescription || country.introduction || undefined,
-      }
+        description: country.seoDescription || country.introduction,
+        path: `/country/${country.slug}`,
+        image: country.heroImageUrl,
+      })
     : {};
 }
 
@@ -82,6 +85,7 @@ export default async function CountryPage({
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "Study destinations", path: "/countries" }, { name: `Study in ${country.name}`, path: `/country/${country.slug}` }])} />
       <SiteHeader />
       <main>
         {/* Hero */}

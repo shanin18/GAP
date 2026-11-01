@@ -2,6 +2,7 @@ import { EditThisPage } from "@/components/edit-this-page";
 import { listLink, pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { getSectionText } from "@/lib/website-content-server";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MobileNav } from "@/components/mobile-nav";
@@ -13,12 +14,13 @@ import { ApplyNowDialog } from "@/components/ui/apply-now-dialog";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getSectionText("universities-page");
-  return {
-    title: t("Universities | GAP"),
+  return pageMetadata({
+    title: t("Universities"),
     description: t(
       "Explore universities and study destinations supported by Global Admission Platform.",
     ),
-  };
+    path: "/universities",
+  });
 }
 
 export default async function UniversitiesPage() {

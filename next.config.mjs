@@ -8,6 +8,12 @@ validateEnvironment(process.env);
 // IMAGE_HOSTS=images.unsplash.com,cdn.example.com
 const imageHosts = remoteImageHosts(process.env);
 
+// The public domain, e.g. globaladmissionplatform.com. Not set for local development.
+const siteHost = (() => {
+  try { return new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "").hostname.replace(/^www\./, ""); } catch { return ""; }
+})();
+const canonicalHost = siteHost && !/^(localhost|127\.)/.test(siteHost) ? siteHost : "";
+
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -54,6 +60,14 @@ const nextConfig = {
   async headers() {
     return [
       { source: "/(.*)", headers: securityHeaders },
+      // Keep duplicate copies (e.g. project.vercel.app) out of search results: only the real domain is indexed
+      ...(canonicalHost
+        ? [{
+            source: "/:path*",
+            missing: [{ type: "host", value: `(www\\.)?${canonicalHost.replace(/\./g, "\\.")}` }],
+            headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+          }]
+        : []),
       {
         // Static files in /public/images: cache for a day, refresh in the background for a week
         source: "/images/:path*",

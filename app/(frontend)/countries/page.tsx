@@ -1,13 +1,18 @@
 import { EditThisPage } from "@/components/edit-this-page";
 import { listLink, sharedLinks } from "@/lib/admin-edit-links";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MobileNav } from "@/components/mobile-nav";
 import { CountryExplorer } from "@/components/country-explorer";
 import { getCountries } from "@/lib/cms-queries";
 
-export const metadata: Metadata = { title: "All countries | GAP", description: "Explore study destinations and search for the country that fits your education plans." };
+export const metadata: Metadata = pageMetadata({
+  title: "Study destinations",
+  description: "Explore study destinations and search for the country that fits your education plans.",
+  path: "/countries",
+});
 
 export default async function CountriesPage() {
   const countries = await getCountries();

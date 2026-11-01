@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { EditThisPage } from "@/components/edit-this-page";
 import { listLink, pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { getSectionText } from "@/lib/website-content-server";
@@ -100,6 +102,15 @@ function Visual({
       <span className="sr-only">{title}</span>
     </div>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMetadata({
+    title: "Study abroad services",
+    description:
+      "Student counselling, university and program selection, admission and enrollment support, and pre-departure guidance from Global Admission Platform.",
+    path: "/services",
+  });
 }
 
 export default async function ServicesPage() {

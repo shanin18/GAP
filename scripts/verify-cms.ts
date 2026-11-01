@@ -5,6 +5,7 @@ import { getPayload } from "payload";
 import sharp from "sharp";
 import catalog from "../lib/website-content-defaults.json";
 import { sectionReader, contentKey } from "../lib/website-content";
+import { databaseSsl, normalizeDatabaseUrl } from "../lib/database-url";
 import type { WebsiteContent } from "../payload-types";
 
 // All writes use a disposable schema, never the site's records. No email is sent.
@@ -451,7 +452,8 @@ try {
   await payload.destroy();
   assert.match(schema, /^gap_cms_qa_[a-f0-9]{32}$/);
   const { Client } = createRequire(import.meta.url)("pg");
-  const client = new Client({ connectionString: process.env.DATABASE_URL });
+  const databaseUrl = process.env.DATABASE_URL ?? "";
+  const client = new Client({ connectionString: normalizeDatabaseUrl(databaseUrl), ssl: databaseSsl(databaseUrl) });
   await client.connect();
   try {
     await client.query(`DROP SCHEMA "${schema}" CASCADE`);

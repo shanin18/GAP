@@ -7,3 +7,6 @@ public/uploads/
 *.tsbuildinfo
 *.log
 .image-work/
+.vercel/
+
+.vercel

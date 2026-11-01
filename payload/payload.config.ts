@@ -114,7 +114,7 @@ export default buildConfig({
     push: process.env.PAYLOAD_PUSH_SCHEMA === "true",
     migrationDir: "./payload/migrations",
     schemaName: env.databaseSchema,
-    pool: { connectionString: env.databaseUrl, connectionTimeoutMillis: 10000, idleTimeoutMillis: 60000, keepAlive: true },
+    pool: { connectionString: env.databaseUrl, ssl: env.databaseSsl, connectionTimeoutMillis: 10000, idleTimeoutMillis: 60000, keepAlive: true },
   }),
   secret: env.payloadSecret,
   email: process.env.SMTP_HOST

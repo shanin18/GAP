@@ -15,10 +15,25 @@ import { FinalCta } from "@/components/home-sections/FinalCta";
 import { Faq } from "@/components/home-sections/Faq";
 import {
   getPublishedNews,
+  getSiteSettings,
   getTestimonials,
   getUniversities,
 } from "@/lib/cms-queries";
 import { getWebsiteContent } from "@/lib/website-content-server";
+import type { Metadata } from "next";
+import { pageMetadata, SITE_NAME } from "@/lib/seo";
+
+// SEO title and description are editable in Site Settings
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const name = settings?.siteName || SITE_NAME;
+  return pageMetadata({
+    title: settings?.seoTitle || `${name} | Study Abroad Guidance`,
+    description: settings?.seoDescription,
+    path: "/",
+    absoluteTitle: true,
+  });
+}
 
 export default async function HomePage() {
   const [news, testimonials, partners] = await Promise.all([

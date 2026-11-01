@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getAuthenticatedStaff } from '@/lib/security';
@@ -5,6 +6,8 @@ import { getAdminOverview } from '@/lib/admin-queries';
 import { Users, ClipboardList, FileClock, GraduationCap, ArrowUpRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
+// Private staff overview: never in search results
+export const metadata: Metadata = { title: 'Staff overview', robots: { index: false, follow: false } };
 
 const statusLabels: Record<string,string> = {
   'documents-required':'Documents','university-submitted':'Applied to university','offer-received':'Offer',

@@ -2,6 +2,8 @@ import { EditThisPage } from "@/components/edit-this-page";
 import { recordLink, pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { getSectionText } from "@/lib/website-content-server";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd, breadcrumbJsonLd } from "@/components/json-ld";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, MapPin, CheckCircle2 } from "lucide-react";
@@ -23,11 +25,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const university = await getUniversityBySlug(slug);
-  if (!university) return { title: "University | GAP" };
-  return {
-    title: university.seoTitle || `${university.name} | GAP`,
+  if (!university) return { title: "University" };
+  return pageMetadata({
+    title: university.seoTitle || university.name,
     description: university.seoDescription || university.description,
-  };
+    path: `/universities/${university.slug}`,
+  });
 }
 
 export default async function UniversityPage({
@@ -47,6 +50,7 @@ export default async function UniversityPage({
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "Universities", path: "/universities" }, { name: university.name, path: `/universities/${university.slug}` }])} />
       <SiteHeader />
       <main>
         <section className="border-b border-[var(--border)]">

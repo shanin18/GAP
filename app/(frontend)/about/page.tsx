@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/seo";
 import { EditThisPage } from "@/components/edit-this-page";
 import { pageTextLink, sharedLinks } from "@/lib/admin-edit-links";
 import { AboutPurpose } from "@/components/about-purpose";
@@ -22,12 +23,13 @@ import { MobileNav } from "@/components/mobile-nav";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getSectionText("about-page");
-  return {
+  return pageMetadata({
     title: t("About"),
     description: t(
       "Get to know Global Admission Platform and our personal approach to study-abroad counselling, university selection and admission support.",
     ),
-  };
+    path: "/about",
+  });
 }
 
 const values = [

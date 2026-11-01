@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { notFound, permanentRedirect } from "next/navigation";
 import { NewsListing } from "@/components/news-listing";
 import { getNewsPage } from "@/lib/cms-queries";
@@ -14,7 +15,12 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = parsePage((await params).page);
-  return { title: page ? `Blogs & Events, page ${page}` : "Blogs & Events" };
+  if (!page) return { title: "Blogs & Events" };
+  return pageMetadata({
+    title: `Blogs & Events, page ${page}`,
+    description: "More study-abroad guidance, application advice and events from GAP.",
+    path: `/news/page/${page}`,
+  });
 }
 
 export default async function NewsArchivePage({ params }: Props) {

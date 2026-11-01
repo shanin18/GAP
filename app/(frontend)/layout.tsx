@@ -7,6 +7,8 @@ import "./globals.css";
 import { WebsiteContentProvider } from "@/components/website-content-provider";
 import { getWebsiteContent } from "@/lib/website-content-server";
 import { getSiteSettings } from "@/lib/cms-queries";
+import { DEFAULT_DESCRIPTION, DEFAULT_SHARE_IMAGE, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { JsonLd, organizationJsonLd, websiteJsonLd } from "@/components/json-ld";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -14,20 +16,17 @@ export const viewport: Viewport = {
 };
 
 // Production pages use ISR; public CMS reads also have a shared Data Cache.
-// Both expire after five minutes, and CMS save hooks invalidate them sooner.
-// Fallback only: CMS saves refresh pages immediately (payload/hooks/revalidate.ts)
+// Both expire after an hour as a fallback: CMS saves refresh them immediately (payload/hooks/revalidate.ts).
 export const revalidate = 3600;
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+// Defaults only: every page sets its own title, canonical URL and sharing preview via lib/seo.ts.
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
-  const name = settings?.siteName || "Global Admission Platform";
+  const name = settings?.siteName || SITE_NAME;
   const title = settings?.seoTitle || `${name} | Study Abroad Guidance`;
-  const description =
-    settings?.seoDescription ||
-    "Human-led study abroad counselling, university selection and admission support.";
+  const description = settings?.seoDescription || DEFAULT_DESCRIPTION;
   return {
-    metadataBase: new URL(siteUrl),
+    metadataBase: new URL(SITE_URL),
     title: {
       default: title,
       template: `%s | ${name}`,
@@ -41,8 +40,9 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: name,
       title,
       description,
+      images: [DEFAULT_SHARE_IMAGE],
     },
-    twitter: { card: "summary_large_image" },
+    twitter: { card: "summary_large_image", images: [DEFAULT_SHARE_IMAGE.url] },
   };
 }
 export default async function RootLayout({
@@ -70,6 +70,7 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={`${fraunces.variable} ${manrope.variable} pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0`}
       >
+        <JsonLd data={[organizationJsonLd(settings), websiteJsonLd(settings?.siteName)]} />
         <DestinationsProvider destinations={destinations}>
           <WebsiteContentProvider content={clientContent}>
             {settings?.maintenanceMode ? (
