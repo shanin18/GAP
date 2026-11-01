@@ -114,7 +114,9 @@ export default buildConfig({
     push: process.env.PAYLOAD_PUSH_SCHEMA === "true",
     migrationDir: "./payload/migrations",
     schemaName: env.databaseSchema,
-    pool: { connectionString: env.databaseUrl, ssl: env.databaseSsl, connectionTimeoutMillis: 10000, idleTimeoutMillis: 60000, keepAlive: true },
+    // max: builds run ~7 workers and Vercel many instances, each with its own pool; keep each small
+    // so the database pooler (Supabase: use the 6543 transaction pooler) is never exhausted.
+    pool: { connectionString: env.databaseUrl, ssl: env.databaseSsl, max: 5, connectionTimeoutMillis: 10000, idleTimeoutMillis: 60000, keepAlive: true },
   }),
   secret: env.payloadSecret,
   email: process.env.SMTP_HOST
