@@ -28,10 +28,11 @@ export function Icon() {
 }
 export function WebsiteLink() {
   return (
-    <Link className="gap-admin-link" href="/" aria-label="View website">
+    // New tab, so the admin stays open
+    <a className="gap-admin-link" href="/" target="_blank" rel="noopener noreferrer" aria-label="View website (opens in a new tab)">
       <span>View website</span>
       <ArrowUpRight size={16} aria-hidden="true" />
-    </Link>
+    </a>
   );
 }
 export function LoginIntro() {
