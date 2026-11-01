@@ -1,0 +1,100 @@
+# Editing the GAP website
+
+Open `/admin`. **Website Content** contains 23 section records, grouped by page in their titles.
+
+**Quickest way to find something:** log in to `/admin` as an admin, then browse the website in the
+same browser. Every page shows an **Edit this page** button (bottom right) listing the exact admin
+screens for that page, such as "This country" or "Services page text". Links open in a new tab:
+edit, save, then refresh the website tab. The button appears only for admins and disappears when you
+log out.
+
+- Expand a content row and edit **Website content**. The original text remains underneath as a
+  reference. Save to update the website. Empty text intentionally clears a phrase.
+- For images, paste a URL or choose an upload from **Media**. An uploaded image takes priority over
+  the URL. Clear the upload to use the URL again.
+- In each Home section, use **Show section on homepage** and **Sort order** to control visibility
+  and order. Lower numbers appear first.
+- Keep `{country}` in the country journey sentence: the site substitutes the destination name.
+
+## Content collections
+
+| Collection                       | Controls                                                                                                                                           |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Countries                        | Navigation/globe destinations, introduction, highlights, rich body, gallery, journey steps, selected universities/articles and SEO                 |
+| Universities                     | Profiles, country, city, logos, website links, highlights, SEO and publication status; featured published universities appear as homepage partners |
+| Services                         | Titles, icons, summaries, detailed introductions, checklists, images and ordering                                                                  |
+| Testimonials                     | Real student stories, photos, ratings, country/university relationships and publishing                                                             |
+| News                             | Blogs and events, rich text, cover images, summaries, SEO and scheduling; only published entries whose publication time has arrived are public     |
+| Site Settings                    | Site name, default SEO, favicon, contact details, social links and maintenance mode/message                                                        |
+| Media                            | Public website images; copy their URLs into country/service/university/article image fields                                                        |
+| Leads / Applications / Documents | Enquiries, student workflow and private application documents                                                                                      |
+| Users                            | Staff accounts and roles                                                                                                                           |
+
+Header, footer and journey-diagram logos can be edited in their respective Website Content records.
+Navigation destinations come from Countries. The enquiry form uses that same list. To appear on the
+globe and in the homepage flags, a country needs a standard name (Germany, United Kingdom) or ISO
+code; common short forms such as UK, USA and UAE also work. An unrecognised name still appears in
+navigation but gets no globe marker or flag.
+
+An empty selection of related universities uses the destination's published universities. Country
+articles use **Related news**; draft and scheduled articles stay hidden. Unpublished testimonials
+and universities stay hidden. There are no fictional review or partner fallbacks.
+
+Admins manage website content and settings. Staff (stored as `editor`) handle only assigned CRM
+records and their own account. Site Settings and Website Content records cannot be deleted
+accidentally. Saving public content invalidates the website cache; refresh the public page after
+saving.
+
+## Setup and verification
+
+See [README.md](../README.md) for local setup and [DEPLOYMENT.md](DEPLOYMENT.md) for production
+releases.
+
+## Staff workflow
+
+Use `/admin` to manage student records. `/staff` is an additional authenticated overview with the
+same record permissions. See [the detailed workspace guide](WORKSPACE-GUIDE.md) for roles, all
+sidebar items, assignments, conversion, documents and reminders.
+
+- Leads: admins assign staff; staff update their assigned records, set follow-up dates and record
+  notes. Use **Convert to application** when an enquiry is ready to apply.
+- Applications: manage priority, assigned staff, next actions, required documents, and progress.
+  Status history is recorded automatically.
+- Documents: upload private files and mark them received, approved, or needing updates. Staff access
+  and downloads are limited to documents of their assigned applications; admins have access to all.
+- Users: administrators manage staff accounts and roles.
+
+## Development schema and content
+
+Public CMS reads are cached across requests for up to an hour and invalidated as soon as their
+collection changes in the admin. Changes made by scripts outside the admin appear within the hour,
+or after a redeploy. Admin, student records, authentication and submissions are never placed in this
+shared cache. A refreshed browser page sees saved content; an already-open tab can retain prefetched
+content until refreshed.
+
+Normal development requests no longer inspect or push the PostgreSQL schema. After changing
+collection fields, run `npm run cms:sync` once, then restart the development server.
+`cms:initialize` also syncs the development schema. You can explicitly opt into automatic
+development sync with `PAYLOAD_PUSH_SCHEMA=true`.
+
+`npm run cms:initialize` adds missing section records and default service/country content without
+replacing existing edits. It has already been run for the configured development database.
+
+`npm run cms:verify` exercises all collections in a disposable PostgreSQL schema and removes that
+schema and its uploaded fixtures afterward. It does not modify existing website records or send
+email.
+
+For deployment, apply the corresponding Payload database schema changes before starting production.
+With `UPLOAD_STORAGE=local`, Media uses `public/uploads` and Documents uses `private-uploads`. With
+`UPLOAD_STORAGE=cloudinary`, images are public Cloudinary assets and documents are authenticated
+assets served through the app's access checks. Vercel requires cloud storage. See
+[Cloudinary setup and migration](DEPLOYMENT.md#cloudinary-uploads-vercel-and-optional-hostinger-storage);
+Vercel uploads are limited to 4 MB per file.
+
+To publish a blog or event, open **News → Create New** and choose **Content type**. Add a title,
+cover image, summary and the full text in **Content**. For an event, also enter **Event date** and
+**Event location** (venue or online details). **Published date** controls when the announcement
+becomes visible; set it before the event starts. Change **Status** to **published** and save. The
+homepage displays the latest six entries; **See more** opens the paginated blogs and events page.
+**Read blog** or **View event** opens the entry's full detail page. Existing entries default to
+blogs.

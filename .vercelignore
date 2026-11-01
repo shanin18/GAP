@@ -11,3 +11,4 @@ public/uploads
 .image-work
 *.tsbuildinfo
 *.log
+backups

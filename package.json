@@ -18,7 +18,8 @@
     "payload": "payload",
     "typecheck": "tsc --noEmit",
     "verify": "npm run generate:types && npm run typecheck && npm test && npm run build",
-    "test": "tsx scripts/test-staff-access.mjs && tsx scripts/test-admin-cache.mjs && tsx scripts/test-cloudinary.mjs && tsx scripts/test-turnstile.mjs"
+    "test": "tsx scripts/test-staff-access.mjs && tsx scripts/test-admin-cache.mjs && tsx scripts/test-cloudinary.mjs && tsx scripts/test-turnstile.mjs",
+    "db:backup": "node scripts/db-backup.mjs"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.91.0",

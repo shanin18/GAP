@@ -197,7 +197,6 @@ export const getCountries = publicCmsCache(
       const result = await payload.find({
         overrideAccess: false,
         collection: "countries",
-        where: { slug: { not_equals: "demo-qa-destination" } },
         sort: "name",
         pagination: false,
         depth: 0,
@@ -214,7 +213,6 @@ export const getCountryBySlug = publicCmsCache(
   "getCountryBySlug",
   ["countries", "universities"],
   async (slug: string): Promise<CmsCountry | null> => {
-    if (slug === "demo-qa-destination") return null;
     try {
       const payload = await getCms();
       const result = await payload.find({
